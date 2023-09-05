@@ -1,3 +1,8 @@
+drow.io
+> https://app.diagrams.net/#G1StWmPiUMv-JoayYXIMzzAC3lQ6OOMqzB
+
+### 질문
+-   AWS 까지 고려해서 만들어야 하나?
 # 회의 목적
 1. 팀이름
    1. 우리집 냉장고
