@@ -49,7 +49,37 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "account_app",
+    'social_django',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.socialaccount',
 ]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_secret('GOOGLE_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_secret('GOOGLE_SECRET_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/complete/google-oauth2/'
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.naver.NaverOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_AUTHENTICATION_BACKENDS = [
+    'social_core.backends.naver.NaverOAuth2',
+    'social_core.backends.google.GoogleOAuth2'
+]
+
+# naver social login setting
+SOCIAL_AUTH_NAVER_KEY = get_secret('NAVER_KEY')
+SOCIAL_AUTH_NAVER_SECRET = get_secret('NAVER_SECRET_KEY')
+
+# login setting
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'board'
+SITE_ID = 2
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+</head>
+<body>
+    <div class='container'>
+        <div class='left-content'>
+            <div class='welcome'>
+                <span class='big-text'>회원가입</span>
+            </div>
+
+            {% comment %} 이름 {% endcomment %}
+            <div class='name-box'>
+                <span class='small-text'>이름</span>
+                <input type='text' class='user-input' placeholder='Enter your name' name='username' required>
+            </div>
+
+            {% comment %} 비밀번호 {% endcomment %}
+            <div class='password-box'>
+                <div class='lost-pw'>
+                    <span class='small-text'>비밀번호</span>
+                </div>
+                <input type='text' class='user-input' placeholder='Enter your password' name='password' required>
+            </div>
+
+            {% comment %} 비밀번호 확인 {% endcomment %}
+            <div class='password-box'>
+                <div class='lost-pw'>
+                    <span class='small-text'>비밀번호 확인</span>
+                </div>
+                <input type='text' class='user-input' placeholder='Enter your password again' name='password' required>
+            </div>
+
+            {% comment %} 체크박스 {% endcomment %}
+            <div class='save-box'>
+                <input type="checkbox" class='save-login' name='save'>
+                <label class='save-font' for="save">개인정보 정책에 동의합니다.</label>
+            </div>
+            <div>
+                <button class='login-btn' type="submit">Signup</button>
+            </div>
+
+            {% comment %} 회원가입 {% endcomment %}
+            <div class='question'>
+                <label for="signup">이미 회원가입 하셨나요?</label>
+                <a class='signup-font' href="{% url 'login' %}">로그인</a>
+            </div>
+        </div>
+        <div class='right-content'>
+            <article class='login_img'>
+                <img class='food_img' src="{% static 'img/signup_food.png' %}" alt="">
+            </article>
+        </div>
+    </div>
+</body>
+</html>
