@@ -18,6 +18,21 @@
     margin: 0 auto;
 }
 
+.return_main{
+    background-color: rgb(108, 189, 102);
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    width: 430px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 60px;
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
 /* text */
 .welcome{
     display: flex;
@@ -53,10 +68,14 @@
     color: #fff;
     background-color: rgb(108, 189, 102);
     width: 430px;
-    height: 30px;
     margin-top: 30px;
     font-size: 14px;
     font-weight: bolder;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 16px;
 }
 
 .social_login{
@@ -90,7 +109,8 @@
     border: solid 1px rgb(187, 183, 183);
 }
 
-.social_logo:hover, .social_btn:hover, .login-btn:hover{
+.social_logo:hover, .social_btn:hover,
+.login-btn:hover, .return_main:hover{
     background-color: #b1b1b1;
 }
 

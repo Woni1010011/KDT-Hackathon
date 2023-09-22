@@ -10,6 +10,7 @@
 <body>
     <div class='container'>
         <div class='left-content'>
+            <a class='return_main' href="{% url 'main' %}">HOME</a>
             <div class='welcome'>
                 <span class='big-text'>환영합니다!</span>
                 <span class='small-text'>로그인을 위해 유효한 이메일과 비밀번호를 입력하세요.</span>
@@ -35,9 +36,10 @@
                 <input type="checkbox" class='save-login' name='save'>
                 <label class='save-font' for="save">이메일 기억하기</label>
             </div>
-            <div>
-                <button class='login-btn' type="submit">Login</button>
-            </div>
+            
+            {% comment %} 로그인 버튼 {% endcomment %}
+            <a class='login-btn' href="{% url 'main' %}">Login</a>
+            
 
             {% comment %} or 구분선 {% endcomment %}
             <div class="hr-container">

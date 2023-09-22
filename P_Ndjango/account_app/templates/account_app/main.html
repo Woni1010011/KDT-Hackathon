@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+</head>
+<body>
+    <header class='topnav'>
+        {% comment %} 냉장고 해방일지 로고 {% endcomment %}
+        <div id='main_logo'>
+            <a href="{% url 'main' %}">
+                <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+            </a>
+        </div>
+
+        <div id='topnav_info'>
+            <a class='cate' href={% url "login" %}>Login</a>
+            <a class='cate' href="">Recipes</a>
+        </div>
+    </header>
+    <hr>
+    
+</body>
+</html>
