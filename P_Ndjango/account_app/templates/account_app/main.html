@@ -17,11 +17,37 @@
         </div>
 
         <div id='topnav_info'>
+            <a class='cate' href="">category1</a>
+            <a class='cate' href="">category2</a>
+            <a class='cate' href="">category3</a>
+            <a class='cate' href="">category4</a>
+            <a class='cate' href="">category5</a>
+        </div>
+
+        <div class='info_login'>
+            <a class='alarm_div' href="#" id="alarmLink">
+                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
             <a class='cate' href={% url "login" %}>Login</a>
-            <a class='cate' href="">Recipes</a>
         </div>
     </header>
     <hr>
     
 </body>
+<script>
+    {% comment %} 알람버튼 호버기능 {% endcomment %}
+    var alarmLink = document.getElementById("alarmLink");
+    var img = document.querySelector(".alarm_btn");
+    
+    alarmLink.addEventListener("mouseover", function() {
+        img.src = "{% static 'img/alarm_react.png' %}";
+        img.alt = "New Alt Text";
+    });
+
+    alarmLink.addEventListener("mouseout", function() {
+        img.src = "{% static 'img/alarm_normal.png' %}";
+        img.alt = "Original Alt Text";
+    });
+</script>
+
 </html>
