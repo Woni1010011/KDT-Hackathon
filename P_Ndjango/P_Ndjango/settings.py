@@ -74,7 +74,7 @@ SOCIAL_AUTH_NAVER_SECRET = get_secret('NAVER_SECRET_KEY')
 
 # login setting
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'board'
+LOGIN_REDIRECT_URL = 'main'
 SITE_ID = 2
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
@@ -151,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
