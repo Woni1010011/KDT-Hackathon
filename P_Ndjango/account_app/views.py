@@ -2,8 +2,6 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 # Create your views here.
 
-def main_view(request):
-    return render(request, 'account_app/main.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -22,3 +20,6 @@ def social_login_view(request):
 
 def signup_view(request):
     return render(request, 'registration/signup.html')
+
+def home_page(request) :
+    return render(request, 'home_page.html')
