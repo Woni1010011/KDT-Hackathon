@@ -1,0 +1,134 @@
+@use postcss-color-function;
+@use postcss-nested;
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 검색창 */
+.search_box {
+    background-color: #E9E9E9;
+    align-items: center;
+    height: 50px;
+    width: 1200px;
+    border-radius: 10px;
+
+}
+.search_input {
+    background-color: #E9E9E9;
+    border: 50px;
+    margin: 10px;
+    height: 30px;
+    width: 1100px;
+}
+.search_input:focus {
+    outline: none;
+}
+
+
+/* 배너광고 */
+.image_rolling_container {
+    margin-top: 20px;
+    height: 500px;
+    width: 1200px;
+}
+.content_cotainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.text_area {
+    background-color: #E9E9E9;
+    border-radius: 10px 0 0 10px;
+    height: 100%;
+    width: 40%;
+}
+.image_area{
+    background-color: pink;
+    border-radius: 0 10px 10px 0;
+    height: 100%;
+    width: 60%;
+}
+
+
+/* 카테고리 */
+.categories_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 1200px;
+}
+.categories_top_area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.categories_contents_area {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 260px;
+    width: 100%;
+}
+.categories_content {
+    background-color: green;
+    height: 100%;
+    width: 165px;
+}
+
+
+/* 게시물미리보기 */
+.recipes_previews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1200px;
+    margin: 160px 0 40px 0;
+}
+.previes_title {
+    margin: 0 0 30px 0;
+    font-size: x-large;
+}
+.recipe_contents_container {
+    background-color: black;
+    width: 1200px;
+    height: 400px;
+    padding: 10px 0px 10px 0px;
+}
+.recipe_content {
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px 0 0;
+    border-radius: 20px;
+    width: 380px;
+    height: 100%;
+}
+.recipe_image {
+    background-color: pink;
+    border-radius: 20px;
+    height: 300px;
+}
+.recipe_title{
+    font-size: 1.5rem;
+    margin: 15px 0 15px 0;
+    padding: 0 5px 0 5px;
+}
+.recipe_info{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 5px;
+    width: 200px;
+}

@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link rel="stylesheet" href="{%static "css/homepage.css"%}" >
+</head>
+<body>
+    {% include 'main.html' %}
+
+    <div class="container">
+        <div class="search_box">
+            <input class="search_input" type="text" placeholder="Search">
+        </div>
+
+        <div class="image_rolling_container">
+            <div class="content_cotainer">
+                <div class="text_area">
+
+                </div>
+                <div class="image_area">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="categories_container">
+            <div class="categories_top_area">
+                <p>Categories</p>
+                <button>View All Categories</button>
+            </div>
+            <div class="categories_contents_area">
+                <div class="categories_content">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="recipes_previews">
+            <div class="previes_title">
+                <p>Simple and tasty recipes</p>
+            </div>
+            <div class="recipe_contents_container">
+                <div class="recipe_content">
+                    <div class="recipe_image">
+
+                    </div>
+                    <div class="recipe_title">
+                        <span>Big and Jucy Wagyu Beef</span>
+
+                    </div>
+                    <div class="recipe_info">
+                        <span>time</span> <span>category</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>
