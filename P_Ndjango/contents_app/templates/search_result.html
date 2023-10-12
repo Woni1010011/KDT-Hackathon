@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% comment %} nav bar {% endcomment %}
+    {% include 'navbar.html' %}
+    
+    {% comment %} 타이틀 {% endcomment %}
+    <div id="text_box">
+        <h1> Recipes </h1>
+        <p>"Don't Waste Your Fridge Ingredients! Discover the Joy of Cooking!"</p>
+    </div>
+    {% comment %} 검색바 {% endcomment %}
+    <div id="search_box">
+        <input type="text" class="search" name="q" placeholder="레시피를 입력하세요">
+        <button type="submit">Search</button>
+    </div>
+
+    {% comment %} 크롤링된 게시물 {% endcomment %}
+    <article id="board">
+        {% comment %} 검색결과 {% endcomment %}
+        <div class="posting">
+
+        </div>
+
+        {% comment %} 우측 게시판 {% endcomment %}
+        <div class="right_box">
+            {% comment %} 인기있는 레시피 {% endcomment %}
+            <div class="popular_box">
+
+            </div>
+            {% comment %} 광고 배너 {% endcomment %}
+            <div class="banner">
+
+            </div>
+        </div>
+    </article>
+
+    <div id="recommend_box">
+        <div class="recommend_recipes">
+
+        </div>
+    </div>
+
+</body>
+</html>
