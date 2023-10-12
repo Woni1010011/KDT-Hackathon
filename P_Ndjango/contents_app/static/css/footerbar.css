@@ -1,0 +1,33 @@
+.footer_container {
+    display: flex;
+    flex-direction: column;
+}
+.footer_nav {
+    background-color: pink;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1200px;
+}
+.footer_list {
+    background-color: green;
+    display: flex;
+    justify-self: space-between;
+    width: 400px;
+}
+.footer_list li {
+    margin-right: 30px;
+}
+li {
+    list-style-type: none;
+}
+
+.footer_line {
+    width: 1200px;
+    height: 1px;
+    background-color: #000;
+    margin-top: 10px
+}
+.footer_dotori {
+    text-align: center;
+}
