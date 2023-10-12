@@ -4,11 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Page</title>
+    <link rel="stylesheet" href="{%static "css/homepage.css"%}" >
+    <link rel="stylesheet" href="mypage.css">
 </head>
 
 <body>
-    <h1>MY PAGE</h1>
+    {% include 'contents_app/navbar.html' %}
+    <header>
+        <h1> {% user_profile.user_name %} Chef's Profile </h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#profile">프로필</a></li>
+            <li><a href="#settings">설정</a></li>
+            <li><a href="#activity">활동 기록</a></li>
+        </ul>
+    </nav>
+
+    <section id="profile">
+        <h2>프로필</h2>
+        <p>사용자의 프로필 정보를 표시합니다.</p>
+    </section>
+
+    <section id="settings">
+        <h2>설정</h2>
+        <p>사용자의 설정을 편집할 수 있는 영역입니다.</p>
+    </section>
+
+    <section id="activity">
+        <h2>활동 기록</h2>
+        <p>사용자의 활동 기록을 표시합니다.</p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2023 MyWebsite</p>
+    </footer>
+
 </body>
 
 </html>
