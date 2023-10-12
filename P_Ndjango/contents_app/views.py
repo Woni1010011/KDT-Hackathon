@@ -6,3 +6,6 @@ def homepage(request):
 
 def search(reqeust):
     return render(reqeust, 'search.html')
+
+def board(reqeust):
+    return render(reqeust, 'board.html')
