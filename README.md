@@ -1,4 +1,7 @@
 # 냉Django 해방일지
+>**프로젝트 소개**   
+냉장고의 재료
+
 ## Git Convention
 - **[Add] [serializers.py](http://serializers.py) 생성, styles.css 생성**
 ⇒ 새로운 파일 추가하는 경우
