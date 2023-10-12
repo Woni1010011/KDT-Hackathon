@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link rel="stylesheet" href="{%static "css/board.css"%}" >
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <!-- 인기 글 보기 -->
+    <div class="container">
+        <section>
+            <div class="post_slide">
+                <div class="post_slide_item">
+                    <h1>Blog & Article</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br> sed do eiusmod tempor incididunt ut labore et dolore</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 전체 글 보기 -->
+        <section>
+            <div class="post_list_title">
+                <h2>Simple and tasty recipes</h2>
+                <p>Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ad minim </p>
+            </div>
+            <div class="post_list_container">
+                <div class="post_list_card">
+                    <div class="card_detail">
+                        <div class="post_image">
+                            
+                        </div>
+                        <div class="post_title">
+                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
+                        </div>
+                        <div class="post_content">
+                            <span>30 Minutes</span> <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post_list_card">
+                    <div class="card_detail">
+                        <div class="post_image">
+                            
+                        </div>
+                        <div class="post_title">
+                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
+                        </div>
+                        <div class="post_content">
+                            <span>30 Minutes</span> <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post_list_card">
+                    <div class="card_detail">
+                        <div class="post_image">
+                            
+                        </div>
+                        <div class="post_title">
+                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
+                        </div>
+                        <div class="post_content">
+                            <span>30 Minutes</span> <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</body>
+</html>
