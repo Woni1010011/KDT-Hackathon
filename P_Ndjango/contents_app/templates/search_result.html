@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/search_result.css" %}">
+</head>
+<body>
+    {% comment %} nav bar {% endcomment %}
+    {% include 'navbar.html' %}
+    
+    {% comment %} 타이틀 {% endcomment %}
+    <div id="text_box">
+        <p class="title"> Recipes </p>
+        <p class="text">"Don't Waste Your Fridge Ingredients! Discover the Joy of Cooking!"</p>
+    </div>
+    {% comment %} 검색바 {% endcomment %}
+    <div id="search">
+        <input type="text" class="search_input" placeholder="레시피를 입력하세요">
+        <button class="search_button">
+            {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+            <img src="" alt="icon">
+        </button>
+    </div>
+
+    {% comment %} 크롤링된 게시물 {% endcomment %}
+    <article>
+        {% comment %} 검색결과 {% endcomment %}
+        <div class="posting_list">
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                이성기
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                박성원
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                정효주
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                김은철
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                김민호
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post_img">
+
+                </div>
+                <div class="post_info">
+                    <div class="title_box">
+                        <p class="title_text">
+                            타이틀
+                        </p>
+                    </div>
+                    <div class="content_box">
+                        <p class="content_text">
+                            내용
+                        </p>
+                    </div>
+                    <div class="basic_info">
+                        <div class="writer">
+                            <div class="writer_img">
+
+                            </div>
+                            <div class="name">
+                                이민영
+                            </div>
+                        </div>
+                        <div class="time">
+                            <p class="time_text">2023.10.12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} 우측 게시판 {% endcomment %}
+        <div class="right_box">
+            {% comment %} 인기있는 레시피 {% endcomment %}
+            <p class="sub_title">Popular Recipes</p>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            {% comment %} 광고 배너 {% endcomment %}
+            <div class="banner">
+
+            </div>
+        </div>
+
+    </article>
+    {% comment %} 페이지 넘버 {% endcomment %}
+    <div class="page_num">
+        <div class="num">1</div>
+        <div class="num">2</div>
+        <div class="num">3</div>
+        <div class="num">4</div>
+        <div class="num">5</div>
+        <div class="num">...</div>
+    </div>
+
+    {% comment %} 추천 게시물 {% endcomment %}
+    <div id="recommend_box">
+        <p class="recommend_title">Recommend Recipes</p>
+        <div class="recommend_recipes">
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 타이틀 */
+#text_box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.title {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.text {
+    color: rgba(0, 0, 0, 0.60);
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/* 검색바 */
+#search {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.search_input {
+    width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+.search_button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 15px;
+}
+
+/* 크롤링 게시물 */
+article {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.posting_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    display: flex;
+    flex-direction: row;
+}
+
+.post_img {
+    width: 240px;
+    height: 180px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.post_info {
+    margin-left: 25px;
+    width: 400px;
+}
+
+.title_text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content_text {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.60);
+}
+
+.basic_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.writer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.writer_img {
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+}
+
+.name {
+    margin-left: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.time_text {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.60);
+    margin-left: 30px;
+}
+
+/* 우측 게시판 */
+.right_box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.sub_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.popular_box {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.popular_img {
+    width: 150px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.popular_lnfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.popular_title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.popular_chef {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.60);
+}
+
+.banner {
+    width: 250px;
+    height: 280px;
+    border: 1px solid #ccc;
+    margin-top: 40px;
+}
+
+/* 페이지 번호 */
+.page_num {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.num {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-left: 10px;
+}
+
+.num:hover {
+    background-color: black;
+    color: white;
+}
+
+/* 추천 레시피 */
+#recommend_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.recommend_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.recommend_info{
+    margin-left: 30px;
+}
+
+.recommend_recipes {
+    display: flex;
+    flex-direction: row;
+}
+
+.recommend_img {
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 240px;
+    height: 180px;
+}
+
+.food_name {
+    font-size: 18px;
+    font-weight: bold;
+}

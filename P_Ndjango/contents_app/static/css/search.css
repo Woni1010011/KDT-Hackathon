@@ -1,0 +1,172 @@
+body {
+    background-color: rgb(207, 252, 253);
+    padding: 0px;
+}
+
+/* nav bar */
+#nav {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: white;
+    width: 1024px;
+    margin: 0 auto;
+    padding: 10px;
+}
+/* top */
+.top_nav {
+    display: flex;
+    align-items: center;
+}
+
+.img_box{
+    margin: 0 auto;
+}
+
+.NDjango_logo{
+    margin-left: 45px;
+    width: 90px;
+    height: 50px;
+}
+
+.text {
+    margin-left: 700px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* bottom */
+
+.search_kind {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+a.search_kind {
+    text-decoration: none;
+    position: relative;
+}
+
+a.search_kind:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 5px;
+    background: #000;
+}
+
+/* article */
+article {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 1024px;
+    height: 800px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 15px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* 검색바 */
+#search {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.search_input {
+    width: 920px;
+}
+
+.search_button {
+    width: 60px;
+    height: 60px;
+}
+
+/* 인기 검색어 */
+.popular_box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.popular_keyword {
+    display: flex;
+    flex-direction: row;
+}
+
+.article_text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 60px;
+}
+
+.keyword_num_left {
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.keyword_num_right {
+    margin-left: 400px;
+    margin-top: 15px;
+}
+
+.keyword_num_left li {
+    margin-top: 10px;
+}
+
+.keyword_num_right li {
+    margin-top: 10px;
+}
+
+/* 인기 요리사 */
+.popular_cook {
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+    margin-top: 60px;
+}
+
+.article_cook_text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 60px;
+}
+
+.popular_chef {
+    display: flex;
+    flex-direction: row;
+}
+
+.popular_posting {
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+    margin-left: 43px;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+.posting {
+    display: flex;
+    flex-direction: column;
+}
+
+.post_title {
+    margin-top: 5px;
+    margin-left: 43px;
+    font-size: 16px;
+}
