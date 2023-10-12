@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def main_view(request):
-    return render(request, 'contents_app/main.html')
+def homepage(request):
+    return render(request, 'homepage.html')
+
+def search(reqeust):
+    return render(reqeust, 'search.html')
