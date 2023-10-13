@@ -9,5 +9,12 @@ def search(reqeust):
 
 def board(reqeust):
     return render(reqeust, 'board.html')
+
 def search_result(reqeust):
     return render(reqeust, 'search_result.html')
+
+def mypage(request):
+    return render(request, 'my_page.html')
+
+def profile_edit(request):
+    return render(request, 'profile_edit.html')

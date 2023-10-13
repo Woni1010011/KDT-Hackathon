@@ -5,16 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Page</title>
-    <link rel="stylesheet" href="{%static " css/main.css"%}">
-    <link rel="stylesheet" href="{%static " css/mypage.css"%}">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static " css/main.css" %}">
+    <link rel="stylesheet" href="mypage.css">
     <script src="contents_app/js/mypage_edit.js" defer></script>
 </head>
 
 <body>
     {% include 'navbar.html' %}
     <header>
-        <h1>{{ user_profile.user_name }} Chef's Profile</h1>
+        <h1>Edit Profile</h1>
     </header>
     <section id="profile" style="display:flex; align-items:center;">
         <div class="profile-picture">
@@ -22,18 +22,15 @@
             <input type="file" id="profile-picture" name="profile-picture"><br>
             <label for="profile-picture">프로필 사진</label>
         </div>
-        <div class="profile-image-container">
-            <img id="profile-image" src="" alt="프로필 이미지">
-        </div>
 
         <div class="user-details" style="margin-left: 20px;">
             <!-- 사용자 이름 / 닉네임? -->
             <label for="username">NAME</label><br>
-            <input type="text" id="username" name="username" value="{{ user_profile.user_name }}" readonly><br><br>
+            <input type="text" id="username" name="username"><br><br>
 
             <!-- 이메일 주소 입력 -->
             <label for="email">EMAIL ADDRESS</label><br>
-            <input type="email" id="email" name="email" value="{{ user_profile.email }}" readonly>
+            <input type="email" id="email" name="email">
         </div>
     </section>
     <section id="message">
@@ -41,7 +38,7 @@
         <!-- subject -->
 
         <label for="subject">Subject</label><br>
-        <input type="text" id="subject" name="subject" value="{{ user_profile.subject }}" readonly><br><br>
+        <input type="text" id="subject" name="subject"><br><br>
 
         <!-- Enquiry Type -->
 
@@ -61,21 +58,12 @@
     <label for="user-message"> MESSAGES </label><br>
     <textarea id="user-message" name="user-message" rows="4" cols="50"></textarea><br><br>
 
-    <!--저장 버튼-->
-    <button type="submit"> SEND </button>
-
-    <!-- 수정 버튼 -->
-    <button type="button" id="edit-button" onclick="goToEditPage()"> EDIT </button>
+    <!-- 저장 버튼 -->
+    <button type="button" id="save-button"> SAVE </button>
 
     <footer>
         <p>Copyright © 2023 MyWebsite</p>
     </footer>
-
-    <script>
-        function goToEditPage() {
-            window.location.href = "edit_page.html";
-        }
-    </script>
 
 </body>
 
