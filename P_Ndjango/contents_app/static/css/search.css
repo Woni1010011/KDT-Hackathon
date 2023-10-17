@@ -81,17 +81,57 @@ article {
 /* 검색바 */
 #search {
     display: flex;
+    align-items: center;
+    position: relative;
+    display: flex;
     margin: 0 auto;
     margin-top: 60px;
 }
 
 .search_input {
-    width: 920px;
+    width: 820px;
+    border: 1px solid #ccc;
+    text-indent: 15px;
+    border-radius: 50px;
+    height: 60px;
 }
 
 .search_button {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top:0;
+    right: 0;
     width: 60px;
     height: 60px;
+    margin-right: 80px;
+}
+
+.search_img {
+    width: 40px;
+    height: 40px;
+}
+
+.voice_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50px;
+    margin-left: 20px;
+    background-color: #ececec;
+    cursor: pointer;
+}
+
+.voice_btn:hover {
+    background-color: #ccc;
+}
+
+.voice {
+    width: 30px;
+    height: 30px;
 }
 
 /* 인기 검색어 */
@@ -142,7 +182,7 @@ article {
 .article_cook_text {
     font-size: 18px;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 50px;
     margin-top: 60px;
 }
 

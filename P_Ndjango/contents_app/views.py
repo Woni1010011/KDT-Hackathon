@@ -7,6 +7,12 @@ def homepage(request):
 def search(reqeust):
     return render(reqeust, 'search.html')
 
+def material_search(reqeust):
+    return render(reqeust, 'material_search.html')
+
+def img_search(reqeust):
+    return render(reqeust, 'img_search.html')
+
 def board(reqeust):
     return render(reqeust, 'board.html')
 
