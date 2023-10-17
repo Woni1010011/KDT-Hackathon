@@ -10,66 +10,71 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    <!-- 인기 글 보기 -->
     <div class="container">
+        <!-- 광고 배너 -->
         <section>
-            <div class="post_slide">
-                <div class="post_slide_item">
-                    <h1>Blog & Article</h1>
+            <div class="ad_slide">
+                <div class="ad_slide_item">
+                    <h1>광고 배너</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br> sed do eiusmod tempor incididunt ut labore et dolore</p>
                 </div>
             </div>
         </section>
-
-        <!-- 전체 글 보기 -->
+        
+        
+        <!-- 커뮤니티 게시판 -->
         <section>
-            <div class="post_list_title">
-                <h2>Simple and tasty recipes</h2>
-                <p>Lorem ipsum dolor sit amet, consectetuipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqut enim ad minim </p>
-            </div>
-            <div class="post_list_container">
-                <div class="post_list_card">
-                    <div class="card_detail">
-                        <div class="post_image">
-                            
-                        </div>
-                        <div class="post_title">
-                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
-                        </div>
-                        <div class="post_content">
-                            <span>30 Minutes</span> <span>Snack</span>
-                        </div>
-                    </div>
+            <!-- 게시판 필터 -->
+            <div class="board_header">
+                <div class="board_filter">
+                    <div class="filter">ALL</div>
+                    <div class="filter">recipe</div>
+                    <div class="filter">talk</div>
+                    <div class="filter">my</div>
                 </div>
-                <div class="post_list_card">
-                    <div class="card_detail">
-                        <div class="post_image">
-                            
-                        </div>
-                        <div class="post_title">
-                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
-                        </div>
-                        <div class="post_content">
-                            <span>30 Minutes</span> <span>Snack</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post_list_card">
-                    <div class="card_detail">
-                        <div class="post_image">
-                            
-                        </div>
-                        <div class="post_title">
-                            <span>Big and Juicy Wagyu Beef Cheeseburger</span>
-                        </div>
-                        <div class="post_content">
-                            <span>30 Minutes</span> <span>Snack</span>
-                        </div>
-                    </div>
+                <div class="board_search">
+                    <input type="text">
+                    <button>검색</button>
                 </div>
             </div>
 
+            <!-- 글 내용 -->
+            <a href=""><div class="post_list">
+                <div class="post_list_container">
+                    <div class="post_img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="post_container">
+                        <span class="post_title">How did you start out in the food industry?</span>
+                        <p class="post_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. Praesent feugiat elementum ex ut suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis.</p>
+                    </div>
+                </div>
+            </div></a>
+            <a href=""><div class="post_list">
+                <div class="post_list_container">
+                    <div class="post_img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="post_container">
+                        <span class="post_title">How did you start out in the food industry?</span>
+                        <p class="post_content">Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. Praesent feugiat elementum ex ut suscipit. </p>
+                    </div>
+                </div>
+            </div></a>
+            <a href=""><div class="post_list">
+                <div class="post_list_container">
+                    <div class="post_img">
+                        <img src="" alt="">
+                    </div>
+                    <div class="post_container">
+                        <span class="post_title">How did you start out in the food industry?</span>
+                        <p class="post_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. </p>
+                    </div>
+                </div>
+            </div></a>
+            
         </section>
     </div>
 </body>
+{% include 'footerbar.html' %}
 </html>
