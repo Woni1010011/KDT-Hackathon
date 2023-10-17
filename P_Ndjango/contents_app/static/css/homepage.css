@@ -65,9 +65,30 @@
     justify-content: space-between;
     margin-bottom: 20px;
     width: 100%;
+    align-items: center;
+}
+.categories_top_area p {
+    font-size: 32px;
+    font-weight: bold;
+}
+button {
+    border: none;
+    background-color: #87CEEB;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1;
+    height: 60px;
+    
+}
+button:hover {
+    background-color: #5CACEE;
+    cursor: pointer;
 }
 .categories_contents_area {
-    background-color: black;
+    background-color: 
+    black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
