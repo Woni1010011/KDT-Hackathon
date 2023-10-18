@@ -6,8 +6,8 @@
   
   ![NDjango](https://github.com/Woni1010011/project_n/assets/125336999/a1ca30f7-1fc9-4975-9ae6-67c3b4b325f1)
   
-  본 프로젝트는 당근마켓을 모티브로 PC버전 클론 프로젝트이며,</br>
-  기본적인 반응형 Front와 당 프로젝트에 적용된 모든 Back-End를 구현했습니다.
+  본 프로젝트는  프로젝트이며,</br>
+  Back-End를 구현했습니다.
 </div>
 
 <h2 tabindex="-1" id="user-content-목차" dir="auto"><a class="heading-link" href="#목차">목차</a></h2>
