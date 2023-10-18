@@ -5,6 +5,10 @@
     min-height: calc(100vh - 100px);
 }
 
+.topnav {
+    border-bottom: 1px solid #ccc;
+}
+
 .category-sidebar {
     /* box-sidebar */
     height: 500%;
@@ -13,14 +17,16 @@
     flex-shrink: 0;
     min-height: calc(100vh - 100px);
     padding: 20px;
+
 }
 
 .box-contents {
     /* box-contents */
-
-    flex-grow: 1;
-    margin: 20px;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 50px;
 }
 
 #profile {

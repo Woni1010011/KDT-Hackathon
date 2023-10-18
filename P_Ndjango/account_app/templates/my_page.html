@@ -15,7 +15,6 @@
 <body>
 
     <header class='topnav'>
-        {% comment %} 냉장고 해방일지 로고 {% endcomment %}
         <div id='main_logo'>
             <a href="{% url 'main' %}">
                 <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
@@ -29,7 +28,7 @@
             <a class='cate' href={% url "login" %}>Login</a>
         </div>
     </header>
-    <hr>
+
 
     <script>
         {% comment %} 알람버튼 호버기능 {% endcomment %}
@@ -59,7 +58,7 @@
                 <li><a href="current-watching">최근 감상 목록</a></li>
                 <li><a href="user-info">셰프 정보</a></li>
 
-                
+
                 <!-- Add more categories as needed -->
             </ul>
         </aside>
@@ -69,7 +68,7 @@
                 <div class="profile-picture">
                     <!-- 프로필 업로드 폼 -->
                     <img id="preview" src="#" alt=""><br>
-                    
+
                     <input type="file" id="profile-picture" name="profile-picture1"><br>
                     <h2>{{ user_profile.user_name }} 띵똥 h2 </h2>
                     <p>{{ user_profile.location }} 거주지역 </p>
@@ -79,20 +78,22 @@
             <div id="user-details" class="user-details">
                 <div class="user-info1">
                     <label for="usernickname">닉네임</label><br>
-                    <input type="text" id="usernickname" name="usernickname" value="{{ user_profile.user_nickname }}"><br><br> 
-                    
+                    <input type="text" id="usernickname" name="usernickname"
+                        value="{{ user_profile.user_nickname }}"><br><br>
+
                     <label for="email">이메일 주소</label><br>
                     <input type="email" id="email" name="email" value="{{ user_profile.email }}"><br><br>
-                    
+
                     <label for="location">거주지역</label><br>
                     <input type="text" id="location" name="location" value="{{ user_profile.location }}"><br><br>
                 </div>
                 <div class="user-info2">
                     <label for="username">성명</label><br>
-                    <input type="username" id="username" name="username" value="{{ user_profile.username }}" ><br><br>
-                    
+                    <input type="username" id="username" name="username" value="{{ user_profile.username }}"><br><br>
+
                     <label for="phonenumber">전화번호</label><br>
-                    <input type="text" id="phonenumber" name="phonenumber" value="{{ user_profile.phonenumber }}"><br><br>
+                    <input type="text" id="phonenumber" name="phonenumber"
+                        value="{{ user_profile.phonenumber }}"><br><br>
 
                     <label for="date">가입 일자</label><br>
                     <input type="date" id="date_first" name="created_at" value="{{ user_profile.created_at }}">
@@ -100,13 +101,14 @@
             </div>
 
             <div class="buttons">
-            <button type="submit"> SEND </button>
+                <button type="submit"> SEND </button>
 
-            <!-- 수정 버튼 -->
-            <button type="button" id="edit-button" onclick="goToEditPage()"> EDIT </button>
+                <!-- 수정 버튼 -->
+                <button type="button" id="edit-button" onclick="goToEditPage()"> EDIT </button>
             </div>
+        </main>
     </div>
-    </main>
+
     {% include 'footerbar.html' %}
 
     <script>
