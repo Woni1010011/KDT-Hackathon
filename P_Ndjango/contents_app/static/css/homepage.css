@@ -87,8 +87,7 @@ button:hover {
     cursor: pointer;
 }
 .categories_contents_area {
-    background-color: 
-    black;
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -100,7 +99,14 @@ button:hover {
     height: 100%;
     width: 165px;
 }
-
+.category_img {
+    background-color: pink;
+    height: 200px
+}
+.category_title p{
+    text-align: center;
+    font-weight: bold;
+}
 
 /* 게시물미리보기 */
 .recipes_previews {
@@ -108,14 +114,17 @@ button:hover {
     flex-direction: column;
     align-items: center;
     width: 1200px;
-    margin: 160px 0 40px 0;
+    margin: 80px 0 40px 0;
 }
-.previes_title {
+.preview_title {
     margin: 0 0 30px 0;
     font-size: x-large;
 }
 .recipe_contents_container {
     background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 1200px;
     height: 400px;
     padding: 10px 0px 10px 0px;
@@ -146,4 +155,8 @@ button:hover {
     justify-content: space-around;
     margin-left: 5px;
     width: 200px;
+}
+.previes_title p {
+    font-size: 32px;
+    font-weight: bold;
 }
