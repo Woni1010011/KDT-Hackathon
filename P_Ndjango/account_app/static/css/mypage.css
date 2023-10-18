@@ -1,0 +1,160 @@
+.wrapper {
+    display: flex;
+    background-color: #fff;
+    gap: var(--gap);
+    min-height: calc(100vh - 100px);
+}
+
+.topnav {
+    border-bottom: 1px solid #ccc;
+}
+
+.category-sidebar {
+    /* box-sidebar */
+    height: 500%;
+    width: 200px;
+    background-color: #3e794a;
+    flex-shrink: 0;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+
+}
+
+.box-contents {
+    /* box-contents */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+#profile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 30px;
+}
+
+/* #user-details,
+#user-numbers,
+#create-location  */
+
+/* .profile-picture1 {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    gap: 20px;
+} */
+
+.chef_njango {
+    color: #5abb6e;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#preview {
+    border-radius: 80px;
+    /* 이미지를 원 모양으로 만듭니다. */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.397);
+    /* 그림자 효과 추가 */
+    display: flex;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.user-info1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-info2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 70px;
+
+}
+
+.user-details {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.user-info label,
+.user-info input {
+    display: block;
+    /* 라벨과 입력 요소를 세로로 배치 */
+}
+
+.profile-picture {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+label {
+    font-weight: bold;
+    padding: 10px;
+}
+
+input,
+select,
+textarea {
+    width: 140px;
+    padding: 8px;
+    border: 2px solid #5abb6e;
+    border-radius: 10px;
+    transition: box-shadow 0.3s, cursor 0.3s;
+    /* 효과가 부드럽게 변화하도록 설정 */
+}
+
+/* hover 상태일 때 스타일 */
+input:hover,
+select:hover,
+textarea:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.397);
+    /* 그림자 효과 */
+    cursor: pointer;
+    /* 커서 모양 변경 */
+}
+
+/* 클릭 상태일 때 스타일 */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    /* 클릭 시 기본적으로 나오는 외곽선 제거 */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.397);
+    /* 클릭 시 그림자 효과 강화 */
+}
+
+button {
+    margin-top: 10px;
+}
+
+.category-list {
+    list-style-type: none;
+    padding: 20;
+    margin: 10px;
+}
+
+.category-list li {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.category-list a {
+    text-decoration: none;
+    color: #dff0c4;
+    /* Add your desired text color */
+    font-weight: bold;
+    display: block;
+}

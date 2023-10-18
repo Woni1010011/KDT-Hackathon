@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <script src="contents_app/js/mypage_edit.js" defer></script>
+</head>
+
+<body>
+
+    <header class='topnav'>
+        <div id='main_logo'>
+            <a href="{% url 'main' %}">
+                <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+            </a>
+        </div>
+
+        <div class='info_login'>
+            <a class='alarm_div' href="#" id="alarmLink">
+                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
+            <a class='cate' href={% url "login" %}>Login</a>
+        </div>
+    </header>
+
+
+    <script>
+        {% comment %} 알람버튼 호버기능 {% endcomment %}
+        var alarmLink = document.getElementById("alarmLink");
+        var img = document.querySelector(".alarm_btn");
+
+        alarmLink.addEventListener("mouseover", function () {
+            img.src = "{% static 'img/alarm_react.png' %}";
+            img.alt = "New Alt Text";
+        });
+
+        alarmLink.addEventListener("mouseout", function () {
+            img.src = "{% static 'img/alarm_normal.png' %}";
+            img.alt = "Original Alt Text";
+        });
+    </script>
+
+    <div class="wrapper">
+        <aside class="category-sidebar">
+            <header>
+                <h1 class="chef_njango">{{ user_profile.user_name }} 셰프의 냉장고</h1>
+            </header>
+            <ul class="category-list">
+                <li><a href="my-ndjango">내 냉장고</a></li>
+                <li><a href="alarm_list">알림 목록</a></li>
+                <li><a href="favorite_list">찜해놓은 레시피</a></li>
+                <li><a href="current-watching">최근 감상 목록</a></li>
+                <li><a href="user-info">셰프 정보</a></li>
+
+
+                <!-- Add more categories as needed -->
+            </ul>
+        </aside>
+        <main id="first_main" class="box-contents">
+
+            <section id="profile">
+                <div class="profile-picture">
+                    <!-- 프로필 업로드 폼 -->
+                    <img id="preview" src="#" alt=""><br>
+
+                    <input type="file" id="profile-picture" name="profile-picture1"><br>
+                    <h2>{{ user_profile.user_name }} 띵똥 h2 </h2>
+                    <p>{{ user_profile.location }} 거주지역 </p>
+                </div>
+
+            </section><br>
+            <div id="user-details" class="user-details">
+                <div class="user-info1">
+                    <label for="usernickname">닉네임</label><br>
+                    <input type="text" id="usernickname" name="usernickname"
+                        value="{{ user_profile.user_nickname }}"><br><br>
+
+                    <label for="email">이메일 주소</label><br>
+                    <input type="email" id="email" name="email" value="{{ user_profile.email }}"><br><br>
+
+                    <label for="location">거주지역</label><br>
+                    <input type="text" id="location" name="location" value="{{ user_profile.location }}"><br><br>
+                </div>
+                <div class="user-info2">
+                    <label for="username">성명</label><br>
+                    <input type="username" id="username" name="username" value="{{ user_profile.username }}"><br><br>
+
+                    <label for="phonenumber">전화번호</label><br>
+                    <input type="text" id="phonenumber" name="phonenumber"
+                        value="{{ user_profile.phonenumber }}"><br><br>
+
+                    <label for="date">가입 일자</label><br>
+                    <input type="date" id="date_first" name="created_at" value="{{ user_profile.created_at }}">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit"> SEND </button>
+
+                <!-- 수정 버튼 -->
+                <button type="button" id="edit-button" onclick="goToEditPage()"> EDIT </button>
+            </div>
+        </main>
+    </div>
+
+    {% include 'footerbar.html' %}
+
+    <script>
+        function goToEditPage() {
+            window.location.href = "profile_edit.html";
+        }
+    </script>
+    </main>
+
+</body>
+
+</html>
