@@ -24,3 +24,6 @@ def mypage(request):
 
 def profile_edit(request):
     return render(request, 'profile_edit.html')
+
+def post(request) :
+    return render(request, 'post.html')
