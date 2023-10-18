@@ -12,65 +12,82 @@
     {% include 'navbar.html' %}
         <div class="header">
             <div class="header_in_header">
-                <!--게시물 제목-->         
-                <div class="header_title"><h1>맛있는 양고기 덮밥</h1></div>
-                <!--게시한 사용자, 요리 준비 시간, 조리시간, 핵심재료 =>레시피 테그-->
-                <div class="recipes_tags">
-                    <div class="posted_by">
-                        <div class="auther_thumnail"><img src="" alt=""></div>
-                        <div>
-                            <div class="auther_name">이성기</div>
-                            <div class="posted_time">231015</div>
+                <!--게시물 제목-->
+                <div class="header_info">
+                    <div class="header_title"><h1>맛있는 양고기 덮밥</h1></div>
+                    <!--게시한 사용자, 요리 준비 시간, 조리시간, 핵심재료 =>레시피 테그-->
+                    <div class="recipes_tags">
+                        <div class="posted_by">
+                            <div class="posted_by_info">
+                                <img class="posted_img" src="" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="name">이성기</div>
+                                <div class="time">231015</div>
+                            </div>
+                        </div>
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="{ % static 'P_Ndjango\contents_app\static\img\timer.svg' %}" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="time_text">prep_time</div>
+                                <div class="time">15분</div>
+                            </div>
+                        </div>
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="P_Ndjango\contents_app\static\img\timer.svg" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="time_text">cook_time</div>
+                                <div class="time">15분</div>
+                            </div>
+                        </div>
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="P_Ndjango\contents_app\static\img\forkknife.svg" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="time_text">양고기</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="prep_time">
-                        <div class="timer"><img src="{ % static 'P_Ndjango\contents_app\static\img\timer.svg' %}" alt="timer"></div>
-                        <div>
-                            <div class="prep_time_prep_time"></div>
-                            <div class="prep_time_duration">15분</div>
+                </div> 
+                <div class="icons">
+                    <div class="icons_box">
+                        <div class="icon_box">
+                            <img class="icon" src="P_Ndjango\contents_app\static\img\printer.svg" alt="">
                         </div>
+                        <label class="print">print</label>
                     </div>
-                    <div class="cook_time">
-                        <div class="timer"><img src="P_Ndjango\contents_app\static\img\timer.svg" alt="timer"></div>
-                        <div>
-                            <div class="cook_time_cook_time"></div>
-                            <div class="cook_time_duration">15분</div>
+                    <div class="icons_box">
+                        <div class="icon_box">
+                            <img class="icon" src="P_Ndjango\contents_app\static\img\share.svg" alt="">
                         </div>
-                    </div>
-                    <div class="main_ingredient">
-                        <div class="fork_knife"><img src="P_Ndjango\contents_app\static\img\forkknife.svg" alt=""></div>
-                        <div class="ingredient_of_meal">양고기</div>
+                        <label class="share">share</label>
                     </div>
                 </div>
-            </div>
-            <div class="icons">
-                <button><div class="print_icon">
-                    <img src="P_Ndjango\contents_app\static\img\eclipse17.svg" alt="">
-                    <img src="P_Ndjango\contents_app\static\img\printer.svg" alt="">
-                </div></button>
-                <div class="print">print</div>
-                <button><div class="share_icon">
-                    <img src="P_Ndjango\contents_app\static\img\eclipse17.svg" alt="">
-                    <img src="P_Ndjango\contents_app\static\img\share.svg" alt="">
-                </div></button>
-                <div class="share">share</div>
             </div>
             <!--메인 사진, 영양성분표, 레시피 설명-->
             <div class="picture_box">
-                <div class="main_picture">
-                    <div class="picture_frame"></div>
+                <div class="picture_content">
+                    <div class="main_picture">
+                        <div class="picture_frame"></div>
+                    </div>
+                    <div class="nutrition_card">
+                        <div class="card_frame"></div>
+                        <div class="nutrition_info">영양성분</div>
+                        <div class="calories">칼로리</div>
+                        <div class="total_Fat">지방</div>
+                        <div class="Protein">단백질</div>
+                        <div class="carbohydrate">탄수화물</div>
+                        <div class="cholesterol">콜레스테롤</div>
+                        <div class="additional_nutrition_exp">부가적일 설명 부가부가</div>
+                    </div>
                 </div>
-                <div class="nutrition_card">
-                    <div class="card_frame"></div>
-                    <div class="nutrition_info">영양성분</div>
-                    <div class="calories">칼로리</div>
-                    <div class="total_Fat">지방</div>
-                    <div class="Protein">단백질</div>
-                    <div class="carbohydrate">탄수화물</div>
-                <div class="cholesterol">콜레스테롤</div>
-                <div class="additional_nutrition_exp">부가적일 설명 부가부가</div>
+                <div class="recipe_info">레시피는 이래이래 저래저래</div>
             </div>
-            <div class="recipe_info">레시피는 이래이래 저래저래</div>
         </div>
     <div class="body_01">
 
@@ -101,31 +118,34 @@
             <label>소스 재료</label>
         </div>
     </div>
-    
-    <div class="other_recipe">
-        <!--추천하는 다른 레시피 부분-->
-        <div class="other_recipe_title"></div>
-        <div class="other_recipes">
-            <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
-            <div class="other_recipe_auther">안드레아스 파울라</div>
+
+    <div class="side_recipe">
+        <div class="other_recipe">
+            <!--추천하는 다른 레시피 부분-->
+            <div class="other_recipe_title"></div>
+            <div class="other_recipes">
+                <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
+                <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
+                <div class="other_recipe_auther">안드레아스 파울라</div>
+            </div>
+            <div class="other_recipes">
+                <div class="orther_recipe_title">크림드간 치킨</div>
+                <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
+                <div class="other_recipe_auther">안드레아스 파울라</div>
+            </div>
+            <div class="other_recipes">
+                <div class="orther_recipe_title">쉬운치밥</div>
+                <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
+                <div class="other_recipe_auther">안드레아스 파울라</div>
+            </div>
         </div>
-        <div class="other_recipes">
-            <div class="orther_recipe_title">크림드간 치킨</div>
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
-            <div class="other_recipe_auther">안드레아스 파울라</div>
+        <div class="ads">
+            <!--광고부분-->
+            <div class="ads_frame"></div>
+            <div class="ads_text">건강한 음식을 먹어야 하는겄을 잊지마입시다</div>
+            <div class="ads_food_image"></div>
         </div>
-        <div class="other_recipes">
-            <div class="orther_recipe_title">쉬운치밥</div>
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="치킨미트볼이랑 크림치즈"></div>
-            <div class="other_recipe_auther">안드레아스 파울라</div>
-        </div>
-    </div>
-    <div class="ads">
-        <!--광고부분-->
-        <div class="ads_frame"></div>
-        <div class="ads_text">건강한 음식을 먹어야 하는겄을 잊지마입시다</div>
-        <div class="ads_food_image"></div>
+
     </div>
 </div>
 
@@ -161,30 +181,34 @@
     <!--메뉴 추천부분-->
     <div class="recipe_recommendation">
         <h3>이런 메뉴들도 죠습니다</h3>
-        <div class="recommended_menu">
-            <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
-            <div class="recommended_menu_name">화채</div>
-            <div class="recommended_menu_coocking_time">30분</div>
-            <div class="recommended_menu_category">건강식</div>
+        <div class="recommend_container">
+            <div class="recommended_menu">
+                <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
+                <div class="recommended_menu_name">화채</div>
+                <div class="recommended_menu_coocking_time">30분</div>
+                <div class="recommended_menu_category">건강식</div>
+            </div>
+            <div class="recommended_menu">
+                <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
+                <div class="recommended_menu_name">화채</div>
+                <div class="recommended_menu_coocking_time">30분</div>
+                <div class="recommended_menu_category">건강식</div>
+            </div>
+            <div class="recommended_menu">
+                <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
+                <div class="recommended_menu_name">화채</div>
+                <div class="recommended_menu_coocking_time">30분</div>
+                <div class="recommended_menu_category">건강식</div>
+            </div>
+            <div class="recommended_menu">
+                <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
+                <div class="recommended_menu_name">화채</div>
+                <div class="recommended_menu_coocking_time">30분</div>
+                <div class="recommended_menu_category">건강식</div>
+            </div>
+
         </div>
-        <div class="recommended_menu">
-            <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
-            <div class="recommended_menu_name">화채</div>
-            <div class="recommended_menu_coocking_time">30분</div>
-            <div class="recommended_menu_category">건강식</div>
-        </div>
-        <div class="recommended_menu">
-            <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
-            <div class="recommended_menu_name">화채</div>
-            <div class="recommended_menu_coocking_time">30분</div>
-            <div class="recommended_menu_category">건강식</div>
-        </div>
-        <div class="recommended_menu">
-            <div class="recommended_menu_img"><img src="P_Ndjango\contents_app\static\img\추천매뉴.png"></div>
-            <div class="recommended_menu_name">화채</div>
-            <div class="recommended_menu_coocking_time">30분</div>
-            <div class="recommended_menu_category">건강식</div>
-        </div>
+        
     </div>
     {% include "footerbar.html" %}
 </body>
