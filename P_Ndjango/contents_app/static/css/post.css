@@ -1,0 +1,111 @@
+.header{ /*레시피 소개부분(사진,태그, 영양소,간단설명)*/
+    width: 1717.938px;
+    height: 947px;
+    border: 1px solid black;
+}
+.header_in_header {
+    width: 54.2%;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    border: 1px solid black;
+    float: left;
+}
+.recipes_tags{
+    display: flex;            /* flexbox 사용 */
+    flex-direction: row;      /* 가로 방향으로 배열 */
+    align-items: center;      /* 중앙 정렬 (상황에 따라 필요할 경우 사용) */
+    gap: 20px;        
+}
+.icons{
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 14px;
+    border: 1px solid black;
+}
+.main_picture{
+    width: 1078.639px;
+    height: 696.722px;
+    background: url(<path-to-image>), lightgray 50% / contain no-repeat;
+}
+.nutrition_card{
+    width: 535.938px;
+    height: 671px;
+    border-radius: 30px;
+    background: #E7FAFE;
+    border: 1px solid black;
+}
+.body_01 {  /*재료, 소스, 광고, 다른 레시피*/
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid black;
+    gap: 20px;
+}
+.ingredients_main_menu{
+    width: 1206px;
+    height: 561px;
+    display: flex; 
+    flex:left;
+    flex-direction: column;
+    flex-shrink: 0;
+    border: 1px solid black;
+}
+.sauce{
+    width: 1204px;
+    height: 293px;
+    display: flex; 
+    flex-direction: column;
+    border: 1px solid black;
+}
+.other_recipe{
+    width: 400px;
+    height: 479px;
+    flex:left;
+    border: 1px solid black;
+}
+.ads{
+    width: 400px;
+    height: 434px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #357355 0%, #1D483B 100%);
+}
+.body_02 {  /*재료, 소스, 광고, 다른 레시피*/
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid black;
+    gap: 20px;
+}
+.directions{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 61px;
+    border: 1px solid black;
+}
+.cooking_image{
+    width: 816px;
+    height: 412px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    flex-direction: column;
+    background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+}
+.subscribe_box{
+    width: 1720px;
+    height: 625px;
+    flex-shrink: 0;
+    border-radius: 60px;
+    background: #E7F9FD;
+    border: 1px solid black;
+}
+.recipe_recommendation{
+    width: 1600px;
+    height: 550px;
+    display: inline-flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    border: 1px solid black;
+}
