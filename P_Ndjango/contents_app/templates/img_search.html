@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/img_search.css" %}">
 </head>
 <body>
     <header>
@@ -38,8 +39,22 @@
                 <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
             </div>
         </div>
-        이미지 검색 페이지
+        {% comment %} 이미지 검색 {% endcomment %}
+        <div class="img_box">
+            <h1>이미지로 검색</h1>     
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="image" accept="image/*" required>
+                <button type="submit">재료 추출하기</button>
+            </form>
+            <div id="result">
+                {% if detected_objects %}
+                    <p>Detected Objects: {{ detected_objects|join:", " }}</p>
+                {% endif %}
+            </div>
+        </div>
     </article>
+
 </body>
 <script src="{% static 'js/search.js' %}"></script>
 </html>
