@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/img_search.css" %}">
+    <!-- 로컬 변환용 -->
+    <!-- <link rel="stylesheet" type="text/css" href="static/css/search.css">
+    <link rel="stylesheet" type="text/css" href="static/css/img_search.css"> -->
+    <!-- S3 배포용 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}?{% now 'U' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/img_search.css' %}?{% now 'U' %}">
 </head>
 <body>
     <header>
@@ -33,23 +37,27 @@
             <input type="text" class="search_input" value="{{ translated_objects|join:', ' }}">
             <a class="search_button" href="">
                 {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
-                <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+                <img class="search_img" src="{% static 'img/icon_photo.png' %}" alt="">
             </a>
             <div class="voice_btn">
                 <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
             </div>
         </div>
         {% comment %} 이미지 검색 {% endcomment %}
-        <div class="img_box">
-            <h1>이미지로 검색</h1>     
+        <div class="img_container">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" name="image" accept="image/*" required>
-                <button type="submit">재료 추출하기</button>
+                <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                <input type="file" name="image" accept="image/*" required id="imageInput">
+                <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                <div>
+                    <button type="submit">재료 추출하기</button>
+                </div>
             </form>
         </div>
+        <!-- 에러 메세지 -->
         {% if messages %}
-            <div class="alert alert-warning">
+            <div class="error_msg">
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
@@ -57,5 +65,10 @@
         {% endif %}
     </article>
 </body>
+<!-- 로컬 변환용 -->
+<!-- <script src="static/js/search.js"></script>
+<script src="static/js/img_search.js"></script> -->
+<!-- S3 배포용 -->
 <script src="{% static 'js/search.js' %}"></script>
+<script src="{% static 'js/img_search.js' %}"></script>
 </html>

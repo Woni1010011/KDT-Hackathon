@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}">
+    <!-- 로컬 변환용 -->
+    <!-- <link rel="stylesheet" type="text/css" href="static/css/search.css"> -->
+    <!-- S3 배포용 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}?{% now 'U' %}">
 </head>
 <body>
     <header>
@@ -100,5 +103,8 @@
         </div>
     </article>
 </body>
+<!-- 로컬 변환용 -->
+<!-- <script src="static/js/search.js"></script> -->
+<!-- S3 배포용 -->
 <script src="{% static 'js/search.js' %}"></script>
 </html>

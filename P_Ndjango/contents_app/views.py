@@ -37,7 +37,7 @@ def img_search(request):
             translated_objects = [translator.translate(obj, src='en', dest='ko').text for obj in unique_detected_objects]
             
             # '음식' 및 '패키지 상품' 필터링
-            filtered_objects = [obj for obj in translated_objects if obj not in ['음식', '패키지 상품']]
+            filtered_objects = [obj for obj in translated_objects if obj not in ['음식', '패키지 상품', '채소']]
             
             return render(request, 'img_search.html', {'translated_objects': filtered_objects})
         else:

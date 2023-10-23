@@ -1,0 +1,53 @@
+.img_container {
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 50px;
+    max-width: 400px;
+    border: 2px solid #91dbf1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#imagePreview {
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    width: 400px;
+    background-color: #6574f8;
+    color: white;
+    padding: 6px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.error_msg{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
