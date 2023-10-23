@@ -25,7 +25,7 @@ class UserIgrd(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_id_info")
     igrd_name = models.CharField(max_length=255)
     user_igrd_date = models.DateField()
-    exp_date = models.DateField()
+    #소비기한 삭제
 
     def __str__(self):
         return self.igrd_name

@@ -6,7 +6,7 @@ class Ingredients(models.Model):
     igrd_no = models.BigAutoField(primary_key=True)  # 주 키로 설정된 bigserial 필드
     igrd_name = models.CharField(max_length=255, null=False)  # varchar(255) 필드
     igrd_content = models.TextField(null=True)  # text 필드 (NULL 허용)
-    exp_date = models.DateField(null=False)  # date 필드
+    # 소비기한 삭제
 
     def __str__(self):
         return self.igrd_name
@@ -31,6 +31,20 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment_content[:20] + "..."
 
+class Recipe(models.Model):
+    recipe_no = models.BigAutoField(primary_key=True)
+    recipe_title = models.CharField(max_length=255, null=False)
+    recipe_level = models.CharField(max_length=100, null=True)
+    cook_time = models.CharField(max_length=100, null=True)
+    ingredients = models.TextField(null=False)
+    direction = models.TextField(null=False)
+    recipe_img = models.TextField(null=True)
+    cooking_tips = models.TextField(null=True)
+    recipe_url = models.CharField(max_length=255, null=True)
+    importance = models.FloatField(null=True)
+
+    def __str__(self):
+        return self.recipe_title
 
 
 
