@@ -30,7 +30,7 @@
     <article>
         {% comment %} 검색창 {% endcomment %}
         <div id="search">
-            <input type="text" class="search_input" placeholder="레시피를 입력하세요.">
+            <input type="text" class="search_input" value="{{ translated_objects|join:', ' }}">
             <a class="search_button" href="">
                 {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
                 <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
@@ -47,14 +47,15 @@
                 <input type="file" name="image" accept="image/*" required>
                 <button type="submit">재료 추출하기</button>
             </form>
-            <div id="result">
-                {% if detected_objects %}
-                    <p>Detected Objects: {{ detected_objects|join:", " }}</p>
-                {% endif %}
-            </div>
         </div>
+        {% if messages %}
+            <div class="alert alert-warning">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
     </article>
-
 </body>
 <script src="{% static 'js/search.js' %}"></script>
 </html>
