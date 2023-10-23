@@ -5,118 +5,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static '/css/write_post.css' %}">
+    <!-- 로컬 작업용 -->
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css'">
+    <link rel="stylesheet" type="text/css" href="static/css/write_post.css">
+    <!-- S3 배포용 -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}?{% now 'U' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/write_post.css' %}?{% now 'U' %}"> -->
     <title>write</title>
 </head>
-<header> {% comment %} 상단 메뉴바 {% endcomment %}
-    <div class="container">
-        <div class="nav-bar">
-            <div class="nav-container">
-                <div>
-                    <a href="{%url 'main'%}">
-
-                    </a>
-                </div>
-                <div class="nav-buttons">
-                    <div class="nav-topics">
-                        <a href="#">
-                            <button> 공유 / 저장</button></a>
-                        <a href="##">
-                            <button> 발행 </button></a>
-
-                        <a> <button>기타등등 ...</button> </a>
-                    </div>
-                    <div class="row-box">
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
-                        <a href="{% url 'write' %}" class="primary-button" style="color: #1e1e1e">
-                            글쓰기</a>
-                        {% else %}
-                        <a href="{% url 'login' %}" class="primary-button" style="color: #1e1e1e">Login</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
 <body> <!-- navbar 대체 고민 -->
-
-    <div class="content">
-        <div class="post-container">
-            <div class="big-box">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="write-box">
-                        <input type="text" id="title" name="title" class="title" placeholder="제목"
-                            value="{{ post.title }}" />
-
-                        <div class="select-isDone">
-                            <input type="radio" name="isDone" value="Y" checked>
-                            <input type="radio" name="isDone" value="N">
-                        </div>
-
-                        <textarea id="content" name="content">{{ post.content }}</textarea>
-
-                    </div>
-                    <div class="post-info-box">
-                        <button type="button" id="aiAutocompleteButton" class="ai-button">
-                            <h4>여기 뭐라도 써야겠구나</h4>
-                        </button>
-
-                        <div class="box">
-                            디브> 박스 - 카테고리용 ? <디브 </div>
-                                <div class="box">
-                                    <div class="info">
-                                        <h2>UPLOAD INFO</h2>
-                                        <p>공개여부: {% if edit_mode %}전체공개{% else %}미공개{% endif %}</p>
-                                        <input type="file" name="file" id="imageUpload" style="display:none;">
-                                        <button type="button" class="button-line"
-                                            onclick="document.getElementById('imageUpload').click();">이미지 업로드</button>
-                                    </div>
-                                    <div class="save-box">
-                                        {% if edit_mode %}
-                                        <input type="submit" name="delete-button" class="delete-button" value="삭제" />
-                                        <input type="submit" class="save-button" value="수정" />
-                                        {% else %}
-                                        <input type="button" name="temp-save-button" class="temp-save-button"
-                                            id="modal-open-btn" value="임시저장" />
-                                        <input type="submit" name="save-button" class="save-button" value="글 작성" />
-                                        <input type="text" name='modify-id' class='modify-id' value=''>
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                        </div>
-
-                        <div class="modal-wrapper">
-                            <div class="modal-body">
-                                <div class="modal-head">
-                                    <h1>임시저장목록</h1>
-
-                                    <ul>
-                                        <br>
-                                        {% for modi in modify %}
-                                        <p><button id='{{modi.id}}' class='modify-button' name="{{modi.content}}"
-                                                data-topic="{{modi.topic}}">{{modi.title}} / {{modi.create_at|date:'
-                                                Y-m-d
-                                                h:i:s '}}</button></p>
-                                        {% endfor %}
-                                    </ul>
-
-                                    <input type='submit' id='modal-save-button' name='save-button' value="임시저장">
-                                    <input type='button' id='modal-close-btn' value="취소">
-                                </div>
-                            </div>
-                        </div>
-                </form>
-            </div>
-
+    <header>
+        {% comment %} 상단 메뉴바 {% endcomment %}
+        <div>
+            <a href="{%url 'main'%}"></a>
         </div>
-
-
+        <div class="nav-buttons">
+        <div class="nav-topics">
+            <a href="#"><button> 공유 / 저장</button></a>
+            <a href="##"><button> 발행 </button></a>
+            <a><button>기타등등 ...</button></a>
+        </div>
+        <div class="row-box">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+            <a href="{% url 'write' %}" class="primary-button" style="color: #1e1e1e">글쓰기</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="primary-button" style="color: #1e1e1e">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="board_content">
+        <div class="title">
+            <textarea class="title_content" type="text" placeholder="제목"></textarea>
+        </div>
+        <hr>
+        <div class="content">
+            <textarea class="contents" type="text" placeholder="본문을 작성해 주세요."></textarea>
+        </div>
     </div>
 
 
