@@ -6,8 +6,8 @@
   
   ![NDjango](https://github.com/Woni1010011/project_n/assets/125336999/a1ca30f7-1fc9-4975-9ae6-67c3b4b325f1)
   
-  본 프로젝트는  프로젝트이며,</br>
-  Back-End를 구현했습니다.
+  본 프로젝트는 사회적 불평등 최소화를 위한 레시피 추천 프로젝트이며,</br>
+  주된 서비스로는 크롤링을 통한 추천 서비스, 이미지AI를 통한 객체 인식 검색, 이미지 텍스트 출력AI등을 통한 검색등이 있습니다.
 </div>
 
 <h2 tabindex="-1" id="user-content-목차" dir="auto"><a class="heading-link" href="#목차">목차</a></h2>
