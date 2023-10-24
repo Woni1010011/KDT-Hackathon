@@ -3,6 +3,10 @@ from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
+from .models import Recipes
+from django.shortcuts import render, get_object_or_404
+import re
+import ast
 
 # Create your views here.
 def homepage(request):
@@ -58,8 +62,55 @@ def mypage(request):
 def profile_edit(request):
     return render(request, 'profile_edit.html')
 
-def post(request) :
-    return render(request, 'post.html')
+def recipe_list(request):
+    recipes = Recipes.objects.all()  # 모든 레시피를 가져옵니다.
+    return render(request, 'recipes/recipe_list.html', {'recipes': recipes})
+
+# def get_ingredients(ingredients_text):
+#     while True:
+#         new_text = re.sub(r'\b0+(\d)', r'\1', ingredients_text)
+#         if new_text == ingredients_text:  # 더 이상 변화가 없으면 반복을 종료
+#             break
+#         ingredients_text = new_text
+    
+#     # 문자열을 리스트로 변환
+#     raw_ingredients = ast.literal_eval(ingredients_text)
+
+#     # 재료와 양 분리
+#     ingredients = []
+#     for item in raw_ingredients:
+#         # " " 기준으로 나누기
+#         split_item = item.split(' ')
+#         ingredient = split_item[0]
+#         amount = ' '.join(split_item[1:])
+#         ingredients.append({"ingredient": ingredient, "amount": amount})
+
+#     return ingredients
+
+# post 함수 정의
+def post(request, recipe_no):
+    # 레시피스 테이블 내용들을 불러옴
+    recipe = Recipes.objects.get(pk=recipe_no)
+    
+    # ingredients 필드를 파싱
+    ingredients_list = ast.literal_eval(recipe.ingredients)
+    
+    directions = ast.literal_eval(recipe.direction)
+
+    def extract_order(direction):
+        # 순서 번호 추출
+        order = int(direction.split('.')[0])
+        return order
+
+    # 정렬된 directions 리스트 생성
+    sorted_directions = sorted(directions, key=extract_order)
+
+    # 사진이 없는 조리과정의 경우에 대한 처리를 위해 zip_longest를 사용
+    from itertools import zip_longest
+    directions_and_images = list(zip_longest(sorted_directions))
+    
+    # 결과를 post.html 템플릿에 전달
+    return render(request, 'post.html', {'recipe': recipe, 'ingredients_list': ingredients_list,'directions_and_images': directions_and_images})
 
 def write_post(request) :
     return render(request, 'write_post.html')
