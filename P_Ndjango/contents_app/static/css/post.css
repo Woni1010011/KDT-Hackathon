@@ -46,7 +46,7 @@
     justify-content: center;
 }
 
-.name, .time_text {
+.name, .posted_by_info_text {
     font-weight: bold;
 }
 
@@ -189,7 +189,9 @@
     padding: 0px 200px;
     
 }
-
+.recipe_info{
+    color: #E7F9FD;
+}
 .picture_content{
     display: flex;
     flex-direction: row;
