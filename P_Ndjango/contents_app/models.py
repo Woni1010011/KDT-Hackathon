@@ -23,6 +23,19 @@ class Board(models.Model):
     def __str__(self):
         return self.post_title
 
+    def increment_visit_count(self):
+        self.views += 1
+        self.save()
+
+    @property
+    def view_count(self):
+        return self.views
+
+    def check_url(self, *args, **kwargs):
+        if "media/uploads/" in self.post_content and "/media/uploads/" not in self.post_content:
+            self.post_content = self.post_content.replace("media/uploads/", "/media/uploads/")
+            super().save(*args, **kwargs)
+            
 class Comment(models.Model):
     post_no = models.ForeignKey(Board, on_delete=models.CASCADE, related_name="comments")  # board 테이블 참조
     comment_content = models.TextField(null=False)  # text 필드
@@ -45,6 +58,8 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.recipe_title
+    
+
 
 
 
