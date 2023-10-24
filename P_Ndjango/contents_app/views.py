@@ -60,3 +60,6 @@ def profile_edit(request):
 
 def post(request) :
     return render(request, 'post.html')
+
+def write_post(request) :
+    return render(request, 'write_post.html')

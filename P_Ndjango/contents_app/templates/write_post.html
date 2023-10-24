@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 로컬 작업용 -->
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css'">
+    <link rel="stylesheet" type="text/css" href="static/css/write_post.css">
+    <!-- S3 배포용 -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}?{% now 'U' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/write_post.css' %}?{% now 'U' %}"> -->
+    <title>write</title>
+</head>
+<body> <!-- navbar 대체 고민 -->
+    <header>
+        {% comment %} 상단 메뉴바 {% endcomment %}
+        <div>
+            <a href="{%url 'main'%}"></a>
+        </div>
+        <div class="nav-buttons">
+        <div class="nav-topics">
+            <a href="#"><button> 공유 / 저장</button></a>
+            <a href="##"><button> 발행 </button></a>
+            <a><button>기타등등 ...</button></a>
+        </div>
+        <div class="row-box">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+            <a href="{% url 'write' %}" class="primary-button" style="color: #1e1e1e">글쓰기</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="primary-button" style="color: #1e1e1e">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="board_content">
+        <div class="title">
+            <textarea class="title_content" type="text" placeholder="제목"></textarea>
+        </div>
+        <hr>
+        <div class="content">
+            <textarea class="contents" type="text" placeholder="본문을 작성해 주세요."></textarea>
+        </div>
+    </div>
+
+
+    {% include "footerbar.html" %}
+
+</body>
+
+
+</html>
