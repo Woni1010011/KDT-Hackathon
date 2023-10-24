@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
+from .models import Board
+from django.db.models import Q
 
 # Create your views here.
 def homepage(request):
@@ -50,7 +52,13 @@ def board(request):
     return render(request, 'board.html')
 
 def search_result(request):
-    return render(request, 'search_result.html')
+    query = request.GET.get('q')
+    if query:
+        results = Board.objects.filter(post_title__icontains=query)
+    else:
+        results = Board.objects.all()
+    
+    return render(request, 'search_result.html', {'posts': results})
 
 def mypage(request):
     return render(request, 'my_page.html')
