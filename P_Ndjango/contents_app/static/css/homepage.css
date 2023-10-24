@@ -11,24 +11,16 @@
 
 /* 검색창 */
 .search_box {
-    background-color: #E9E9E9;
+    display: flex;
+    background-color: #afffa4;
     align-items: center;
     height: 50px;
-    width: 1200px;
+    width: 1180px;
     border-radius: 10px;
-
+    color: #ccc;
+    text-decoration: none;
+    padding-left: 20px;
 }
-.search_input {
-    background-color: #E9E9E9;
-    border: 50px;
-    margin: 10px;
-    height: 30px;
-    width: 1100px;
-}
-.search_input:focus {
-    outline: none;
-}
-
 
 /* 배너광고 */
 .image_rolling_container {

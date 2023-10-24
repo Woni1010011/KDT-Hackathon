@@ -6,15 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomePage</title>
-    <link rel="stylesheet" href="{%static "css/homepage.css"%}" >
+    <!-- S3 배포용 -->
+    <link rel="stylesheet" href="{%static 'css/homepage.css'%}" >
+    <!-- 로컬 수정용 -->
+    <!-- <link rel="stylesheet" href="static/css/homepage.css" > -->
 </head>
 <body>
     {% include 'navbar.html' %}
 
     <div class="container">
-        <div class="search_box">
-            <input class="search_input" type="text" placeholder="Search">
-        </div>
+        <a class="search_box" href="search">Search</a>
 
         <div class="image_rolling_container">
             <div class="content_cotainer">
