@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
+from . import receipe_search
 
 # Create your views here.
 def homepage(request):
@@ -12,6 +13,14 @@ def search(request):
     return render(request, 'search.html')
 
 def material_search(request):
+    if request.method == 'POST' :
+        image = request.FILES['image'] # FILES를 따로 한 이유가 있나
+        content = image.read()
+        image = types.Image(content=content)
+        text = receipe_search.tempFunction(image) # receipt_image to text
+
+        return redirect('material_search.html', {'temptext':text})
+
     return render(request, 'material_search.html')
 
 # 이미지 검색

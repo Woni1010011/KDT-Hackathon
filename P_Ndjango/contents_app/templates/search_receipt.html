@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}">
+</head>
+<body>
+    <header>
+        {% comment %} 상단 네비게이션 {% endcomment %}
+        <div id="nav">
+            <div class="top_nav">
+                <div class="img_box">
+                    <a href="{% url 'main' %}">
+                        <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+                    </a>
+                </div>
+            </div>
+            {% comment %} 검색기 변환 {% endcomment %}
+            <div class="bottom_nav">
+                <a class='search_kind' href="{% url 'search' %}" id="searchLink">레시피 검색</a>
+                <a class='search_kind' href="{% url 'material_search' %}" id="ingredientSearchLink">재료로 검색</a>
+                <a class='search_kind' href="{% url 'img_search' %}" id="imageSearchLink">이미지 검색</a>
+            </div>
+        </div>
+    </header>
+    <article>
+        {% comment %} 검색창 {% endcomment %}
+        <div id="search">
+            <input type="text" class="search_input" placeholder="레시피를 입력하세요.">
+            <a class="search_button" href="">
+                {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+                <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+            </a>
+            <div class="voice_btn">
+                <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+            </div>
+        </div>
+        재료검색 페이지
+    </article>
+</body>
+<script src="{% static 'js/search.js' %}"></script>
+</html>
