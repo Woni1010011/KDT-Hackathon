@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.socialaccount',
+    'django_summernote',
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_secret('GOOGLE_KEY')
@@ -134,7 +135,15 @@ STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 # Media Setting
 MEDIA_URL = "http://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+DJANGO_SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+        'height': '480',
+        'upload_attachment_to': 'media/uploads/',
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -190,3 +199,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# X_FRAME_OPTIONS = 'SAMEORIGIN'

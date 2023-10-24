@@ -11,43 +11,60 @@
     <!-- S3 배포용 -->
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}?{% now 'U' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/write_post.css' %}?{% now 'U' %}"> -->
+    <link href="{% static 'django_summernote/summernote-bs4.css' %}" rel="stylesheet">
+    <script src="{% static 'django_summernote/summernote-bs4.js' %}"></script>
+
     <title>write</title>
 </head>
+
 <body> <!-- navbar 대체 고민 -->
-    <header>
+    <header class="topnav">
         {% comment %} 상단 메뉴바 {% endcomment %}
-        <div>
-            <a href="{%url 'main'%}"></a>
-        </div>
+        <a href="{%url 'main'%}">
+            <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+        </a>
         <div class="nav-buttons">
-        <div class="nav-topics">
-            <a href="#"><button> 공유 / 저장</button></a>
-            <a href="##"><button> 발행 </button></a>
-            <a><button>기타등등 ...</button></a>
-        </div>
-        <div class="row-box">
-            {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
-            <a href="{% url 'write' %}" class="primary-button" style="color: #1e1e1e">글쓰기</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="primary-button" style="color: #1e1e1e">Login</a>
-            {% endif %}
-        </div>
+            <div class="nav-topics">
+                {% csrf_token %}
+                <a href="{% url 'post' %}" class="button-style">임시 저장</a>
+                <a href="{% url 'post' %}" class="publish-button">발행</a>
+            </div>
+
+            {% comment %} 상단 메뉴바 {% endcomment %}
+            <div>
+                <a href="{%url 'main'%}"></a>
+            </div>
+
     </header>
     <div class="board_content">
         <div class="title">
             <textarea class="title_content" type="text" placeholder="제목"></textarea>
         </div>
-        <hr>
+
         <div class="content">
-            <textarea class="contents" type="text" placeholder="본문을 작성해 주세요."></textarea>
+            <textarea class="summernote" name="contents" placeholder="본문을 작성해 주세요."></textarea>
         </div>
     </div>
 
 
     {% include "footerbar.html" %}
 
-</body>
 
+</body>
+<script>
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            toolbar: [
+                // 툴바에 표시할 옵션들을 나열합니다.
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                // ... (원하는 옵션들을 추가하세요)
+                ['view', ['fullscreen', 'help']]
+            ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
+        });
+    });
+</script>
 
 </html>

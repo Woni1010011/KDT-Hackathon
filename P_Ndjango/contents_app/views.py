@@ -78,5 +78,15 @@ def profile_edit(request):
 def post(request) :
     return render(request, 'post.html')
 
+
+from .forms import PostForm
+
 def write_post(request) :
-    return render(request, 'write_post.html')
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main')  # 발행 후 리다이렉트할 페이지
+
+    form = PostForm()   
+    return render(request, 'write_post.html', {'form': form})
