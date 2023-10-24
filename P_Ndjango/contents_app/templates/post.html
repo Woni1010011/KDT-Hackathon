@@ -123,15 +123,18 @@
     <div class="body_02">
         <!--조리 순서별로 사진이랑 같이-->
         <div class="directions">
-            {% for step in directions_and_images %}
+            {% for step in directions %}
                 <div class="direction-step">
-                    <div class="step-number">{{ forloop.counter }}</div>
+                    {% comment %} <div class="step-number">{{ forloop.counter }}</div> {% endcomment %}
                     <div class="step-description">{{ step }}</div>
                     <div class="step-image">
-                        {% comment %} {% if img_url %}
-                             <img src="{{ img_url }}" alt="Recipe step {{ forloop.counter }} image"> 
-                        {% endif %} {% endcomment %}
                     </div>
+                </div>
+            {% endfor %}
+            {% for step in recipe_images %}
+                <div class="step-image">
+                    <img src="{{step}}" alt="">
+                    {% comment %} {{step}} {% endcomment %}
                 </div>
             {% endfor %}
         </div>

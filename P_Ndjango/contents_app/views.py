@@ -96,6 +96,7 @@ def post(request, recipe_no):
     ingredients_list = ast.literal_eval(recipe.ingredients)
     
     directions = ast.literal_eval(recipe.direction)
+    recipe_images = ast.literal_eval(recipe.recipe_img)
 
     def extract_order(direction):
         # 순서 번호 추출
@@ -104,13 +105,23 @@ def post(request, recipe_no):
 
     # 정렬된 directions 리스트 생성
     sorted_directions = sorted(directions, key=extract_order)
-
+    recipe_images = sorted(recipe_images, key=extract_order)
+    
+    sorted_recipe_images =[]
+    for img in recipe_images:
+        sorted_recipe_images.append(img.split(" ")[1])
+        
+    thumbnail = sorted_recipe_images[-1]
+    
+    # 마지막 썸네일 이미지 제거
+    sorted_recipe_images = sorted_recipe_images[:-1]
+    
     # 사진이 없는 조리과정의 경우에 대한 처리를 위해 zip_longest를 사용
-    from itertools import zip_longest
-    directions_and_images = list(zip_longest(sorted_directions))
+    # from itertools import zip_longest
+    # directions_and_images = list(zip_longest(sorted_directions))
     
     # 결과를 post.html 템플릿에 전달
-    return render(request, 'post.html', {'recipe': recipe, 'ingredients_list': ingredients_list,'directions_and_images': directions_and_images})
+    return render(request, 'post.html', {'recipe': recipe, 'ingredients_list': ingredients_list,'directions': sorted_directions,'recipe_images' : sorted_recipe_images,'thumbnail': thumbnail }) # 'recipe_images' : sorted_recipe_images
 
 def write_post(request) :
     return render(request, 'write_post.html')
