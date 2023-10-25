@@ -18,13 +18,13 @@ def search(request):
     return render(request, 'search.html')
 
 def material_search(request):
-    if request.method == 'POST' :
-        image = request.FILES['image'] # FILES를 따로 한 이유가 있나
-        content = image.read()
-        image = types.Image(content=content)
-        text = receipe_search.tempFunction(image) # receipt_image to text
+    # if request.method == 'POST' :
+    #     image = request.FILES['image'] # FILES를 따로 한 이유가 있나
+    #     content = image.read()
+    #     image = types.Image(content=content)
+    #     text = receipe_search.tempFunction(image) # receipt_image to text
 
-        return redirect('material_search.html', {'temptext':text})
+    #     return redirect('material_search.html', {'temptext':text})
 
     return render(request, 'material_search.html')
 
