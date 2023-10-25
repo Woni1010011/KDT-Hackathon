@@ -18,7 +18,7 @@
     margin: 0 auto;
 }
 
-.return_main{
+.return_main {
     background-color: rgb(108, 189, 102);
     border: none;
     border-radius: 25px;
@@ -34,20 +34,20 @@
 }
 
 /* text */
-.welcome{
+.welcome {
     display: flex;
     flex-direction: column;
     width: 430px;
     margin-bottom: 80px;
 }
 
-.big-text{
+.big-text {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 15px;
 }
 
-.small-text{
+.small-text {
     font-size: 16px;
 }
 
@@ -62,7 +62,7 @@
 }
 
 /* 로그인 버튼 */
-.login-btn{
+.loginButton {
     border: None;
     border-radius: 10px;
     color: #fff;
@@ -78,18 +78,18 @@
     font-size: 16px;
 }
 
-.social_login{
+.social_login {
     width: 430px;
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
 }
 
-.social_logo{
+.social_logo {
     align-items: center;
     text-align: center;
     width: 25px;
-    height: 25px;    
+    height: 25px;
 }
 
 .social_btn {
@@ -109,12 +109,15 @@
     border: solid 1px rgb(187, 183, 183);
 }
 
-.social_logo:hover, .social_btn:hover,
-.login-btn:hover, .return_main:hover{
+.social_logo:hover,
+.social_btn:hover,
+.login-btn:hover,
+.return_main:hover {
     background-color: #b1b1b1;
 }
 
-.google_span, .naver_span{
+.google_span,
+.naver_span {
     font-size: 15px;
     font-weight: bolder;
 }
@@ -143,49 +146,50 @@ hr {
 }
 
 /* 이메일 기억하기 */
-.save-box{
+.save-box {
     display: flex;
     width: 430px;
     margin-top: 30px;
     font-size: 13px;
 }
 
-.save-font{
+.save-font {
     margin-left: 3px;
 }
 
 /* Input div */
 
-.email-box{
+.id-box {
     display: flex;
     flex-direction: column;
 }
 
-.password-box{
+.password-box {
     margin-top: 30px;
 }
 
-.lost-pw{
+.lost-pw {
     display: flex;
     justify-content: space-between;
 }
 
-.lost-font{
+.lost-font {
     font-size: 12px;
     text-decoration: none;
     margin-right: 10px;
-    margin-top: 5px;}
+    margin-top: 5px;
+}
 
 /* signup html */
-.question{
+.question {
     margin-top: 30px;
 }
 
-.signup-font{
+.signup-font {
     text-decoration: none;
 }
 
-.user-input{
+.user-input {
     border: solid 1px rgb(187, 183, 183);
     border-radius: 10px;
     width: 420px;
@@ -194,8 +198,8 @@ hr {
     padding-left: 10px;
 }
 
-.user-input::placeholder{
-    color:rgb(187, 183, 183);
+.user-input::placeholder {
+    color: rgb(187, 183, 183);
 }
 
 /* 이미지 div */
@@ -206,7 +210,7 @@ hr {
     width: 100%
 }
 
-.food_img{
+.food_img {
     width: 660px;
     height: 880px;
     border-radius: 50px;
