@@ -15,7 +15,16 @@
                 <span class='big-text'>환영합니다!</span>
                 <span class='small-text'>로그인을 위해 유효한 이메일과 비밀번호를 입력하세요.</span>
             </div>
-
+            {% comment %} <form id="loginForm" method="post" onsubmit="submitForm(); return false;">
+                {% csrf_token %}
+                <label for="id">Username:</label>
+                <input type="text" name="id" id="id" required><br>
+        
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required><br>
+        
+                <input id="loginButton" type="submit" value="Login">
+            </form> {% endcomment %}
             {% comment %} 이메일 {% endcomment %}
             <div class='email-box'>
                 <span class='small-text'>이메일</span>
@@ -74,4 +83,11 @@
         </div>
     </div>
 </body>
+<script>
+    // context 데이터에서 result 값을 가져와서 alert 창으로 표시
+    {% if result %}
+    alert("{{ result }}");
+    {% endif %}
+</script>
+
 </html>
