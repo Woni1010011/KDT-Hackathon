@@ -25,10 +25,17 @@
         </div>
 
         <div class='info_login'>
+            {% if request.session.user_id %}
+            <a class='alarm_div' href="#" id="alarmLink">
+                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
+            <a class='cate' href={% url "logout" %}>Logout</a>
+            {% else %}
             <a class='alarm_div' href="#" id="alarmLink">
                 <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
             </a>
             <a class='cate' href={% url "login" %}>Login</a>
+            {% endif %}
         </div>
     </header>
     <hr>
