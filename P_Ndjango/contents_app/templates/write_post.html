@@ -19,30 +19,23 @@
 
 <body> <!-- navbar 대체 고민 -->
     <header class="topnav">
-        {% comment %} 상단 메뉴바 {% endcomment %}
         <a href="{%url 'main'%}">
             <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
         </a>
-        <div class="nav-buttons">
-            <div class="nav-topics">
-                {% csrf_token %}
-                <a href="{% url 'post' %}" class="button-style">임시 저장</a>
-                <a href="{% url 'post' %}" class="publish-button">발행</a>
-            </div>
 
-            {% comment %} 상단 메뉴바 {% endcomment %}
-            <div>
-                <a href="{%url 'main'%}"></a>
-            </div>
+        <a href="{% url 'main' %}" type="submit" class="button-style" id="save-btn">임시 저장</a>
+        <a href="{% url 'main' %}" type="submit" class="publish-button" id="publish-btn">발행</a>
 
     </header>
     <div class="board_content">
         <div class="title">
             <textarea class="title_content" type="text" placeholder="제목"></textarea>
         </div>
-
-        <div class="content">
-            <textarea class="summernote" name="contents" placeholder="본문을 작성해 주세요."></textarea>
+        <div>
+            <form method="post" action="{% url 'write_post' %}" class="my-custom-form">
+                {% csrf_token %}
+                {{ write_form.content }}
+            </form>
         </div>
     </div>
 
@@ -51,20 +44,14 @@
 
 
 </body>
+
 <script>
     $(document).ready(function () {
         $('.summernote').summernote({
-            toolbar: [
-                // 툴바에 표시할 옵션들을 나열합니다.
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                // ... (원하는 옵션들을 추가하세요)
-                ['view', ['fullscreen', 'help']]
-            ],
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-            fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
+            // height: $('.board_content').height() - 100, // 100은 여유 높이 조절값입니다.
         });
     });
 </script>
+
 
 </html>

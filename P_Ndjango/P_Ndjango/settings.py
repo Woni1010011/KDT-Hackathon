@@ -33,9 +33,9 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(BASE_DIR, 'google-credentials.json')
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(BASE_DIR, "google-credentials.json")
 
-GOOGLE_CLOUD_API_KEY = get_secret('GOOGLE_CLOUD_API_KEY')
+GOOGLE_CLOUD_API_KEY = get_secret("GOOGLE_CLOUD_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,37 +54,37 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "account_app",
     "contents_app",
-    'social_django',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.socialaccount',
-    'django_summernote',
+    "social_django",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.socialaccount",
+    "django_summernote",
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_secret('GOOGLE_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_secret('GOOGLE_SECRET_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/complete/google-oauth2/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_secret("GOOGLE_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_secret("GOOGLE_SECRET_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/complete/google-oauth2/"
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.naver.NaverOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.naver.NaverOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
 )
 SOCIAL_AUTH_AUTHENTICATION_BACKENDS = [
-    'social_core.backends.naver.NaverOAuth2',
-    'social_core.backends.google.GoogleOAuth2'
+    "social_core.backends.naver.NaverOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
 ]
 
 # naver social login setting
-SOCIAL_AUTH_NAVER_KEY = get_secret('NAVER_KEY')
-SOCIAL_AUTH_NAVER_SECRET = get_secret('NAVER_SECRET_KEY')
+SOCIAL_AUTH_NAVER_KEY = get_secret("NAVER_KEY")
+SOCIAL_AUTH_NAVER_SECRET = get_secret("NAVER_SECRET_KEY")
 
 # login setting
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'main'
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "main"
 SITE_ID = 2
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_ON_GET = True
 
 MIDDLEWARE = [
@@ -102,7 +102,7 @@ ROOT_URLCONF = "P_Ndjango.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'account_app/templates')],
+        "DIRS": [os.path.join(BASE_DIR, "account_app/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -131,17 +131,22 @@ print(AWS_S3_CUSTOM_DOMAIN)
 # python manage.py collectstatic
 STATIC_URL = "http://%s/static/" % AWS_S3_CUSTOM_DOMAIN
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "P_Ndjango\static\css"),
+#     os.path.join(BASE_DIR, "P_Ndjango\static\js"),
+#     os.path.join(BASE_DIR, "P_Ndjango\static\summernote"),
+# ]
 
 # Media Setting
 MEDIA_URL = "http://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 DJANGO_SUMMERNOTE_CONFIG = {
-    'summernote': {
-        'width': '100%',
-        'height': '480',
-        'upload_attachment_to': 'media/uploads/',
+    "summernote": {
+        "width": "100%",
+        "height": "480",
+        "upload_attachment_to": "media/uploads/",
     },
 }
 # Database
@@ -183,7 +188,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
