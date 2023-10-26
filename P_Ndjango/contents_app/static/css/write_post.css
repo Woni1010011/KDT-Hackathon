@@ -43,7 +43,7 @@ body {
     height: 60px;
 }
 
-.title_content {
+.post_title {
     width: 100%;
     font-size: 35px;
     border: none;
@@ -140,7 +140,7 @@ body {
     border: 1px solid rgb(0, 219, 66);
 }
 
-.my-custom-form {
+.post_content {
     width: 865px;
     height: 484px;
     display: flex;
