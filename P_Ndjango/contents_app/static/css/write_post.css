@@ -29,7 +29,7 @@ body {
 
 .board_content {
     background-color: white;
-    width: 50%;
+    width: 45%;
     height: 800px;
     padding-left: 150px;
     padding-right: 150px;
@@ -45,13 +45,14 @@ body {
 
 .title_content {
     width: 100%;
-    font-size: 40px;
+    font-size: 35px;
     border: none;
     resize: none;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .board_content {
@@ -87,7 +88,26 @@ body {
 
 }
 
-.button-style,
+.button-style {
+    background-color: rgb(0, 219, 66);
+    /* 네이버 버튼 색상 */
+    color: #ffffff;
+    /* 글자 색상 */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-left: auto;
+}
+
 .publish-button {
     background-color: rgb(0, 219, 66);
     /* 네이버 버튼 색상 */
@@ -105,6 +125,7 @@ body {
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
+
 }
 
 .button-style:hover {
@@ -117,4 +138,17 @@ body {
     background-color: #ffffff;
     color: rgb(0, 219, 66);
     border: 1px solid rgb(0, 219, 66);
+}
+
+.my-custom-form {
+    width: 865px;
+    height: 484px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+element.style {
+    margin-left: auto;
+    margin-left: auto;
 }
