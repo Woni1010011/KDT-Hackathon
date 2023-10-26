@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+
 from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
-from .models import Recipes, Board
+from .models import Recipes, Board, ImageUploadModel
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
@@ -18,13 +19,21 @@ def search(request):
     return render(request, 'search.html')
 
 def material_search(request):
-    # if request.method == 'POST' :
-    #     image = request.FILES['image'] # FILES를 따로 한 이유가 있나
-    #     content = image.read()
-    #     image = types.Image(content=content)
-    #     text = receipe_search.tempFunction(image) # receipt_image to text
+    if request.method == 'POST' :
+        image = request.FILES['image'] # FILES를 따로 한 이유가 있
+        file_name = './contents_app/static/img/' + image.name
+        
+        with open(file_name, 'wb') as file :
+            for chunk in image.chunks() :
+                file.write(chunk)
+        
+        
+        content = image.read()
+        image = types.Image(content=content)
+        text = receipe_search.tempFunction(file_name) # receipt_image to text
 
-    #     return redirect('material_search.html', {'temptext':text})
+        return render(request, 'material_search.html', {'text' : text})
+    
 
     return render(request, 'material_search.html')
 

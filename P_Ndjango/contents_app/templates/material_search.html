@@ -34,7 +34,7 @@
     <article>
         {% comment %} 검색창 {% endcomment %}
         <div id="search">
-            <input type="text" class="search_input" value="{{ text|join:', ' }}">
+            <input type="text" class="search_input" value="{{ text }}">
             <a class="search_button" href="">
                 {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
                 <img class="search_img" src="{% static 'img/icon_photo.png' %}" alt="">
