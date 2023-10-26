@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
-from .models import Recipes, Board, ImageUploadModel
+from .models import Recipes, Board
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
