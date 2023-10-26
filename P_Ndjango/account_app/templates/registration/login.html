@@ -15,30 +15,34 @@
                 <span class='big-text'>환영합니다!</span>
                 <span class='small-text'>로그인을 위해 유효한 이메일과 비밀번호를 입력하세요.</span>
             </div>
-
-            {% comment %} 이메일 {% endcomment %}
-            <div class='email-box'>
-                <span class='small-text'>이메일</span>
-                <input type='text' class='user-input' placeholder='Enter your email' name='username' required>
-            </div>
-
-            {% comment %} 비밀번호 {% endcomment %}
-            <div class='password-box'>
-                <div class='lost-pw'>
-                    <span class='small-text'>비밀번호</span>
-                    <a class='lost-font' href="">비밀번호를 잊으셨나요?</a>
+            <form id="loginForm" method="post" onsubmit="submitForm(); return false;">
+                {% csrf_token %}
+                            
+                {% comment %} 아이디 {% endcomment %}
+                <div class='id-box'>
+                    <label for="id">ID</label>
+                    <input id='id' type='text' class='user-input' placeholder='Enter your email' name='id' required>
                 </div>
-                <input type='text' class='user-input' placeholder='Enter your password' name='password' required>
-            </div>
 
-            {% comment %} 체크박스 {% endcomment %}
-            <div class='save-box'>
-                <input type="checkbox" class='save-login' name='save'>
-                <label class='save-font' for="save">이메일 기억하기</label>
-            </div>
-            
-            {% comment %} 로그인 버튼 {% endcomment %}
-            <a class='login-btn' href="{% url 'main' %}">Login</a>
+                {% comment %} 비밀번호 {% endcomment %}
+                <div class='password-box'>
+                    <div class='lost-pw'>
+                        <label for="password">Password</label>
+                        <a class='lost-font' href="">비밀번호를 잊으셨나요?</a>
+                    </div>
+                    <input id='password' type='password' class='user-input' placeholder='Enter your password' name='password' required>
+                </div>
+
+                {% comment %} 체크박스 {% endcomment %}
+                <div class='save-box'>
+                    <input type="checkbox" class='save-login' name='save'>
+                    <label class='save-font' for="save">이메일 기억하기</label>
+                </div>
+                
+                {% comment %} 로그인 버튼 {% endcomment %}
+                <input id="loginButton" type="submit" value="Login">
+                {% comment %} <a class='login-btn' href="{% url 'main' %}">Login</a> {% endcomment %}
+            </form>
             
 
             {% comment %} or 구분선 {% endcomment %}
@@ -74,4 +78,11 @@
         </div>
     </div>
 </body>
+<script>
+    // context 데이터에서 result 값을 가져와서 alert 창으로 표시
+    {% if result %}
+    alert("{{ result }}");
+    {% endif %}
+</script>
+
 </html>
