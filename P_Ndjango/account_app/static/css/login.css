@@ -27,7 +27,7 @@
     width: 430px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     color: #fff;
     font-size: 24px;
     text-decoration: none;
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     width: 430px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 .big-text {
@@ -59,6 +59,7 @@
     align-items: center;
     justify-content: center;
     margin-right: 200px;
+    gap: 20px;
 }
 
 /* 로그인 버튼 */
@@ -80,7 +81,7 @@
 
 .social_login {
     width: 430px;
-    margin-top: 40px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -103,7 +104,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 30px;
     width: 180px;
     border: solid 1px rgb(187, 183, 183);
@@ -131,7 +132,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 45px;
+    margin-top: 20px;
 }
 
 .or-text {
@@ -149,7 +150,6 @@ hr {
 .save-box {
     display: flex;
     width: 430px;
-    margin-top: 30px;
     font-size: 13px;
 }
 
