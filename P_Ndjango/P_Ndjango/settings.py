@@ -188,11 +188,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Asia/Seoul"
+TIME_ZONE = "Asia/Seoul"  # 데이터베이스 시간대
 
-USE_I18N = True
-
-USE_TZ = True
+USE_I18N = True  # 장고 번역시스템 활성화 여부
+USE_L10N = True  # 현지화 데이터 형식 사용 여부
+USE_TZ = False  # 시간대 인식 여부
 
 
 # Static files (CSS, JavaScript, Images)

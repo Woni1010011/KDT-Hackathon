@@ -12,6 +12,7 @@
 <body>
     <div class='container'>
         <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
             <div class='left-content'>
                 <div class='welcome_signup'>
                     <span class='big-text'>회원가입</span>
@@ -28,7 +29,7 @@
                     <div class='lost-pw'>
                         <span class='small-text'>비밀번호</span>
                     </div>
-                    <input type='text' class='user-input' placeholder='Enter your password' name='password' required>
+                    <input type='password' class='user-input' placeholder='Enter your password' name='user_password' required>
                 </div>
 
                 {% comment %} 비밀번호 확인 {% endcomment %}
@@ -36,7 +37,7 @@
                     <div class='lost-pw'>
                         <span class='small-text'>비밀번호 확인</span>
                     </div>
-                    <input type='text' class='user-input' placeholder='Enter your password again' name='password_check' required>
+                    <input type='password' class='user-input' placeholder='Enter your password again' name='password_check' required>
                 </div>
 
                 {% comment %} 이름 {% endcomment %}
@@ -91,4 +92,10 @@
         </div>
     </div>
 </body>
+<script>
+    // context 데이터에서 result 값을 가져와서 alert 창으로 표시
+    {% if result %}
+    alert("{{ result }}");
+    {% endif %}
+</script>
 </html>
