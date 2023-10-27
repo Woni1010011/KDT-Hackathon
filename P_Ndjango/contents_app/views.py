@@ -187,7 +187,8 @@ def search_result(request):
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
 
     # For Boards
-    board_results = Board.objects.filter(Q(post_content__icontains=query) | Q(board_no=1))
+    board_results = Board.objects.filter(post_content__icontains=query)
+
     
     for board in board_results:
         board.thumbnail = extract_first_image(board.post_content)
