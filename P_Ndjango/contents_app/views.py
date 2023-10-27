@@ -15,22 +15,28 @@ from . import receipe_search
 
 # Create your views here.
 def homepage(request):
-    recipes = Recipes.objects.all()
-    recipe_images = recipes.values_list('recipe_img', flat=True)
-
-    def extract_order(direction):
-        # 순서 번호 추출
-        order = int(direction.split(".")[0])
-        return order
+    recipes = Recipes.objects.all()[:9]
+    recipe_images = [recipe.recipe_img for recipe in recipes]
     
-    sorted_recipe_images = []
-    for img in recipe_images:
-        sorted_recipe_images.append(img.split(" ")[1])
+    def urlString (queryset) :
+        list_url = queryset.split(',')
+        match = re.search(r'https://[^\s}"]+', list_url[-1])
+        if match:
+            url = match.group()
+            return url
+        else:
+            print("매칭된 URL이 없습니다.")
 
-    thumbnail = sorted_recipe_images[-1]
+    thumbnails = []
+    for i in range(9) :
+        thumbnails.append(urlString(recipe_images[i]))
 
+    mylist = zip(recipes, thumbnails)
+    context = {
+        'mylist' : mylist,
+    }
     
-    return render(request, "homepage.html", {"recipes": recipes, "thumbnail": thumbnail})
+    return render(request, "homepage.html", context)
 
 
 def search(request):

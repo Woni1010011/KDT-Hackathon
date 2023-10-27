@@ -113,7 +113,6 @@ button:hover {
     font-size: x-large;
 }
 .recipe_contents_container {
-    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -122,7 +121,7 @@ button:hover {
     padding: 10px 0px 10px 0px;
 }
 .recipe_content {
-    background-color: green;
+    background-color: #ecfafd;
     display: flex;
     flex-direction: column;
     margin: 0 5px 0 0;
@@ -134,6 +133,12 @@ button:hover {
     background-color: pink;
     border-radius: 20px;
     height: 300px;
+    width: 340px;
+}
+.thumbnail {
+    width: 380px;
+    height: 300px;
+    border-radius: 20px;
 }
 .recipe_title{
     font-size: 1.5rem;

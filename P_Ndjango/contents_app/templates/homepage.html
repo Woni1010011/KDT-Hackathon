@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomePage</title>
     <!-- S3 배포용 -->
-    <link rel="stylesheet" href="{%static 'css/homepage.css'%}" >
+    <link rel="stylesheet" href="static/css/homepage.css" >
     <!-- 로컬 수정용 -->
     <!-- <link rel="stylesheet" href="static/css/homepage.css" > -->
 </head>
@@ -30,89 +30,32 @@
                 <p>Categories</p>
                 <button>View All Categories</button>
             </div>
-            <div class="categories_contents_area">
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-                <div class="categories_content">
-                    <div class="category_img">
-
-                    </div>
-                    <div class="category_title">
-                        <p>쌀밥</p>
-                    </div>
-                </div>
-            </div>
+            <div class="categories_contents_area"></div>
         </div>
 
         <div class="recipes_previews">
             <div class="previes_title">
                 <p>Simple and tasty recipes</p>
             </div>
-            <div class="recipe_contents_container">
-                {% for recipe in recipes %}
-                <div class="recipe_content">
-                    <div class="recipe_image">
-                        <img src="{{ thumbnail }}" alt="Thumbnail Image">
-                        
-                    </div>
-                    <div class="recipe_title">
-                        <span>{{ recipe.recipe_title}}</span>
-                    </div>
-                    <div class="recipe_info">
-                        <span>{{recipe.cook_time}}</span> <span>{{recipe.recipe_level}}</span>
-                    </div>
+            
+            {% for recipe, thumbnail in mylist %}
+            <div class="recipe_content">
+                <div class="recipe_image">
+                    <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
                 </div>
-                {% endfor %}
-
+                <div class="recipe_title">
+                    <span>{{ recipe.recipe_title|slice:":16" }}</span>
+                </div>
+                <div class="recipe_info">
+                    <span>{{ recipe.cook_time}}</span> <span>{{recipe.recipe_level}}</span>
+                </div>
             </div>
+            {% endfor %}
             <div class="recipe_contents_container"></div>
             <div class="recipe_contents_container"></div>
+            <div class="recipe_contents_container"></div>
+
+            
         </div>
 
         {% include "footerbar.html" %}
@@ -120,7 +63,7 @@
 
     </div>
 
-    <script src="{% static 'js/homepage.js' %}"></script>
+    <script src="static/js/homepage.js"></script>
 
 </body>
 
