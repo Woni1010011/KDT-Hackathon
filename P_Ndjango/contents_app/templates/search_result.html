@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/search_result.css' %}">
 </head>
 <body>
@@ -39,9 +40,9 @@
         <div class="posting_list">
         {% for recipe in recipes %}
             <div class="post">
-                <a href="{% url 'post' recipe.recipe_no %}">
-                    <div class="post_img">
-                        <img src="{{ recipe.thumbnail }}" alt="{{ recipe.recipe_title }}">
+                <a href="{% url 'recipe' recipe.recipe_no %}">
+                    <div class="post_image">
+                        <img class="post_img" src="{{ recipe.thumbnail }}" alt="{{ recipe.recipe_title }}">
                     </div>
                     <div class="post_info">
                         <div class="title_box">
@@ -59,9 +60,9 @@
         <div class="posting_list">
             {% for board in boards %}
             <div class="post">
-                <a href="{% url 'board_post' board.id %}"> <!-- URL 및 인자는 실제 상황에 맞게 조정 필요 -->
-                    <div class="post_img">
-                        <img src="{{ board.thumbnail }}" alt="{{ board.post_title }}"> <!-- board 모델에 thumbnail 필드를 추가했다고 가정 -->
+                <a href="{% url 'post' board.post_no %}"> <!-- URL 및 인자는 실제 상황에 맞게 조정 필요 -->
+                    <div class="post_image">
+                        <img class="post_img" src="{{ board.thumbnail }}" alt="{{ board.post_title }}"> <!-- board 모델에 thumbnail 필드를 추가했다고 가정 -->
                     </div>
                     <div class="post_info">
                         <div class="title_box">

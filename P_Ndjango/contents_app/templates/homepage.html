@@ -8,6 +8,7 @@
     <title>HomePage</title>
     <!-- S3 배포용 -->
     <link rel="stylesheet" href="static/css/homepage.css" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <!-- 로컬 수정용 -->
     <!-- <link rel="stylesheet" href="static/css/homepage.css" > -->
 </head>
@@ -39,7 +40,8 @@
             </div>
             
             {% for recipe, thumbnail in mylist %}
-            <div class="recipe_content">
+            
+            <div class="recipe_content"><a href="{% url 'recipe' recipe.recipe_no %}" >
                 <div class="recipe_image">
                     <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
                 </div>
@@ -48,7 +50,7 @@
                 </div>
                 <div class="recipe_info">
                     <span>{{ recipe.cook_time}}</span> <span>{{recipe.recipe_level}}</span>
-                </div>
+                </div></a>
             </div>
             {% endfor %}
             <div class="recipe_contents_container"></div>
