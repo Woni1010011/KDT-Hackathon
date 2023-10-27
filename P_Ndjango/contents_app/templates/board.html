@@ -48,7 +48,7 @@
                     </div>
                     <div class="post_container">
                         <span class="post_title">{{ post.post_title }}</span>
-                        <p class="post_content">{{ post.post_content }}</p>
+                        <p class="post_content">{{ post.post_content|striptags }}</p>
                         <p class="post_content">{{ post.user_nick }} | {{ post.post_time }} | {{ post.post_hit }}</p>
                     </div>
                 </div>

@@ -118,14 +118,29 @@ def img_search(request):
 
 def board(request, filter):
     if filter == "ALL":
-        posts = Board.objects.all()
+        posts = Board.objects.all().order_by("-post_no")
     elif filter == "recipe":
-        posts = Board.objects.filter(board_no=1)
+        posts = Board.objects.filter(board_no=1).order_by("-post_no")
     elif filter == "talk":
-        posts = Board.objects.filter(board_no=2)
+        posts = Board.objects.filter(board_no=2).order_by("-post_no")
     elif filter == "my":
         user_id = request.session.get("user_id")
-        posts = Board.objects.filter(user_id=user_id)
+        try:
+            user = User.objects.get(user_id=user_id)
+            user_nick = user.user_nick
+            user_name = user.user_name
+
+            # user_nick으로 게시물 필터링
+            posts_nick = Board.objects.filter(user_nick=user_nick).order_by("-post_no")
+
+            # user_name으로 게시물 필터링
+            posts_name = Board.objects.filter(user_nick=user_name).order_by("-post_no")
+
+            # 두 결과를 합칩니다.
+            posts = posts_nick | posts_name
+        except User.DoesNotExist:
+            # 사용자를 찾을 수 없는 경우의 처리
+            posts = []
 
     return render(request, "board.html", {"posts": posts, "filter": filter})
 
