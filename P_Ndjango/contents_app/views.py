@@ -200,7 +200,7 @@ def recipe_view(request, recipe_no):
     # 결과를 post.html 템플릿에 전달
     return render(
         request,
-        "post.html",
+        "recipe.html",
         {
             "recipe": recipe,
             "ingredients_list": ingredients_list,
@@ -229,3 +229,20 @@ def write_post(request):
         form = PostForm()
 
     return render(request, "write_post.html", {"write_form": form})
+
+
+# post_view 함수 정의
+def post_view(request, post_no):
+    post = get_object_or_404(Board, post_no=post_no)
+    # if "delete-button" in request.POST:
+    #     post.delete()
+    #     return redirect("board")
+
+    post.post_hit += 1
+    post.save()
+
+    context = {
+        "post": post,
+    }
+
+    return render(request, "post.html", context)

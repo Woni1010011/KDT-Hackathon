@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href='/static/css/post.css'></head>
+    <link rel="stylesheet" type="text/css" href='/static/css/recipe.css'></head>
 <body>
     {% include 'navbar.html' %}
         <div class="header">
             <div class="header_in_header">
                 <!--게시물 제목-->
                 <div class="header_info">
-                    <div class="header_title"><h1>{{ post.post_title }}</h1></div>
+                    <div class="header_title"><h1>{{ recipe.recipe_title }}</h1></div>
                     <div class="recipes_tags">
                         <!-- 인분 정보 -->
                         <div class="posted_by">
@@ -21,8 +21,7 @@
                                 <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
                             </div>
                             <div class="posted_by_info">
-                                <div class="time_text">작성자</div>
-                                <div class="posted_by_info">{{ post.user_nick }}</div>
+                                <div class="posted_by_info">{{ recipe.serving }}</div>
                             </div>
                         </div>
                         
@@ -32,8 +31,8 @@
                                 <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
                             </div>
                             <div class="posted_by_info">
-                                <div class="time_text">작성시간</div>
-                                <div class="time">{{ post.post_time }}</div>
+                                <div class="time_text">조리시간</div>
+                                <div class="time">{{ recipe.cook_time }}</div>
                             </div>
                         </div>
                         
@@ -43,17 +42,7 @@
                                 <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\ForkKnife.svg' %}" alt="">
                             </div>
                             <div class="posted_by_info">
-                                <div class="time_text">조회수</div>
-                                <div class="posted_by_info_text">{{ post.post_hit }}</div>
-                            </div>
-                        </div>
-                        <div class="posted_by">
-                            <div>
-                                <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\ForkKnife.svg' %}" alt="">
-                            </div>
-                            <div class="posted_by_info">
-                                <div class="time_text">좋아요</div>
-                                <div class="posted_by_info_text">{{ post.post_like }}</div>
+                                <div class="posted_by_info_text">{{ recipe.recipe_level }}</div>
                             </div>
                         </div>
                     </div>
@@ -75,14 +64,40 @@
             </div>
 
             <!--메인 사진, 영양성분표, 레시피 설명-->
+            <div class="main_box">
+                <div class="main_picture">
+                    <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                </div>  
+                <div class="recipe_info">
+                    <p class="title_ingredient">재  료</p>
+                    {% for ingredient in ingredients_list %}
+                    <span class="ingredient">{{ ingredient }}</span>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 </div>
 
+<h3 class="h3">요리방법</h3>
 <div class="body_02">
         <!--조리 순서별로 사진이랑 같이-->
     
-        <div class="post-content">{{ post.post_content | safe }}</div>
-
+    <div class="directions">    
+        <div class="recipe_process">
+            {% for step in recipe_images %}
+            <div class="step-image">
+                <img src="{{step}}" alt="">
+                {% comment %} {{step}} {% endcomment %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="direction-step">
+                    <!-- {% comment %} <div class="step-number">{{ forloop.counter }}</div> {% endcomment %} -->
+            {% for step in directions %}
+            <div class="step-description">{{ step }}</div>
+            {% endfor %}
+        </div>
+    </div>
     <div class="side_recipe">
         <span class="side_title">또 다른 레시피</span>
         <!--추천하는 다른 레시피 부분-->
