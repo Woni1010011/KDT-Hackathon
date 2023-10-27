@@ -43,7 +43,7 @@ def search(request):
     return render(request, "search.html")
 
 
-# user_name 가져오기
+# 사용자 이름 가져오기
 def get_user_name(request):
     user_id = request.session.get("user_id")
 
@@ -51,9 +51,14 @@ def get_user_name(request):
         try:
             # user_id에 해당하는 사용자 조회
             user = User.objects.get(user_id=user_id)
+            user_nick = user.user_nick
             user_name = user.user_name
 
-            return user_name
+            if user_nick:
+                return user_nick
+            else:
+                # user_nick이 없을 경우 user_name 값을 반환
+                return user_name
         except User.DoesNotExist:
             # 사용자가 존재하지 않을 때
             return None
@@ -118,8 +123,33 @@ def img_search(request):
         return render(request, "img_search.html")
 
 
-def board(request):
-    return render(request, "board.html")
+def board(request, filter):
+    if filter == "ALL":
+        posts = Board.objects.all().order_by("-post_no")
+    elif filter == "recipe":
+        posts = Board.objects.filter(board_no=1).order_by("-post_no")
+    elif filter == "talk":
+        posts = Board.objects.filter(board_no=2).order_by("-post_no")
+    elif filter == "my":
+        user_id = request.session.get("user_id")
+        try:
+            user = User.objects.get(user_id=user_id)
+            user_nick = user.user_nick
+            user_name = user.user_name
+
+            # user_nick으로 게시물 필터링
+            posts_nick = Board.objects.filter(user_nick=user_nick).order_by("-post_no")
+
+            # user_name으로 게시물 필터링
+            posts_name = Board.objects.filter(user_nick=user_name).order_by("-post_no")
+
+            # 두 결과를 합칩니다.
+            posts = posts_nick | posts_name
+        except User.DoesNotExist:
+            # 사용자를 찾을 수 없는 경우의 처리
+            posts = []
+
+    return render(request, "board.html", {"posts": posts, "filter": filter})
 
 
 def search_result(request):
@@ -167,8 +197,8 @@ def recipe_list(request):
 #     return ingredients
 
 
-# post 함수 정의
-def post(request, recipe_no):
+# recipe_view 함수 정의
+def recipe_view(request, recipe_no):
     # 레시피스 테이블 내용들을 불러옴
     recipe = Recipes.objects.get(pk=recipe_no)
 
@@ -203,7 +233,7 @@ def post(request, recipe_no):
     # 결과를 post.html 템플릿에 전달
     return render(
         request,
-        "post.html",
+        "recipe.html",
         {
             "recipe": recipe,
             "ingredients_list": ingredients_list,
@@ -227,8 +257,26 @@ def write_post(request):
             post = form.save(commit=False)
             post.user_nick = user_name
             post.save()
-            return redirect("main")
+            post_no = post.post_no
+            return redirect("post", post_no=post_no)
     else:
         form = PostForm()
 
     return render(request, "write_post.html", {"write_form": form})
+
+
+# post_view 함수 정의
+def post_view(request, post_no):
+    post = get_object_or_404(Board, post_no=post_no)
+    # if "delete-button" in request.POST:
+    #     post.delete()
+    #     return redirect("board")
+
+    post.post_hit += 1
+    post.save()
+
+    context = {
+        "post": post,
+    }
+
+    return render(request, "post.html", context)
