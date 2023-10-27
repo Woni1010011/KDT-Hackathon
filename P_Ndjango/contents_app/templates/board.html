@@ -30,12 +30,16 @@
                     <div class="filter"><a href="{% url 'board' 'ALL' %}">ALL</a></div>
                     <div class="filter"><a href="{% url 'board' 'recipe' %}">recipe</a></div>
                     <div class="filter"><a href="{% url 'board' 'talk' %}">talk</a></div>
+                    {% if request.session.user_id %}
                     <div class="filter"><a href="{% url 'board' 'my' %}">my</a></div>
+                    {% endif %}
                 </div>
                 <div class="board_search">
                     <input type="text">
                     <button>검색</button>
+                    {% if request.session.user_id %}
                     <a href={% url "write_post" %}>글쓰기</a>
+                    {% endif %}
                 </div>
             </div>
 
