@@ -16,20 +16,19 @@ from . import receipe_search
 # Create your views here.
 def homepage(request):
     recipes = Recipes.objects.all()
-    recipe_images = recipes.values_list('recipe_img', flat=True)
+    recipe_images = recipes.values_list("recipe_img", flat=True)
 
     def extract_order(direction):
         # 순서 번호 추출
         order = int(direction.split(".")[0])
         return order
-    
+
     sorted_recipe_images = []
     for img in recipe_images:
         sorted_recipe_images.append(img.split(" ")[1])
 
     thumbnail = sorted_recipe_images[-1]
 
-    
     return render(request, "homepage.html", {"recipes": recipes, "thumbnail": thumbnail})
 
 
@@ -37,7 +36,7 @@ def search(request):
     return render(request, "search.html")
 
 
-# user_name 가져오기
+# 사용자 이름 가져오기
 def get_user_name(request):
     user_id = request.session.get("user_id")
 
@@ -45,9 +44,13 @@ def get_user_name(request):
         try:
             # user_id에 해당하는 사용자 조회
             user = User.objects.get(user_id=user_id)
-            user_name = user.user_name
+            user_nick = user.user_nick
 
-            return user_name
+            if user_nick:
+                return user_nick
+            else:
+                # user_nick이 없을 경우 user_name 값을 반환
+                return user.user_name
         except User.DoesNotExist:
             # 사용자가 존재하지 않을 때
             return None
