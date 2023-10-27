@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
-    <script src="contents_app/js/mypage_edit.js" defer></script>
+    <script src="account_app/js/my_page.js" defer></script>
 </head>
 
 <body>
@@ -97,22 +97,13 @@
             </div>
 
             <div class="buttons">
-                <button type="submit"> SEND </button>
-
-                <!-- 수정 버튼 -->
-                <button type="button" id="edit-button" onclick="goToEditPage()"> EDIT </button>
+                <button type="submit" onclick="goToEditPage()"> 프로필 편집 </button>
             </div>
-            {% include 'my_fridge_section.html' %}
         </main>
     </div>
 
     {% include 'footerbar.html' %}
 
-    <script>
-        function goToEditPage() {
-            window.location.href = "profile_edit.html";
-        }
-    </script>
     </main>
 
 </body>

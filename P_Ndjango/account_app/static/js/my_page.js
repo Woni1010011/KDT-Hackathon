@@ -1,10 +1,6 @@
 function goToEditPage() {
-    window.location.href = "profile_edit.html";
+    window.location.href = "{% url 'profile_edit' %}";
 }
-
-document.getElementById("save-button").addEventListener("click", function () {
-    window.location.href = "my_page.html";
-});
 
 function previewImage(event) {
     var input = event.target;
