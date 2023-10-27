@@ -1,22 +1,23 @@
 from django import forms
-from .models import Write_post
+from .models import Board
 from django_summernote.widgets import SummernoteWidget
 
 
 class PostForm(forms.ModelForm):
-    content = forms.CharField(
+    post_content = forms.CharField(
         widget=SummernoteWidget(),
     )
 
     class Meta:
-        model = Write_post
-        fields = []
+        model = Board
+        fields = ["post_title", "post_content", "board_no"]
         widgets = {
             " ": SummernoteWidget(),
         }
         exclude = [
             "post_time",
             "post_like",
+            "post_hit",
         ]
 
     def __init__(self, *args, **kwargs):

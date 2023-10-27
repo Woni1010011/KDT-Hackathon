@@ -5,6 +5,7 @@ from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
 from .models import Recipes, Board
+from account_app.models import User
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
@@ -36,22 +37,38 @@ def search(request):
     return render(request, "search.html")
 
 
+# user_name 가져오기
+def get_user_name(request):
+    user_id = request.session.get("user_id")
+
+    if user_id:
+        try:
+            # user_id에 해당하는 사용자 조회
+            user = User.objects.get(user_id=user_id)
+            user_name = user.user_name
+
+            return user_name
+        except User.DoesNotExist:
+            # 사용자가 존재하지 않을 때
+            return None
+    else:
+        return None
+
+
 def material_search(request):
-    if request.method == 'POST' :
-        image = request.FILES['image'] # FILES를 따로 한 이유가 있
-        file_name = './contents_app/static/img/' + image.name
-        
-        with open(file_name, 'wb') as file :
-            for chunk in image.chunks() :
+    if request.method == "POST":
+        image = request.FILES["image"]  # FILES를 따로 한 이유가 있
+        file_name = "./contents_app/static/img/" + image.name
+
+        with open(file_name, "wb") as file:
+            for chunk in image.chunks():
                 file.write(chunk)
-        
-        
+
         content = image.read()
         image = types.Image(content=content)
-        text = receipe_search.tempFunction(file_name) # receipt_image to text
+        text = receipe_search.tempFunction(file_name)  # receipt_image to text
 
-        return render(request, 'material_search.html', {'text' : text})
-    
+        return render(request, "material_search.html", {"text": text})
 
     return render(request, "material_search.html")
 
@@ -195,13 +212,17 @@ from .forms import PostForm
 
 
 def write_post(request):
-    form = PostForm()
+    user_name = get_user_name(request)
+
     if request.method == "POST":
         form = PostForm(request.POST)
+
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.user_nick = user_name
+            post.save()
             return redirect("main")
-        else:
-            form = PostForm()  # 발행 후 리다이렉트할 페이지
+    else:
+        form = PostForm()
 
     return render(request, "write_post.html", {"write_form": form})

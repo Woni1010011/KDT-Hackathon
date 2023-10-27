@@ -18,27 +18,38 @@
 </head>
 
 <body> <!-- navbar 대체 고민 -->
-    <header class="topnav">
-        <a href="{%url 'main'%}">
-            <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
-        </a>
+    <form method="post" action="{% url 'write_post' %}">
+        {% csrf_token %}
+        <header class="topnav">
+            <a href="{%url 'main'%}">
+                <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+            </a>
 
-        <a href="{% url 'main' %}" type="submit" class="button-style" id="save-btn">임시 저장</a>
-        <a href="{% url 'main' %}" type="submit" class="publish-button" id="publish-btn">발행</a>
+            <a href="{% url 'main' %}" type="submit" class="button-style" id="save-btn">임시 저장</a>
+            <a href="{% url 'main' %}" type="submit" class="publish-button" id="publish-btn">발행</a>
+            <input type="submit" name="save-button" class="save-button" value="글 작성" />
 
-    </header>
-    <div class="board_content">
-        <div class="title">
-            <textarea class="title_content" type="text" placeholder="제목"></textarea>
+        </header>
+        <div class="board_content">
+            <div class="title">
+                <textarea class="post_title" type="text" id="post_title" name="post_title" placeholder="제목" value={{ write_form.post_title }}</textarea>
+            </div>
+            <div class"post_content" id="post_content" name="post_content">
+                    {{ write_form.post_content }}
+            </div>
+            <div class="box">
+                <h2>카테고리</h2>
+                <div>
+                    <input type="radio" id="recipe" name="board_no" value="1" {% if board_no == '1' %}checked{% endif %}/>
+                    <label for="recipe">recipe</label>
+                </div>
+                <div>
+                <input type="radio" id="talk" name="board_no" value="2" {% if board_no == '2' %}checked{% endif %}//>
+                <label for="talk">talk</label>
+                </div>
+            </div>
         </div>
-        <div>
-            <form method="post" action="{% url 'write_post' %}" class="my-custom-form">
-                {% csrf_token %}
-                {{ write_form.content }}
-            </form>
-        </div>
-    </div>
-
+    </form>
 
     {% include "footerbar.html" %}
 
