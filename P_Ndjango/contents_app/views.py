@@ -12,6 +12,7 @@ from django.db.models import Q
 from . import receipe_search
 
 
+
 # Create your views here.
 def homepage(request):
     return render(request, "homepage.html")
@@ -84,14 +85,43 @@ def board(request):
     return render(request, "board.html")
 
 
+from django.core.paginator import Paginator
+
 def search_result(request):
     query = request.GET.get("q")
+    # 검색한 레시피 가져오기 검색-> ingredients
     if query:
-        results = Board.objects.filter(post_title__icontains=query)
+        results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
     else:
-        results = Board.objects.all()
+        results = Recipes.objects.all()
+    # 이미지 추출 후 썸네일 사용
+    for recipe in results:
+        recipe_images = ast.literal_eval(recipe.recipe_img)
+        
+        def extract_order(direction):
+            # 순서 번호 추출
+            order = int(direction.split(".")[0])
+            return order
 
-    return render(request, "search_result.html", {"posts": results})
+        # 정렬된 directions 리스트 생성
+        sorted_recipe_images = sorted(recipe_images, key=extract_order)
+
+        sorted_imgs = []
+        for img in sorted_recipe_images:
+            sorted_imgs.append(img.split(" ")[1])
+
+        recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
+
+    # 페이지 넘버부분
+    # Pagination 적용
+    paginator = Paginator(results, 5)  # Show 5 recipes per page.
+    
+    page = request.GET.get('page')
+    recipes_on_page = paginator.get_page(page)
+
+    return render(request, "search_result.html", {"recipes": recipes_on_page})
+
+
 
 
 def mypage(request):
