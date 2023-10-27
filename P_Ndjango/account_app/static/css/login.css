@@ -62,8 +62,15 @@
     gap: 20px;
 }
 
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* 로그인 버튼 */
-.loginButton {
+#loginButton {
     border: None;
     border-radius: 10px;
     color: #fff;
@@ -77,6 +84,14 @@
     padding-top: 7px;
     padding-bottom: 7px;
     font-size: 16px;
+}
+
+.save-login-box {
+    margin-top: 30px;
+}
+
+.save-font-box {
+    margin-top: 28px;
 }
 
 .social_login {

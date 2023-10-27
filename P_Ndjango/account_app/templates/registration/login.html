@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+    <!-- S3 배포용 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 </head>
 <body>
     <div class='container'>
@@ -35,13 +36,13 @@
 
                 {% comment %} 체크박스 {% endcomment %}
                 <div class='save-box'>
-                    <input type="checkbox" class='save-login' name='save'>
-                    <label class='save-font' for="save">이메일 기억하기</label>
+                    <input type="checkbox" class='save-login-box' name='save'>
+                    <label class='save-font-box' for="save">이메일 기억하기</label>
                 </div>
                 
                 {% comment %} 로그인 버튼 {% endcomment %}
                 <input id="loginButton" type="submit" value="Login">
-                {% comment %} <a class='login-btn' href="{% url 'main' %}">Login</a> {% endcomment %}
+                <!-- {% comment %} <a class='login-btn' href="{% url 'main' %}">Login</a> {% endcomment %} -->
             </form>
             
 
