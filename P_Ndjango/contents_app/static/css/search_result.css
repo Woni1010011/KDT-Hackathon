@@ -47,7 +47,7 @@ body {
     display: flex;
     position: absolute;
     align-items: center;
-    top:0;
+    top: 0;
     right: 0;
     width: 60px;
     height: 60px;
@@ -106,12 +106,7 @@ article {
     margin-left: 30px;
     margin-top: 20px;
 }
-.post_img > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-}
+
 .post_info {
     margin-left: 25px;
     width: 400px;
@@ -128,7 +123,8 @@ article {
     color: rgba(0, 0, 0, 0.60);
     height: 63px;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* 높이를 넘는 경우 2줄까지만 표시됨 */
+    -webkit-line-clamp: 4;
+    /* 높이를 넘는 경우 2줄까지만 표시됨 */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -253,7 +249,7 @@ article {
     margin-bottom: 40px;
 }
 
-.recommend_info{
+.recommend_info {
     margin-left: 30px;
 }
 
