@@ -164,8 +164,8 @@ def recipe_list(request):
 #     return ingredients
 
 
-# post 함수 정의
-def post(request, recipe_no):
+# recipe_view 함수 정의
+def recipe_view(request, recipe_no):
     # 레시피스 테이블 내용들을 불러옴
     recipe = Recipes.objects.get(pk=recipe_no)
 
