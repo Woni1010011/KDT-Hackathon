@@ -13,6 +13,7 @@ from django.db.models import Q
 from . import receipe_search
 
 
+
 # Create your views here.
 def homepage(request):
     recipes = Recipes.objects.all()[:9]
@@ -152,14 +153,61 @@ def board(request, filter):
     return render(request, "board.html", {"posts": posts, "filter": filter})
 
 
+from django.core.paginator import Paginator
+
+def extract_first_image(post_content):
+    img_pattern = re.compile(r'<img [^>]*src="([^"]+)')
+    match = img_pattern.search(post_content)
+    return match.group(1) if match else None
+
 def search_result(request):
     query = request.GET.get("q")
-    if query:
-        results = Board.objects.filter(post_title__icontains=query)
-    else:
-        results = Board.objects.all()
 
-    return render(request, "search_result.html", {"posts": results})
+    # For Recipes
+    if query:
+        recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
+    else:
+        recipe_results = Recipes.objects.all()
+
+    for recipe in recipe_results:
+        recipe_images = ast.literal_eval(recipe.recipe_img)
+
+        def extract_order(direction):
+            # 순서 번호 추출
+            order = int(direction.split(".")[0])
+            return order
+
+        # 정렬된 directions 리스트 생성
+        sorted_recipe_images = sorted(recipe_images, key=extract_order)
+
+        sorted_imgs = []
+        for img in sorted_recipe_images:
+            sorted_imgs.append(img.split(" ")[1])
+
+        recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
+
+    # For Boards
+    board_results = Board.objects.filter(Q(post_content__icontains=query) | Q(board_no=1))
+    
+    for board in board_results:
+        board.thumbnail = extract_first_image(board.post_content)
+
+    # Pagination for Recipes
+    recipe_paginator = Paginator(recipe_results, 5)  # Show 5 recipes per page.
+    page = request.GET.get('page')
+    recipes_on_page = recipe_paginator.get_page(page)
+
+    # Pagination for Boards
+    board_paginator = Paginator(board_results, 5)  # Show 5 boards per page.
+    boards_on_page = board_paginator.get_page(page)
+
+    return render(request, "search_result.html", {
+        "recipes": recipes_on_page,
+        "boards": boards_on_page
+    })
+
+
+
 
 
 def mypage(request):
