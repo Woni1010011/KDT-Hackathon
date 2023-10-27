@@ -116,8 +116,18 @@ def img_search(request):
         return render(request, "img_search.html")
 
 
-def board(request):
-    return render(request, "board.html")
+def board(request, filter):
+    if filter == "ALL":
+        posts = Board.objects.all()
+    elif filter == "recipe":
+        posts = Board.objects.filter(board_no=1)
+    elif filter == "talk":
+        posts = Board.objects.filter(board_no=2)
+    elif filter == "my":
+        user_id = request.session.get("user_id")
+        posts = Board.objects.filter(user_id=user_id)
+
+    return render(request, "board.html", {"posts": posts, "filter": filter})
 
 
 def search_result(request):

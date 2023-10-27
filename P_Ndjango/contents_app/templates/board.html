@@ -27,10 +27,10 @@
             <!-- 게시판 필터 -->
             <div class="board_header">
                 <div class="board_filter">
-                    <div class="filter">ALL</div>
-                    <div class="filter">recipe</div>
-                    <div class="filter">talk</div>
-                    <div class="filter">my</div>
+                    <div class="filter"><a href="{% url 'board' 'ALL' %}">ALL</a></div>
+                    <div class="filter"><a href="{% url 'board' 'recipe' %}">recipe</a></div>
+                    <div class="filter"><a href="{% url 'board' 'talk' %}">talk</a></div>
+                    <div class="filter"><a href="{% url 'board' 'my' %}">my</a></div>
                 </div>
                 <div class="board_search">
                     <input type="text">
@@ -40,39 +40,20 @@
             </div>
 
             <!-- 글 내용 -->
-            <a href=""><div class="post_list">
+            {% for post in posts %}
+            <a href={% url 'post' post_no=post.post_no %}><div class="post_list">
                 <div class="post_list_container">
                     <div class="post_img">
                         <img src="" alt="">
                     </div>
                     <div class="post_container">
-                        <span class="post_title">How did you start out in the food industry?</span>
-                        <p class="post_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. Praesent feugiat elementum ex ut suscipit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis.</p>
+                        <span class="post_title">{{ post.post_title }}</span>
+                        <p class="post_content">{{ post.post_content }}</p>
+                        <p class="post_content">{{ post.user_nick }} | {{ post.post_time }} | {{ post.post_hit }}</p>
                     </div>
                 </div>
             </div></a>
-            <a href=""><div class="post_list">
-                <div class="post_list_container">
-                    <div class="post_img">
-                        <img src="" alt="">
-                    </div>
-                    <div class="post_container">
-                        <span class="post_title">How did you start out in the food industry?</span>
-                        <p class="post_content">Curabitur ac ultrices odio. Nulla at congue diam, at dignissim turpis. Ut vehicula sed velit a faucibus. In feugiat vestibulum velit vel pulvinar. Fusce id mollis ex. Praesent feugiat elementum ex ut suscipit. </p>
-                    </div>
-                </div>
-            </div></a>
-            <a href=""><div class="post_list">
-                <div class="post_list_container">
-                    <div class="post_img">
-                        <img src="" alt="">
-                    </div>
-                    <div class="post_container">
-                        <span class="post_title">How did you start out in the food industry?</span>
-                        <p class="post_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices odio. </p>
-                    </div>
-                </div>
-            </div></a>
+            {% endfor %}
             
         </section>
     </div>
