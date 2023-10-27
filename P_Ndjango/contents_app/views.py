@@ -45,12 +45,13 @@ def get_user_name(request):
             # user_id에 해당하는 사용자 조회
             user = User.objects.get(user_id=user_id)
             user_nick = user.user_nick
+            user_name = user.user_name
 
             if user_nick:
                 return user_nick
             else:
                 # user_nick이 없을 경우 user_name 값을 반환
-                return user.user_name
+                return user_name
         except User.DoesNotExist:
             # 사용자가 존재하지 않을 때
             return None
@@ -224,7 +225,8 @@ def write_post(request):
             post = form.save(commit=False)
             post.user_nick = user_name
             post.save()
-            return redirect("main")
+            post_no = post.post_no
+            return redirect("post", post_no=post_no)
     else:
         form = PostForm()
 
