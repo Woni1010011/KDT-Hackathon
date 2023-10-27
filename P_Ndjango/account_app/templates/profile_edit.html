@@ -5,16 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <title>요리사 정보</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/my_page.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/profile_edit.css'%}">
-    <script src="account_app/js/mypage_edit.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <script src="account_app/js/profile_edit.js" defer></script>
 </head>
 
 <body>
-    
+
     <header class='topnav'>
         <div id='main_logo'>
             <a href="{% url 'main' %}">
@@ -30,9 +29,7 @@
         </div>
     </header>
 
-
     <script>
-        {% comment %} 알람버튼 호버기능 {% endcomment %}
         var alarmLink = document.getElementById("alarmLink");
         var img = document.querySelector(".alarm_btn");
 
@@ -47,76 +44,66 @@
         });
     </script>
 
-    <div class='wrapper'>
+    <div class="wrapper">
         <aside class="category-sidebar">
             <header>
-                <h1 class="chef_njango">{{ user_profile.user_name }} 셰프의 냉장고</h1>
+                <h1 class="chef_njango">{{ User.user_name }} 셰프의 냉장고</h1>
             </header>
             <ul class="category-list">
+                <li><a href="user-info">셰프 정보</a></li>
                 <li><a href="my-ndjango">내 냉장고</a></li>
                 <li><a href="alarm_list">알림 목록</a></li>
                 <li><a href="favorite_list">찜해놓은 레시피</a></li>
                 <li><a href="current-watching">최근 감상 목록</a></li>
-                <li><a href="user-info">셰프 정보</a></li>
-
 
                 <!-- Add more categories as needed -->
             </ul>
         </aside>
+        <main id="first_main" class="box-contents">
 
-        <section id="profile">
-            <div class="profile-picture">
-                <!-- 프로필 업로드 폼 -->
-                <input type="file" id="profile-picture" name="profile-picture"><br>
-                <label for="profile-picture">프로필 사진</label>
+            <section id="profile">
+                <div class="profile-picture">
+                    <!-- 프로필 업로드 폼 -->
+                    <img id="preview" src="#" alt=""><br>
+                    <input type="file" id="profile-picture" name="profile-picture1"><br>
+                </div>
+                <h2>{{ User.user_name }} 띵똥 h2 </h2>
+                <p>{{ User.user_point }} point </p>
+
+            </section><br>
+            <div id="user-details" class="user-details">
+                <div class="user-info1">
+                    <label for="usernickname">닉네임</label><br>
+                    <input type="text" id="usernickname" name="usernickname" value="{{ User.user_nick }}"><br><br>
+
+                    <label for="email">이메일 주소</label><br>
+                    <input type="email" id="email" name="email" value="{{ User.user_email }}"><br><br>
+
+                    <label for="location">거주지역</label><br>
+                    <input type="text" id="location" name="location" value="{{ User.user_address }}"><br><br>
+                </div>1
+                <div class="user-info2">
+                    <label for="username">성명</label><br>
+                    <input type="username" id="username" name="username" value="{{ User.user_name }}"><br><br>
+
+                    <label for="phonenumber">전화번호</label><br>
+                    <input type="text" id="phonenumber" name="phonenumber" value="{{ User.user_phone }}"><br><br>
+
+                    <label for="date">가입 일자</label><br>
+                    <input type="date" id="date_first" name="created_at" value="{{ User.sub_date }}" readonly>
+                </div>
             </div>
 
-            <div class="user-details">
-                <!-- 사용자 이름 / 닉네임? -->
-                <label for="username">NAME</label><br>
-                <input type="text" id="username" name="username"><br><br>
-
-                <!-- 이메일 주소 입력 -->
-                <label for="email">EMAIL ADDRESS</label><br>
-                <input type="email" id="email" name="email">
+            <div class="buttons">
+                <button type="button" id="edit-button" onclick="goToMyPage()"> 변경사항 저장 </button>
             </div>
-        </section>
-        <section id="message">
 
-            <!-- subject -->
-
-            <label for="subject">Subject</label><br>
-            <input type="text" id="subject" name="subject"><br><br>
-
-            <!-- Enquiry Type -->
-
-            <label for="enquiry-type"> Enquiry Type </label><br>
-            <select id="enquiry-type" name="enquiry-type">
-                <option value="general">일반 문의</option>
-                <option value="support">지원</option>
-                <option value="friend">친구 신청</option>
-                <option value="colaboration">협업</option>
-                <option value="feedback">피드백</option>
-                <option value="etc">기타</option>
-            </select><br><br>
-
-        </section>
-
-        <!-- 메시지 입력 -->
-        <label for="user-message"> MESSAGES </label><br>
-        <textarea id="user-message" name="user-message" rows="4" cols="50"></textarea><br><br>
-
-        <!-- 저장 버튼 -->
-        <button type="button" id="save-button"> SAVE </button>
+        </main>
     </div>
 
     {% include 'footerbar.html' %}
 
-    <script>
-        function goToEditPage() {
-            window.location.href = "profile_edit.html";
-        }
-    </script>
+
     </main>
 
 </body>
