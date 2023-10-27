@@ -34,14 +34,14 @@
 
     {% comment %} 크롤링된 게시물 {% endcomment %}
     <article>
-        {% comment %} 검색결과 {% endcomment %}
+        {% comment %} 검색결과(크롤링 레시피){% endcomment %}
         <!--이미지, 제목 붙이기-->
         <div class="posting_list">
         {% for recipe in recipes %}
             <div class="post">
                 <a href="{% url 'post' recipe.recipe_no %}">
-                    <div class="post_img_box">
-                        <img class="post_img" src="{{ recipe.thumbnail }}" alt="{{ recipe.recipe_title }}">
+                    <div class="post_img">
+                        <img src="{{ recipe.thumbnail }}" alt="{{ recipe.recipe_title }}">
                     </div>
                     <div class="post_info">
                         <div class="title_box">
@@ -53,6 +53,26 @@
                 </a>
             </div>
         {% endfor %}          
+        </div>
+        <p><h3>유저 레시피</h3></p>
+        {% comment %} 검색결과 (유저 게시 레시피) {% endcomment %}
+        <div class="posting_list">
+            {% for board in boards %}
+            <div class="post">
+                <a href="{% url 'board_post' board.id %}"> <!-- URL 및 인자는 실제 상황에 맞게 조정 필요 -->
+                    <div class="post_img">
+                        <img src="{{ board.thumbnail }}" alt="{{ board.post_title }}"> <!-- board 모델에 thumbnail 필드를 추가했다고 가정 -->
+                    </div>
+                    <div class="post_info">
+                        <div class="title_box">
+                            <p class="title_text">
+                                {{ board.post_title }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">

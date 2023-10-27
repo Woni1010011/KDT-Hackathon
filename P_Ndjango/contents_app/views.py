@@ -87,17 +87,23 @@ def board(request):
 
 from django.core.paginator import Paginator
 
+def extract_first_image(post_content):
+    img_pattern = re.compile(r'<img [^>]*src="([^"]+)')
+    match = img_pattern.search(post_content)
+    return match.group(1) if match else None
+
 def search_result(request):
     query = request.GET.get("q")
-    # 검색한 레시피 가져오기 검색-> ingredients
+
+    # For Recipes
     if query:
-        results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
+        recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
     else:
-        results = Recipes.objects.all()
-    # 이미지 추출 후 썸네일 사용
-    for recipe in results:
+        recipe_results = Recipes.objects.all()
+
+    for recipe in recipe_results:
         recipe_images = ast.literal_eval(recipe.recipe_img)
-        
+
         def extract_order(direction):
             # 순서 번호 추출
             order = int(direction.split(".")[0])
@@ -112,14 +118,26 @@ def search_result(request):
 
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
 
-    # 페이지 넘버부분
-    # Pagination 적용
-    paginator = Paginator(results, 5)  # Show 5 recipes per page.
+    # For Boards
+    board_results = Board.objects.filter(Q(post_content__icontains=query) | Q(board_no=1))
     
-    page = request.GET.get('page')
-    recipes_on_page = paginator.get_page(page)
+    for board in board_results:
+        board.thumbnail = extract_first_image(board.post_content)
 
-    return render(request, "search_result.html", {"recipes": recipes_on_page})
+    # Pagination for Recipes
+    recipe_paginator = Paginator(recipe_results, 5)  # Show 5 recipes per page.
+    page = request.GET.get('page')
+    recipes_on_page = recipe_paginator.get_page(page)
+
+    # Pagination for Boards
+    board_paginator = Paginator(board_results, 5)  # Show 5 boards per page.
+    boards_on_page = board_paginator.get_page(page)
+
+    return render(request, "search_result.html", {
+        "recipes": recipes_on_page,
+        "boards": boards_on_page
+    })
+
 
 
 
