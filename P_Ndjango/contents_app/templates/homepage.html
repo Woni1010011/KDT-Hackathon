@@ -95,122 +95,24 @@
                 <p>Simple and tasty recipes</p>
             </div>
             <div class="recipe_contents_container">
+                {% for recipe in recipes %}
                 <div class="recipe_content">
                     <div class="recipe_image">
-
+                        <img src="{{ thumbnail }}" alt="Thumbnail Image">
+                        
                     </div>
                     <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
+                        <span>{{ recipe.recipe_title}}</span>
                     </div>
                     <div class="recipe_info">
-                        <span>time</span> <span>category</span>
+                        <span>{{recipe.cook_time}}</span> <span>{{recipe.recipe_level}}</span>
                     </div>
                 </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
+                {% endfor %}
 
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
             </div>
-            <div class="recipe_contents_container">
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-            </div>
-            <div class="recipe_contents_container">
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-                <div class="recipe_content">
-                    <div class="recipe_image">
-
-                    </div>
-                    <div class="recipe_title">
-                        <span>Big and Jucy Wagyu Beef</span>
-
-                    </div>
-                    <div class="recipe_info">
-                        <span>time</span> <span>category</span>
-                    </div>
-                </div>
-            </div>
-
-            
-
+            <div class="recipe_contents_container"></div>
+            <div class="recipe_contents_container"></div>
         </div>
 
         {% include "footerbar.html" %}
@@ -218,7 +120,7 @@
 
     </div>
 
-    <script src="{% static 'homepage.js' %}"></script>
+    <script src="{% static 'js/homepage.js' %}"></script>
 
 </body>
 

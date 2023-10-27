@@ -14,7 +14,22 @@ from . import receipe_search
 
 # Create your views here.
 def homepage(request):
-    return render(request, "homepage.html")
+    recipes = Recipes.objects.all()
+    recipe_images = recipes.values_list('recipe_img', flat=True)
+
+    def extract_order(direction):
+        # 순서 번호 추출
+        order = int(direction.split(".")[0])
+        return order
+    
+    sorted_recipe_images = []
+    for img in recipe_images:
+        sorted_recipe_images.append(img.split(" ")[1])
+
+    thumbnail = sorted_recipe_images[-1]
+
+    
+    return render(request, "homepage.html", {"recipes": recipes, "thumbnail": thumbnail})
 
 
 def search(request):
