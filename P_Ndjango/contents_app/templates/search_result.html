@@ -37,7 +37,7 @@
         {% comment %} 검색결과 {% endcomment %}
         <!--이미지, 제목 붙이기-->
         <div class="posting_list">
-            {{% for recipe in recipes %}
+        {{% for recipe in recipes %}
             <div class="post">
                 <a href="{% url 'post' recipe.recipe_no %}">
                     <div class="post_img">
@@ -52,7 +52,7 @@
                     </div>
                 </a>
             </div>
-            {% endfor %}          
+        {% endfor %}          
         </div>
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
