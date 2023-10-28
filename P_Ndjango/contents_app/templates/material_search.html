@@ -34,8 +34,8 @@
     <article>
         {% comment %} 검색창 {% endcomment %}
         <div id="search">
-            <input type="text" class="search_input" value="{{ text }}">
-            <a class="search_button" href="">
+            <input type="text" class="search_input" id="searchInput" value="{{ text }}">
+            <a class="search_button" id="searchButton">
                 {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
                 <img class="search_img" src="{% static 'img/icon_photo.png' %}" alt="">
             </a>
@@ -66,9 +66,13 @@
     </article>
 </body>
 <!-- 로컬 변환용 -->
-<!-- <script src="static/js/search.js"></script>
-<script src="static/js/img_search.js"></script> -->
+<script src="static/js/search.js"></script>
+<script src="static/js/img_search.js"></script>
 <!-- S3 배포용 -->
+<script>
+    var searchURL = "{% url 'search' %}";
+    var searchResultURL = "{% url 'search_result' %}";
+</script>
 <script src="{% static 'js/search.js' %}"></script>
 <script src="{% static 'js/img_search.js' %}"></script>
 </html>

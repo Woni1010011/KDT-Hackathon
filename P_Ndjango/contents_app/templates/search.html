@@ -31,11 +31,11 @@
     </header>
     <article>
         {% comment %} 검색창 {% endcomment %}
-        <form method="get" action="{% url 'search_result' %}"></form>
+        {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
             <div id="search">
-                {% csrf_token %}
+                {% comment %} {% csrf_token %} {% endcomment %}
                 <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
-                <button type="submit" class="search_button">
+                <button type="submit" class="search_button" id="searchButton">
                     {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
                     <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
                 </button>
@@ -43,7 +43,7 @@
                     <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
                 </div>
             </div>
-        </form>
+        {% comment %} </form> {% endcomment %}
         {% comment %} 인기검색어 {% endcomment %}
         <div id="popular_box">
             <div class="article_text">인기 검색어</div>
@@ -107,7 +107,11 @@
     </article>
 </body>
 <!-- 로컬 변환용 -->
-<!-- <script src="static/js/search.js"></script> -->
+<script>
+    var searchURL = "{% url 'search' %}";
+    var searchResultURL = "{% url 'search_result' %}";
+</script>
+<script src="static/js/search.js"></script>
 <!-- S3 배포용 -->
 <script src="{% static 'js/search.js' %}"></script>
 </html>

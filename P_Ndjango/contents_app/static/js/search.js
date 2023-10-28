@@ -10,7 +10,7 @@ const searchLink = document.getElementById("searchLink");
 
 // "search" 버튼을 눌렀을 때 "search.html" 페이지로 이동하는 함수
 searchLink.addEventListener("click", function () {
-    window.location.href = "{% url 'search' %}"; // "search.html" 페이지로 이동
+    window.location.href = searchURL; // "search.html" 페이지로 이동
 });
 
 
@@ -60,4 +60,27 @@ function toggleRecord() {
 window.addEventListener("load", () => {
     availabilityFunc();
     document.querySelector(".voice_btn").addEventListener("click", toggleRecord);
+});
+
+// searchButton 클릭시 검색어 넘기기
+document.getElementById('searchInput').addEventListener('keydown', function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();  // 폼 제출 방지
+        document.getElementById('searchButton').click();
+    }
+});
+
+document.getElementById('searchButton').addEventListener('click', function (event) {
+    event.preventDefault();  // 폼 제출 방지
+
+    var input = document.getElementById('searchInput').value;
+    // 검색어를 쉼표로 분리하여 배열로 만듭니다.
+    var searchTerms = input.split(',');
+
+    // 각 검색어에 대한 URL 파라미터를 구성합니다.
+    var queryParams = searchTerms.map(term => 'q=' + encodeURIComponent(term.trim()));
+
+    // 검색 결과 페이지 URL에 검색어 파라미터를 추가합니다.
+    var url = searchResultURL + "?" + queryParams.join('&');
+    window.location.href = url;
 });
