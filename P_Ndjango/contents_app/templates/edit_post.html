@@ -14,11 +14,11 @@
     <link href="{% static 'django_summernote/summernote-bs4.css' %}" rel="stylesheet">
     <script src="{% static 'django_summernote/summernote-bs4.js' %}"></script>
 
-    <title>write</title>
+    <title>edit</title>
 </head>
 
 <body> <!-- navbar 대체 고민 -->
-    <form method="post" action="{% url 'write_post' %}">
+    <form method="post" action="{% url 'edit_post' post.post_no %}">
         {% csrf_token %}
         <header class="topnav">
             <a href="{%url 'main'%}">
@@ -27,24 +27,27 @@
 
             <a href="{% url 'main' %}" type="submit" class="button-style" id="save-btn">임시 저장</a>
             <a href="{% url 'main' %}" type="submit" class="publish-button" id="publish-btn">발행</a>
-            <input type="submit" name="save-button" class="save-button" value="글 작성" />
+            
+            <input type="submit" name="save-button" class="save-button" value="글 수정" />
+            
 
         </header>
         <div class="board_content">
             <div class="title">
-                <textarea class="post_title" type="text" id="post_title" name="post_title" placeholder="제목" value={{ write_form.post_title }}</textarea>
+                {{ write_form.post_title }}
+                
             </div>
             <div class"post_content" id="post_content" name="post_content">
-                    {{ write_form.post_content }}
+                {{ write_form.post_content }}
             </div>
             <div class="box">
                 <h2>카테고리</h2>
                 <div>
-                    <input type="radio" id="recipe" name="board_no" value="1"/>
+                    <input type="radio" id="recipe" name="board_no" value="1" {% if post.board_no == 1 %}checked{% endif %}/>
                     <label for="recipe">recipe</label>
                 </div>
                 <div>
-                <input type="radio" id="talk" name="board_no" value="2" checked//>
+                <input type="radio" id="talk" name="board_no" value="2" {% if post.board_no == 2 %}checked{% endif %}/>
                 <label for="talk">talk</label>
                 </div>
             </div>

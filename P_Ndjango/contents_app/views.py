@@ -13,14 +13,13 @@ from django.db.models import Q
 from . import receipe_search
 
 
-
 # Create your views here.
 def homepage(request):
     recipes = Recipes.objects.all()[:9]
     recipe_images = [recipe.recipe_img for recipe in recipes]
-    
-    def urlString (queryset) :
-        list_url = queryset.split(',')
+
+    def urlString(queryset):
+        list_url = queryset.split(",")
         match = re.search(r'https://[^\s}"]+', list_url[-1])
         if match:
             url = match.group()
@@ -29,14 +28,14 @@ def homepage(request):
             print("매칭된 URL이 없습니다.")
 
     thumbnails = []
-    for i in range(9) :
+    for i in range(9):
         thumbnails.append(urlString(recipe_images[i]))
 
     mylist = zip(recipes, thumbnails)
     context = {
-        'mylist' : mylist,
+        "mylist": mylist,
     }
-    
+
     return render(request, "homepage.html", context)
 
 
@@ -155,17 +154,21 @@ def board(request, filter):
 
 from django.core.paginator import Paginator
 
+
 def extract_first_image(post_content):
     img_pattern = re.compile(r'<img [^>]*src="([^"]+)')
     match = img_pattern.search(post_content)
     return match.group(1) if match else None
+
 
 def search_result(request):
     query = request.GET.get("q")
 
     # For Recipes
     if query:
-        recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
+        recipe_results = Recipes.objects.filter(
+            Q(recipe_title__icontains=query) | Q(ingredients__icontains=query)
+        )
     else:
         recipe_results = Recipes.objects.all()
 
@@ -189,26 +192,21 @@ def search_result(request):
     # For Boards
     board_results = Board.objects.filter(post_content__icontains=query)
 
-    
     for board in board_results:
         board.thumbnail = extract_first_image(board.post_content)
 
     # Pagination for Recipes
     recipe_paginator = Paginator(recipe_results, 5)  # Show 5 recipes per page.
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     recipes_on_page = recipe_paginator.get_page(page)
 
     # Pagination for Boards
     board_paginator = Paginator(board_results, 5)  # Show 5 boards per page.
     boards_on_page = board_paginator.get_page(page)
 
-    return render(request, "search_result.html", {
-        "recipes": recipes_on_page,
-        "boards": boards_on_page
-    })
-
-
-
+    return render(
+        request, "search_result.html", {"recipes": recipes_on_page, "boards": boards_on_page}
+    )
 
 
 def mypage(request):
@@ -314,8 +312,44 @@ def write_post(request):
     return render(request, "write_post.html", {"write_form": form})
 
 
+def edit_post(request, post_no=None):
+    user_name = get_user_name(request)
+
+    if post_no is not None:
+        post = get_object_or_404(Board, post_no=post_no)
+        if post.user_nick != user_name:
+            # 글 작성자가 아닌 경우에는 수정할 수 없도록 처리
+            return redirect("post", post_no=post_no)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user_nick = user_name
+            post.save()
+            # post_no = post.post_no
+            return redirect("post", post_no=post.post_no)
+
+        elif "delete" in request.POST:  # "delete" 버튼이 클릭된 경우 글을 삭제합니다.
+            post.delete()
+            return redirect("main")
+    else:
+        form = PostForm(instance=post)
+
+    template = "edit_post.html"
+    context = {
+        "write_form": form,
+        "post": post,
+        "edit_mode": post_no is not None,
+    }
+
+    return render(request, template, context)
+
+
 # post_view 함수 정의
 def post_view(request, post_no):
+    user_name = get_user_name(request)
     post = get_object_or_404(Board, post_no=post_no)
     # if "delete-button" in request.POST:
     #     post.delete()
@@ -326,6 +360,7 @@ def post_view(request, post_no):
 
     context = {
         "post": post,
+        "user_name": user_name,
     }
 
     return render(request, "post.html", context)

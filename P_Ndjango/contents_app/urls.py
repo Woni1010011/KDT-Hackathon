@@ -13,4 +13,5 @@ urlpatterns = [
     path("post/<int:post_no>/", views.post_view, name="post"),
     path("recipe/<int:recipe_no>/", views.recipe_view, name="recipe"),
     path("write", views.write_post, name="write_post"),
+    path("edit/<int:post_no>/", views.edit_post, name="edit_post"),
 ]
