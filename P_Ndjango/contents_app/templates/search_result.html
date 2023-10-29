@@ -38,43 +38,28 @@
         {% comment %} 검색결과(크롤링 레시피){% endcomment %}
 <!--이미지, 제목 붙이기-->
 <div class="posting_list">
-    {% for recipe in recipes %}
+    {% for item in items %}
         <div class="post">
-            <a href="{% url 'recipe' recipe.recipe_no %}">
+            {% if item.type == 'board' %}
+                <a href="{% url 'post' item.post_no %}">
+            {% else %}
+                <a href="{% url 'recipe' item.recipe_no %}">
+            {% endif %}
                 <div class="post_image">
-                    <img class="post_img" src="{{ recipe.thumbnail }}" alt="{{ recipe.recipe_title }}">
+                    <img class="post_img" src="{{ item.thumbnail }}" 
+                         alt="{% if item.type == 'board' %}{{ item.post_title }}{% else %}{{ item.recipe_title }}{% endif %}">
                 </div>
                 <div class="post_info">
                     <div class="title_box">
                         <p class="title_text">
-                            {{ recipe.recipe_title }}
+                            {% if item.type == 'board' %}{{ item.post_title }}{% else %}{{ item.recipe_title }}{% endif %}
                         </p>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
-    {% endfor %}          
-    </div>
-    <p><h3>유저 레시피</h3></p>
-    {% comment %} 검색결과 (유저 게시 레시피) {% endcomment %}
-    <div class="posting_list">
-        {% for board in boards %}
-        <div class="post">
-            <a href="{% url 'post' board.post_no %}"> <!-- URL 및 인자는 실제 상황에 맞게 조정 필요 -->
-                <div class="post_image">
-                    <img class="post_img" src="{{ board.thumbnail }}" alt="{{ board.post_title }}"> <!-- board 모델에 thumbnail 필드를 추가했다고 가정 -->
-                </div>
-                <div class="post_info">
-                    <div class="title_box">
-                        <p class="title_text">
-                            {{ board.post_title }}
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+</div>
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
             {% comment %} 인기있는 레시피 {% endcomment %}
@@ -122,22 +107,22 @@
     {% comment %} 페이지 넘버 {% endcomment %}
     <!--한페이지 5개 레시피 넘어가면 넘버 생김-->
     <div class="page_num">
-        {% if recipes.has_previous %}
-            <a href="?page=1" class="num"><<</a>
-            <a href="?page={{ recipes.previous_page_number }}" class="num"><</a>
+        {% if items.has_previous %}
+            <a href="?q={{ query }}&page=1" class="num"><<</a>
+            <a href="?q={{ query }}&page={{ items.previous_page_number }}" class="num"><</a>
         {% endif %}
     
-        {% for i in recipes.paginator.page_range %}
-            {% if recipes.number == i %}
+        {% for i in items.paginator.page_range %}
+            {% if items.number == i %}
                 <div class="num current">{{ i }}</div>
             {% else %}
-                <a href="?page={{ i }}" class="num">{{ i }}</a>
+                <a href="?q={{ query }}&page={{ i }}" class="num">{{ i }}</a>
             {% endif %}
         {% endfor %}
     
-        {% if recipes.has_next %}
-            <a href="?page={{ recipes.next_page_number }}" class="num">></a>
-            <a href="?page={{ recipes.paginator.num_pages }}" class="num">>></a>
+        {% if items.has_next %}
+            <a href="?q={{ query }}&page={{ items.next_page_number }}" class="num">></a>
+            <a href="?q={{ query }}&page={{ items.paginator.num_pages }}" class="num">>></a>
         {% endif %}
     </div>
 

@@ -161,15 +161,17 @@ def extract_first_image(post_content):
     return match.group(1) if match else None
 
 def search_result(request):
-    query = request.GET.get("q")
+    # 사용자의 검색 쿼리를 가져옵니다. 만약 쿼리가 없다면 빈 문자열을 기본값으로 사용합니다.
+    query = request.GET.get("q", "")
+    
+    # 검색 쿼리가 없다면 바로 search_result 페이지로 리다이렉트합니다.
+    if not query:
+        return redirect('search_result')
 
-    # For Recipes
-    if query:
-        recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
-    else:
-        recipe_results = Recipes.objects.all()
-
+    # 레시피 모델에서 사용자의 검색 쿼리에 일치하는 레시피를 필터링하여 가져옵니다.
+    recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
     for recipe in recipe_results:
+        # 레시피 이미지들을 처리합니다.
         recipe_images = ast.literal_eval(recipe.recipe_img)
 
         def extract_order(direction):
@@ -185,26 +187,29 @@ def search_result(request):
             sorted_imgs.append(img.split(" ")[1])
 
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
+        # 각 레시피 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
+        recipe.type = 'recipe'
 
-    # For Boards
-    board_results = Board.objects.filter(post_content__icontains=query)
-
-    
+    # 게시판 모델에서 사용자의 검색 쿼리에 일치하는 게시글을 필터링하여 가져옵니다. board_no는 1인 것만 선택합니다.
+    board_results = Board.objects.filter(post_content__icontains=query, board_no=1)
     for board in board_results:
+        # 게시글의 첫 번째 이미지를 추출합니다.
         board.thumbnail = extract_first_image(board.post_content)
+        # 각 게시글 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
+        board.type = 'board'
 
-    # Pagination for Recipes
-    recipe_paginator = Paginator(recipe_results, 5)  # Show 5 recipes per page.
+    # 레시피와 게시글의 결과를 하나의 리스트로 합칩니다.
+    combined_results = list(recipe_results) + list(board_results)
+
+    # 합쳐진 결과 리스트에 페이지네이션을 적용합니다. 페이지당 5개의 항목을 표시하도록 설정합니다.
+    paginator = Paginator(combined_results, 5)
     page = request.GET.get('page')
-    recipes_on_page = recipe_paginator.get_page(page)
+    items_on_page = paginator.get_page(page)
 
-    # Pagination for Boards
-    board_paginator = Paginator(board_results, 5)  # Show 5 boards per page.
-    boards_on_page = board_paginator.get_page(page)
-
+    # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
     return render(request, "search_result.html", {
-        "recipes": recipes_on_page,
-        "boards": boards_on_page
+        "items": items_on_page,
+        "query": query
     })
 
 
