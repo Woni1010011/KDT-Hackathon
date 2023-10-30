@@ -1,18 +1,38 @@
 function goToEditPage() {
     window.location.href = "{% url 'profile_edit' %}";
+
 }
 
-function previewImage(event) {
-    var input = event.target;
+document.getElementById('profile-picture').addEventListener('change', function () {
+    var file = this.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            document.getElementById('preview').setAttribute('src', event.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+
+function previewImage(input) {
+    var preview = document.getElementById('preview');
+    var file = input.files[0];
     var reader = new FileReader();
 
     reader.onload = function () {
-        var img = document.getElementById('preview');
-        img.src = reader.result;
-    };
+        preview.src = reader.result;
+    }
 
-    reader.readAsDataURL(input.files[0]);
+    if (file) {
+        reader.readAsDataURL(file);
+    }
 }
+
+var profilePictureInput = document.getElementById('profile-picture');
+profilePictureInput.addEventListener('change', function () {
+    previewImage(this);
+});
 
 function showSection(my_fridge_section) {
     var sections = document.querySelectorAll('main section');

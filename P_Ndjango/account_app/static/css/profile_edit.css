@@ -33,21 +33,28 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 30px;
+    margin: 20px;
 }
 
-/* #user-details,
-#user-numbers,
-#create-location  */
+.buttons {
+    background-color: rgb(0, 219, 66);
+    /* 네이버 버튼 색상 */
+    color: #ffffff;
+    /* 글자 색상 */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 10px;
 
-/* .profile-picture1 {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
-    gap: 20px;
-} */
+}
 
 .chef_njango {
     color: #5abb6e;
@@ -97,7 +104,6 @@
 .profile-picture {
     display: flex;
     flex-direction: row;
-    justify-content: center;
 }
 
 label {
@@ -136,9 +142,6 @@ textarea:focus {
     /* 클릭 시 그림자 효과 강화 */
 }
 
-button {
-    margin-top: 10px;
-}
 
 .category-list {
     list-style-type: none;

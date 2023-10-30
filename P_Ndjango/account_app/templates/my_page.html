@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
-    <script src="account_app/js/my_page.js" defer></script>
+    <script src="{% static 'js/profile_edit.js' %}" defer></script>
 </head>
 
 <body>
@@ -22,10 +22,17 @@
         </div>
 
         <div class='info_login'>
+            {% if request.session.user_id %}
+            <a class='alarm_div' href="#" id="alarmLink">
+                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
+            <a class='cate' href={% url "logout" %}>Logout</a>
+            {% else %}
             <a class='alarm_div' href="#" id="alarmLink">
                 <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
             </a>
             <a class='cate' href={% url "login" %}>Login</a>
+            {% endif %}
         </div>
     </header>
 
@@ -47,7 +54,7 @@
     <div class="wrapper">
         <aside class="category-sidebar">
             <header>
-                <h1 class="chef_njango">{{ user_profile.user_name }} 셰프의 냉장고</h1>
+                <h1 class="chef_njango">{{ User.user_name }} 셰프의 냉장고</h1>
             </header>
             <ul class="category-list">
                 <li><a href="user-info">셰프 정보</a></li>
@@ -67,37 +74,37 @@
                     <img id="preview" src="#" alt=""><br>
                     <input type="file" id="profile-picture" name="profile-picture1"><br>
                 </div>
-                <h2>{{ user_profile.user_name }} 띵똥 h2 </h2>
-                <p>{{ user_profile.location }} 거주지역 </p>
+                <h4>{{ user.user_name }} 성명 </h2>
+                    <p>{{ user.user_address }} 주소 </p>
 
             </section><br>
             <div id="user-details" class="user-details">
                 <div class="user-info1">
                     <label for="usernickname">닉네임</label><br>
-                    <input type="text" id="usernickname" name="usernickname"
-                        value="{{ user_profile.user_nickname }}"><br><br>
+                    <p>{{ user.user_nick }}</p><br><br>
 
                     <label for="email">이메일 주소</label><br>
-                    <input type="email" id="email" name="email" value="{{ user_profile.email }}"><br><br>
+                    <p>{{ user.user_email }}</p><br><br>
 
-                    <label for="location">거주지역</label><br>
-                    <input type="text" id="location" name="location" value="{{ user_profile.location }}"><br><br>
+                    <label for="address">거주지역</label><br>
+                    <p>{{ user.user_address }}</p><br><br>
                 </div>
                 <div class="user-info2">
                     <label for="username">성명</label><br>
-                    <input type="username" id="username" name="username" value="{{ user_profile.username }}"><br><br>
+                    <p>{{ user.user_name }}</p><br><br>
 
                     <label for="phonenumber">전화번호</label><br>
-                    <input type="text" id="phonenumber" name="phonenumber"
-                        value="{{ user_profile.phonenumber }}"><br><br>
+                    <p>{{ user.user_phone }}</p><br><br>
 
                     <label for="date">가입 일자</label><br>
-                    <input type="date" id="date_first" name="created_at" value="{{ user_profile.created_at }}">
+                    <p>{{ user.sub_date }}</p>
                 </div>
             </div>
 
             <div class="buttons">
-                <button type="submit" onclick="goToEditPage()"> 프로필 편집 </button>
+                <a href="{% url 'profile_edit' %}">
+                    <button type="submit" onclick="goToEditPage()"> 프로필 편집 </button>
+                </a>
             </div>
         </main>
     </div>
