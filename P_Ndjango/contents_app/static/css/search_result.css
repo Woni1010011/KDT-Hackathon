@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+    text-decoration: none;
 }
 
 .title {
@@ -47,11 +48,14 @@ body {
     display: flex;
     position: absolute;
     align-items: center;
-    top: 0;
+    top:0;
     right: 0;
     width: 60px;
     height: 60px;
     margin-right: 80px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .search_img {

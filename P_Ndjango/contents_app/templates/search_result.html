@@ -13,19 +13,18 @@
     {% include 'navbar.html' %}
 
     {% comment %} 검색바 {% endcomment %}
-    <form method="get" action="{% url 'search_result' %}"></form>
-        <div id="search">
-            {% csrf_token %}
-            <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
-            <button type="submit" class="search_button">
-                {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
-                <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
-            </button>
-            <div class="voice_btn">
-                <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
-            </div>
+    {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
+    <div id="search">
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
+        <button type="submit" class="search_button">
+            {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+            <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+        </button>
+        <div class="voice_btn">
+            <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
         </div>
-    </form>
+    </div>
 
     {% comment %} 타이틀 {% endcomment %}
     <div id="text_box">
@@ -36,30 +35,26 @@
     {% comment %} 크롤링된 게시물 {% endcomment %}
     <article>
         {% comment %} 검색결과(크롤링 레시피){% endcomment %}
-<!--이미지, 제목 붙이기-->
-<div class="posting_list">
-    {% for item in items %}
-        <div class="post">
-            {% if item.type == 'board' %}
-                <a href="{% url 'post' item.post_no %}">
-            {% else %}
-                <a href="{% url 'recipe' item.recipe_no %}">
-            {% endif %}
-                <div class="post_image">
-                    <img class="post_img" src="{{ item.thumbnail }}" 
-                         alt="{% if item.type == 'board' %}{{ item.post_title }}{% else %}{{ item.recipe_title }}{% endif %}">
-                </div>
-                <div class="post_info">
-                    <div class="title_box">
-                        <p class="title_text">
-                            {% if item.type == 'board' %}{{ item.post_title }}{% else %}{{ item.recipe_title }}{% endif %}
-                        </p>
+        <!--이미지, 제목 붙이기-->
+        <div class="posting_list">
+            {% for recipe in items %}
+                <div class="post">
+                    <a href="{% url 'recipe' recipe.recipe_no %}">
+                        <div class="post_image">
+                            <img class="post_img" src="{{ recipe.thumbnail }}" alt="">
+                        </div>
+                        <div class="post_info">
+                            <div class="title_box">
+                                <p class="title_text">
+                                    {{ recipe.recipe_title }}
+                                </p>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
+
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
             {% comment %} 인기있는 레시피 {% endcomment %}

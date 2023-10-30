@@ -33,16 +33,19 @@
     </header>
     <article>
         {% comment %} 검색창 {% endcomment %}
-        <div id="search">
-            <input type="text" class="search_input" id="searchInput" value="{{ translated_objects|join:', ' }}">
-            <a class="search_button" id="searchButton">
-                {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
-                <img class="search_img" src="{% static 'img/icon_photo.png' %}" alt="">
-            </a>
-            <div class="voice_btn">
-                <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+        {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
+            <div id="search">
+                {% comment %} {% csrf_token %} {% endcomment %}
+                <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
+                <button type="submit" class="search_button">
+                    {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+                    <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+                </button>
+                <div class="voice_btn">
+                    <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+                </div>
             </div>
-        </div>
+        {% comment %} </form> {% endcomment %}
         {% comment %} 이미지 검색 {% endcomment %}
         <div class="img_container">
             <form method="post" enctype="multipart/form-data">
@@ -51,7 +54,7 @@
                 <input type="file" name="image" accept="image/*" required id="imageInput">
                 <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
                 <div>
-                    <button type="submit">재료 추출하기</button>
+                    <button class='img_search_btn' type="submit">재료 추출하기</button>
                 </div>
             </form>
         </div>

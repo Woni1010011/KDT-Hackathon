@@ -4,13 +4,15 @@ from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
 from django.contrib import messages
-from .models import Recipes, Board
+from .models import Recipes, Board, Ingredients
 from account_app.models import User
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
 from django.db.models import Q
 from . import receipe_search
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 # Create your views here.
@@ -162,16 +164,31 @@ def extract_first_image(post_content):
 
 
 def search_result(request):
-    # 사용자의 검색 쿼리를 가져옵니다. 만약 쿼리가 없다면 빈 문자열을 기본값으로 사용합니다.
     query = request.GET.get("q", "")
-    
-    # 검색 쿼리가 없다면 바로 search_result 페이지로 리다이렉트합니다.
     if not query:
-        return redirect('search_result')
+        return redirect('search')
 
-    # 레시피 모델에서 사용자의 검색 쿼리에 일치하는 레시피를 필터링하여 가져옵니다.
-    recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
-    for recipe in recipe_results:
+    # 레시피의 재료를 모두 가져옵니다.
+    recipes = Recipes.objects.all()
+    ingredients_list = [recipe.ingredients for recipe in recipes]
+
+    # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform(ingredients_list)
+
+    # 사용자의 검색 쿼리를 벡터로 변환합니다.
+    query_vec = vectorizer.transform([query])
+
+    # 코사인 유사도를 계산합니다.
+    cosine_similarities = cosine_similarity(query_vec, tfidf_matrix).flatten()
+
+    # 코사인 유사도에 따라 레시피를 정렬합니다.
+    similar_recipes = sorted(zip(cosine_similarities, recipes), key=lambda x: x[0], reverse=True)
+
+    # 상위 5개의 결과를 가져옵니다.
+    top_recipes = [recipe for _, recipe in list(similar_recipes)[:5]]
+
+    for recipe in top_recipes:
         # 레시피 이미지들을 처리합니다.
         recipe_images = ast.literal_eval(recipe.recipe_img)
 
@@ -188,30 +205,13 @@ def search_result(request):
             sorted_imgs.append(img.split(" ")[1])
 
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
-        # 각 레시피 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
-        recipe.type = 'recipe'
-
-    # 게시판 모델에서 사용자의 검색 쿼리에 일치하는 게시글을 필터링하여 가져옵니다. board_no는 1인 것만 선택합니다.
-    board_results = Board.objects.filter(post_content__icontains=query, board_no=1)
-    for board in board_results:
-        # 게시글의 첫 번째 이미지를 추출합니다.
-        board.thumbnail = extract_first_image(board.post_content)
-        # 각 게시글 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
-        board.type = 'board'
-
-    # 레시피와 게시글의 결과를 하나의 리스트로 합칩니다.
-    combined_results = list(recipe_results) + list(board_results)
-
-    # 합쳐진 결과 리스트에 페이지네이션을 적용합니다. 페이지당 5개의 항목을 표시하도록 설정합니다.
-    paginator = Paginator(combined_results, 5)
-    page = request.GET.get('page')
-    items_on_page = paginator.get_page(page)
 
     # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
     return render(request, "search_result.html", {
-        "items": items_on_page,
+        "items": top_recipes,
         "query": query
     })
+
 
 
 
