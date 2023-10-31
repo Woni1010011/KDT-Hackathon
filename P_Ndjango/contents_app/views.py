@@ -18,7 +18,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # Create your views here.
 def homepage(request):
-    recipes = Recipes.objects.all()[:9]
+    recipes = Recipes.objects.order_by("?")[:9]
     recipe_images = [recipe.recipe_img for recipe in recipes]
 
     def urlString(queryset):
@@ -254,14 +254,34 @@ def recipe_list(request):
 
 # recipe_view 함수 정의
 def recipe_view(request, recipe_no):
-    # 레시피스 테이블 내용들을 불러옴
+    # 레시피 테이블 내용을 불러옴
     recipe = Recipes.objects.get(pk=recipe_no)
 
+    def parse_ingredients(ingredients_str):
+        try:
+            # 시도해서 파이썬 리터럴로 파싱
+            ingredients = ast.literal_eval(ingredients_str)
+            if isinstance(ingredients, set):
+                return list(ingredients)
+
+        except (SyntaxError, ValueError):
+            pass
+
+        # 처리할 수 없는 경우, 문자열을 쉼표로 분할하여 리스트로 반환
+        ingredients = ingredients_str.split(",")
+        ingredients = [ingredient.strip() for ingredient in ingredients]
+        return ingredients
+
     # ingredients 필드를 파싱
-    ingredients_list = ast.literal_eval(recipe.ingredients)
+    ingredients_list = parse_ingredients(recipe.ingredients)
+    print(ingredients_list)
 
     directions = ast.literal_eval(recipe.direction)
     recipe_images = ast.literal_eval(recipe.recipe_img)
+
+    # print(ingredients_list)
+    print(directions)
+    print(recipe_images)
 
     def extract_order(direction):
         # 순서 번호 추출
@@ -284,19 +304,17 @@ def recipe_view(request, recipe_no):
     # 사진이 없는 조리과정의 경우에 대한 처리를 위해 zip_longest를 사용
     # from itertools import zip_longest
     # directions_and_images = list(zip_longest(sorted_directions))
+    template = "recipe.html"
+    context = {
+        "recipe": recipe,
+        "ingredients_list": ingredients_list,
+        "directions": sorted_directions,
+        "recipe_images": sorted_recipe_images,
+        "thumbnail": thumbnail,
+    }
 
     # 결과를 post.html 템플릿에 전달
-    return render(
-        request,
-        "recipe.html",
-        {
-            "recipe": recipe,
-            "ingredients_list": ingredients_list,
-            "directions": sorted_directions,
-            "recipe_images": sorted_recipe_images,
-            "thumbnail": thumbnail,
-        },
-    )  # 'recipe_images' : sorted_recipe_images
+    return render(request, template, context)  # 'recipe_images' : sorted_recipe_images
 
 
 from .forms import PostForm
