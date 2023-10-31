@@ -9,11 +9,11 @@
     justify-content: space-between;
 }
 
-#main_logo{
+#main_logo {
     width: 180px;
 }
 
-.NDjango_logo{
+.NDjango_logo {
     display: flex;
     float: left;
     margin-left: 45px;
@@ -29,7 +29,7 @@
     align-items: center;
 }
 
-.cate{
+.cate {
     padding: 30px;
     text-decoration: none;
     margin-right: 45px;
@@ -38,19 +38,26 @@
     color: rgb(58, 44, 114);
 }
 
-.cate:hover{
+.cate:hover {
     color: white;
     background-color: rgb(83, 72, 148);
 }
 
-.info_login{
+.info_login {
     width: 170px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.alarm_btn{
+.alarm_btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.userInfo_btn {
     width: 30px;
     height: 30px;
     border-radius: 50px;
