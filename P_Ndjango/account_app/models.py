@@ -15,6 +15,8 @@ class User(models.Model):
     user_address = models.CharField(max_length=200)
     sub_date = models.DateTimeField(auto_now_add=True)
     user_point = models.IntegerField(default=0)
+    user_img = models.ImageField(upload_to='user_images/', null=True, blank=True)
+
 
     def __str__(self):
         return self.user_id
