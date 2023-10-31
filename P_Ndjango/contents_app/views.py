@@ -135,7 +135,9 @@ def img_search(request):
     else:
         return render(request, "img_search.html")
 
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def board(request, filter):
     # filter 값에 따라 게시글을 가져옵니다.
@@ -160,7 +162,7 @@ def board(request, filter):
     paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글
 
     # URL에서 페이지 번호를 가져옵니다.
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
@@ -173,14 +175,11 @@ def board(request, filter):
         post.thumbnail_url = extract_first_image(post.post_content) if post.post_content else None
 
     # 템플릿에 전달할 컨텍스트에 페이지 객체를 추가합니다.
-    return render(request, "board.html", {
-        "posts": items,  # 변경됨: 이제 'items'는 페이징 처리된 페이지 객체입니다.
-        "filter": filter
-    })
-
-
-
-
+    return render(
+        request,
+        "board.html",
+        {"posts": items, "filter": filter},  # 변경됨: 이제 'items'는 페이징 처리된 페이지 객체입니다.
+    )
 
 
 def extract_first_image(post_content):
@@ -188,7 +187,7 @@ def extract_first_image(post_content):
     match = img_pattern.search(post_content)
     return match.group(1) if match else None
 
-    
+
 def search_result(request):
     query = request.GET.get("q", "")
     if not query:
@@ -287,20 +286,16 @@ def recipe_view(request, recipe_no):
             pass
 
         # 처리할 수 없는 경우, 문자열을 쉼표로 분할하여 리스트로 반환
-        ingredients = ingredients_str.split(",")
+        ingredients = [
+            item.strip("''").strip('"') for item in ingredients_str.strip("{}").split(",")
+        ]
         ingredients = [ingredient.strip() for ingredient in ingredients]
         return ingredients
 
-    # ingredients 필드를 파싱
+    # 필드를 파싱
     ingredients_list = parse_ingredients(recipe.ingredients)
-    print(ingredients_list)
-
     directions = ast.literal_eval(recipe.direction)
     recipe_images = ast.literal_eval(recipe.recipe_img)
-
-    # print(ingredients_list)
-    print(directions)
-    print(recipe_images)
 
     def extract_order(direction):
         # 순서 번호 추출
@@ -316,13 +311,8 @@ def recipe_view(request, recipe_no):
         sorted_recipe_images.append(img.split(" ")[1])
 
     thumbnail = sorted_recipe_images[-1]
-
-    # 마지막 썸네일 이미지 제거
     sorted_recipe_images = sorted_recipe_images[:-1]
 
-    # 사진이 없는 조리과정의 경우에 대한 처리를 위해 zip_longest를 사용
-    # from itertools import zip_longest
-    # directions_and_images = list(zip_longest(sorted_directions))
     template = "recipe.html"
     context = {
         "recipe": recipe,
@@ -332,8 +322,7 @@ def recipe_view(request, recipe_no):
         "thumbnail": thumbnail,
     }
 
-    # 결과를 post.html 템플릿에 전달
-    return render(request, template, context)  # 'recipe_images' : sorted_recipe_images
+    return render(request, template, context)
 
 
 from .forms import PostForm
