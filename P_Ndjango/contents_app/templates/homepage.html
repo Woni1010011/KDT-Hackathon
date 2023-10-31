@@ -7,10 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomePage</title>
     <!-- S3 배포용 -->
-    <link rel="stylesheet" href="static/css/homepage.css" >
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}" >
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <!-- 로컬 수정용 -->
     <!-- <link rel="stylesheet" href="static/css/homepage.css" > -->
+    <script type="text/javascript">
+        var imageUrls = [
+            "{% static 'img/rice.png' %}",
+            "{% static 'img/meat.png' %}",
+            "{% static 'img/seafood.png' %}",
+            "{% static 'img/vegetable.png' %}",
+            "{% static 'img/dessert.png' %}",
+            "{% static 'img/fastfood.png' %}"
+        ];
+        var categories = ["밥", "고기", "해산물", "채식", "디저트", "간편요리"];
+    </script>
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -20,9 +31,7 @@
 
         <div class="image_rolling_container">
             <div class="content_cotainer">
-                <div class="image_area">
-
-                </div>
+                <img class='banner_img' src="{% static 'img/banner.png' %}" alt="">
             </div>
         </div>
 
@@ -35,7 +44,7 @@
         </div>
 
         <div class="recipes_previews">
-            <div class="previes_title">
+            <div class="preview_title">
                 <p>Simple and tasty recipes</p>
             </div>
             
@@ -49,7 +58,7 @@
                     <span>{{ recipe.recipe_title|slice:":16" }}</span>
                 </div>
                 <div class="recipe_info">
-                    <span>{{ recipe.cook_time}}</span> <span>{{recipe.recipe_level}}</span>
+                    <span><img src="{% static 'img/Timer.svg' %}" alt="">{{ recipe.cook_time}}</span> <span><img src="{% static 'img/ForkKnife.svg' %}" alt="">{{recipe.recipe_level}}</span>
                 </div></a>
             </div>
             {% endfor %}

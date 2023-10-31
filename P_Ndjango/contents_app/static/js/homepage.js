@@ -10,29 +10,35 @@ for (var i = 0; i < 3; i++ ){
     }
 };
 
-var categories_contents_area = document.getElementsByClassName
-("categories_contents_area");
-var categoryTitleElement = document.querySelectorAll(".category_title p");
-var categories_content = `
-    <div class="categories_content">
-        <div class="category_img">
+document.addEventListener("DOMContentLoaded", function() {
+    var categories_contents_area = document.getElementsByClassName("categories_contents_area")[0];
 
-        </div>
-        <div class="category_title">
-            <p>쌀밥</p>
-        </div>
-    </div>
-`;
-var categories = ["밥", "베지테리언", "닭", "돼지", "소", "생선"];
+    for (var i = 0; i < imageUrls.length; i++) {
+        var category_content = document.createElement('div');
+        category_content.className = 'categories_content';
 
-for (var i = 0; i < 6; i++) {
-    categories_contents_area[0].innerHTML += categories_content
-}
-var categoryTitleElement = document.querySelectorAll(".category_title p");
-for (var i = 0; i < 6; i ++){
-    categoryTitleElement[i].textContent = categories[i];
+        var category_img = document.createElement('div');
+        category_img.className = 'category_img';
 
-}
+        var img = document.createElement('img');
+        img.src = imageUrls[i];
+        img.alt = '';
 
+        category_img.appendChild(img);
+
+        var category_title = document.createElement('div');
+        category_title.className = 'category_title';
+
+        var p = document.createElement('p');
+        p.textContent = categories[i];
+
+        category_title.appendChild(p);
+
+        category_content.appendChild(category_img);
+        category_content.appendChild(category_title);
+
+        categories_contents_area.appendChild(category_content);
+    }
+});
 
 
