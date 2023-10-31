@@ -1,4 +1,5 @@
 body {
+    align-items: center;
     display: flex;
     flex-direction: column;
 }
@@ -25,12 +26,35 @@ body {
     margin-bottom: 80px;
 }
 
+/* 배너광고 */
+.image_rolling_container {
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    height: 150px;
+    width: 1200px;
+}
+
+.content_cotainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.banner_img {
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 /* 검색바 */
 #search {
     display: flex;
     align-items: center;
     position: relative;
-    display: flex;
     margin: 0 auto;
     margin-top: 60px;
 }
@@ -48,7 +72,7 @@ body {
     display: flex;
     position: absolute;
     align-items: center;
-    top:0;
+    top: 0;
     right: 0;
     width: 60px;
     height: 60px;

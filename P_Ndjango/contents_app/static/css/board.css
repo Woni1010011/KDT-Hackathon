@@ -14,17 +14,26 @@ a {
     align-items: center;
 }
 
-/* 광고 배너 */
-.ad_slide {
-    align-items: center;
-    height: 120px;
+/* 배너광고 */
+.image_rolling_container {
+    margin-top: 30px;
+    height: 150px;
     width: 1200px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-color: aquamarine;
-    text-align: center;
+}
+
+.content_cotainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.banner_img {
+    width: 100%;
+    height: 150px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 
 /* 게시판 필터 */
@@ -83,7 +92,8 @@ a {
     border: 1px solid black;
     width: 200px;
     height: 130px;
-    object-fit: cover; /* 이미지가 컨테이너를 벗어나지 않도록 하면서 비율을 유지합니다. */
+    object-fit: cover;
+    /* 이미지가 컨테이너를 벗어나지 않도록 하면서 비율을 유지합니다. */
 }
 
 .post_container {
