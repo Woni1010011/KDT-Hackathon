@@ -27,11 +27,11 @@
             <!-- 게시판 필터 -->
             <div class="board_header">
                 <div class="board_filter">
-                    <div class="filter"><a href="{% url 'board' 'ALL' %}">ALL</a></div>
-                    <div class="filter"><a href="{% url 'board' 'recipe' %}">recipe</a></div>
-                    <div class="filter"><a href="{% url 'board' 'talk' %}">talk</a></div>
+                    <div class="filter"><a href="{% url 'board' 'ALL' %}">전체글</a></div>
+                    <div class="filter"><a href="{% url 'board' 'recipe' %}">레시피</a></div>
+                    <div class="filter"><a href="{% url 'board' 'talk' %}">잡담</a></div>
                     {% if request.session.user_id %}
-                    <div class="filter"><a href="{% url 'board' 'my' %}">my</a></div>
+                    <div class="filter"><a href="{% url 'board' 'my' %}">나의글</a></div>
                     {% endif %}
                 </div>
                 <div class="board_search">
@@ -44,23 +44,51 @@
             </div>
 
             <!-- 글 내용 -->
-            {% for post in posts %}
-            <a href={% url 'post' post_no=post.post_no %}><div class="post_list">
-                <div class="post_list_container">
-                    <div class="post_img">
-                        <img src="" alt="">
-                    </div>
-                    <div class="post_container">
-                        <span class="post_title">{{ post.post_title }}</span>
-                        <p class="post_content">{{ post.post_content|striptags }}</p>
-                        <p class="post_content">{{ post.user_nick }} | {{ post.post_time }} | {{ post.post_hit }}</p>
+            {% for post in posts.object_list %}
+            <a href={% url 'post' post_no=post.post_no %}>
+                <div class="post_list">
+                    <div class="post_list_container">
+                        <!-- Conditionally display the thumbnail image -->
+                        {% if post.thumbnail_url %}
+                        <div class="post_img">
+                            <img src="{{ post.thumbnail_url }}" alt="Post Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        <div class="post_container">
+                            <span class="post_title">{{ post.post_title }}</span>
+                            <p class="post_content">{{ post.post_content|striptags }}</p>
+                            <p class="post_content">{{ post.user_nick }} | {{ post.post_time }} | {{ post.post_hit }}</p>
+                        </div>
                     </div>
                 </div>
-            </div></a>
+            </a>
             {% endfor %}
             
         </section>
-    </div>
+        <!--페이지 이동-->
+        <section>
+            <!-- board.html -->
+            <div class="page_num">
+                {% if posts.has_previous %}
+                    <a href="/board/{{ filter }}/?page=1" class="num"><<</a>
+                    <a href="/board/{{ filter }}/?page={{ posts.previous_page_number }}" class="num"><</a>
+                {% endif %}
+
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                        <span class="num current">{{ i }}</span>
+                    {% else %}
+                        <a href="/board/{{ filter }}/?page={{ i }}" class="num">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if posts.has_next %}
+                    <a href="/board/{{ filter }}/?page={{ posts.next_page_number }}" class="num">></a>
+                    <a href="/board/{{ filter }}/?page={{ posts.paginator.num_pages }}" class="num">>></a>
+                {% endif %}
+            </div>
+        </section>
+        </div>
 </body>
 {% include 'footerbar.html' %}
 </html>

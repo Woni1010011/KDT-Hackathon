@@ -135,8 +135,10 @@ def img_search(request):
     else:
         return render(request, "img_search.html")
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def board(request, filter):
+    # filter 값에 따라 게시글을 가져옵니다.
     if filter == "ALL":
         posts = Board.objects.all().order_by("-post_no")
     elif filter == "recipe":
@@ -145,23 +147,40 @@ def board(request, filter):
         posts = Board.objects.filter(board_no=2).order_by("-post_no")
     elif filter == "my":
         user_id = request.session.get("user_id")
-        try:
-            user = User.objects.get(user_id=user_id)
-            user_name = user.user_name
+        if user_id:
+            user = User.objects.filter(user_id=user_id).first()
+            if user:
+                posts = Board.objects.filter(user_nick=user.user_nick).order_by("-post_no")
+            else:
+                posts = Board.objects.none()  # 사용자를 찾을 수 없는 경우 빈 쿼리셋
+        else:
+            posts = Board.objects.none()  # 로그인하지 않은 사용자 처리
 
-            # user_name으로 게시물 필터링
-            posts_name = Board.objects.filter(user_nick=user_name).order_by("-post_no")
+    # 한 페이지당 게시물 수를 정의합니다.
+    paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글
 
-            # 두 결과를 합칩니다.
-            posts = posts_name
-        except User.DoesNotExist:
-            # 사용자를 찾을 수 없는 경우의 처리
-            posts = []
+    # URL에서 페이지 번호를 가져옵니다.
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)  # 페이지 번호가 정수가 아닐 경우 첫 페이지를 반환합니다.
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)  # 페이지 범위를 벗어날 경우 마지막 페이지를 반환합니다.
 
-    return render(request, "board.html", {"posts": posts, "filter": filter})
+    # 페이징 처리된 각 게시물에 대해 썸네일 URL을 설정합니다.
+    for post in items:
+        post.thumbnail_url = extract_first_image(post.post_content) if post.post_content else None
+
+    # 템플릿에 전달할 컨텍스트에 페이지 객체를 추가합니다.
+    return render(request, "board.html", {
+        "posts": items,  # 변경됨: 이제 'items'는 페이징 처리된 페이지 객체입니다.
+        "filter": filter
+    })
 
 
-from django.core.paginator import Paginator
+
+
 
 
 def extract_first_image(post_content):
@@ -169,7 +188,7 @@ def extract_first_image(post_content):
     match = img_pattern.search(post_content)
     return match.group(1) if match else None
 
-
+    
 def search_result(request):
     query = request.GET.get("q", "")
     if not query:
