@@ -1,16 +1,26 @@
+.head_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    
+    
+}
 .header{
     display: flex;
     flex-direction: column;
+    width: 1200px;
 }
 .header_in_header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 60px;
+    width: 100%;
 }
 
 .header_title{
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 }
 
 .header_info {
@@ -58,7 +68,6 @@
 .posted_img {
     width: 40px;
     height: 40px;
-    background-color: #ffbaba;
     border-radius: 50px;
 }
 
@@ -81,8 +90,8 @@
     display: flex;
     width: 60px;
     height: 60px;
-    background-color: #E7FAFE;
-    border-radius: 50px;
+    border-radius: 100%; 
+    border: 2px solid gray;
     align-items: center;
     justify-content: center;
 }
@@ -90,17 +99,16 @@
 .icon {
     width: 40px;
     height: 40px;
-    background-color: #ccc;
     border-radius: 50px;
 }
 
 .main_box {
-    width: 1720px;
+    width: 1200px;
     height: 700px;
     display: flex;
     flex-direction: row;
+    margin-top: 60px;
     gap: 80px;
-    padding-left: 60px;
     padding-right: 60px;
     justify-content: center;
     align-items: center;
@@ -122,17 +130,17 @@
 .recipe_info{
     width: 30%;
     height: 100%;
-    background-color: #E7FAFE;
+    background-color: #97BFB4;
     color: black;
     border: none;
     border-radius: 25px;
 }
 
 .title_ingredient {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
+    text-align: center;
     margin-top: 30px;
-    margin-left: 30px;
 }
 
 .ingredient {
@@ -146,15 +154,26 @@
 .body_02 {
     display: flex;
     flex-direction: row;
-    width: 1720px;
+    width: 100%;
     padding: 60px;
     gap: 80px;
 }
 
+
+.main_container {
+    display: flex;
+    align-items: center;
+    width: 1200px;
+
+}
+.recipe_container {
+    display: flex;
+    flex-direction: column;
+}
 .h3 {
     font-size: 36px;
-    margin-top: 80px;
-    margin-left: 550px;
+    text-align: center;
+
 }
 
 .directions {

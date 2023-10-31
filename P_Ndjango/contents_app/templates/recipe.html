@@ -9,126 +9,132 @@
     <link rel="stylesheet" type="text/css" href='/static/css/recipe.css'></head>
 <body>
     {% include 'navbar.html' %}
+    <div class="head_container">
         <div class="header">
-            <div class="header_in_header">
-                <!--게시물 제목-->
-                <div class="header_info">
-                    <div class="header_title"><h1>{{ recipe.recipe_title }}</h1></div>
-                    <div class="recipes_tags">
-                        <!-- 인분 정보 -->
-                        <div class="posted_by">
-                            <div>
-                                <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
+                <div class="header_in_header">
+                    <!--게시물 제목-->
+                    <div class="header_info">
+                        <div class="header_title"><h1>{{ recipe.recipe_title }}</h1></div>
+                        <div class="recipes_tags">
+                            <!-- 인분 정보 -->
+                            <div class="posted_by">
+                                <div>
+                                    <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
+                                </div>
+                                <div class="posted_by_info">
+                                    <div class="posted_by_info">{{ recipe.serving }}</div>
+                                </div>
                             </div>
-                            <div class="posted_by_info">
-                                <div class="posted_by_info">{{ recipe.serving }}</div>
+                            
+                            <!-- 조리시간 정보 -->
+                            <div class="posted_by">
+                                <div>
+                                    <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
+                                </div>
+                                <div class="posted_by_info">
+                                    <div class="time_text">조리시간</div>
+                                    <div class="time">{{ recipe.cook_time }}</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- 조리시간 정보 -->
-                        <div class="posted_by">
-                            <div>
-                                <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
-                            </div>
-                            <div class="posted_by_info">
-                                <div class="time_text">조리시간</div>
-                                <div class="time">{{ recipe.cook_time }}</div>
-                            </div>
-                        </div>
-                        
-                        <!-- 조리 난이도 정보 -->
-                        <div class="posted_by">
-                            <div>
-                                <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\ForkKnife.svg' %}" alt="">
-                            </div>
-                            <div class="posted_by_info">
-                                <div class="posted_by_info_text">{{ recipe.recipe_level }}</div>
+                            
+                            <!-- 조리 난이도 정보 -->
+                            <div class="posted_by">
+                                <div>
+                                    <img class="posted_img" src="{% static 'img\ForkKnife.svg' %}" alt="">
+                                </div>
+                                <div class="posted_by_info">
+                                    <div class="posted_by_info_text">{{ recipe.recipe_level }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="icons">
-                    <div class="icons_box">
-                        <div class="icon_box">
-                            <img class="icon" src="P_Ndjango\contents_app\static\img\printer.svg" alt="">
+                    <div class="icons">
+                        <div class="icons_box">
+                            <div class="icon_box">
+                                <img class="icon" src="{% static 'img\printer.svg'%}" alt="">
+                            </div>
+                            <label class="print">print</label>
                         </div>
-                        <label class="print">print</label>
-                    </div>
-                    <div class="share-button">
-                        <div class="icon_box">
-                            <img class="icon" src="P_Ndjango\contents_app\static\img\share.svg" alt="">
+                        <div class="icons_box">
+                            <div class="icon_box">
+                                <img class="icon" src="{% static 'img\share.svg' %}" alt="">
+                            </div>
+                            <label class="share">share</label>
                         </div>
-                        <label class="share">share</label>
                     </div>
                 </div>
-            </div>
-
-            <!--메인 사진, 영양성분표, 레시피 설명-->
-            <div class="main_box">
-                <div class="main_picture">
-                    <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
-                </div>  
-                <div class="recipe_info">
-                    <p class="title_ingredient">재  료</p>
-                    {% for ingredient in ingredients_list %}
-                    <span class="ingredient">{{ ingredient }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-</div>
-
-<h3 class="h3">요리방법</h3>
-<div class="body_02">
-        <!--조리 순서별로 사진이랑 같이-->
     
-    <div class="directions">    
-        <div class="recipe_process">
-            {% for step in recipe_images %}
-            <div class="step-image">
-                <img src="{{step}}" alt="">
-                {% comment %} {{step}} {% endcomment %}
+                <!--메인 사진, 영양성분표, 레시피 설명-->
+                <div class="main_box">
+                    <div class="main_picture">
+                        <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                    </div>  
+                    <div class="recipe_info">
+                        <p class="title_ingredient">재  료</p>
+                        {% for ingredient in ingredients_list %}
+                        <span class="ingredient">{{ ingredient }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            {% endfor %}
         </div>
-        <div class="direction-step">
-                    <!-- {% comment %} <div class="step-number">{{ forloop.counter }}</div> {% endcomment %} -->
-            {% for step in directions %}
-            <div class="step-description">{{ step }}</div>
-            {% endfor %}
+        <div class="main_container">
+            <div class="recipe_container">
+                <h3 class="h3">요리방법</h3>
+                <div class="body_02">
+                    <!--조리 순서별로 사진이랑 같이-->
+                    <div class="directions">    
+                        <div class="recipe_process">
+                            {% for step in recipe_images %}
+                            <div class="step-image">
+                                <img src="{{step}}" alt="">
+                                {% comment %} {{step}} {% endcomment %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="direction-step">
+                                <!-- {% comment %} <div class="step-number">{{ forloop.counter }}</div> {% endcomment %} -->
+                        {% for step in directions %}
+                        <div class="step-description">{{ step }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="side_recipe">
+                <span class="side_title">또 다른 레시피</span>
+                <!--추천하는 다른 레시피 부분-->
+                <div class="other_recipes">
+                    <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
+                    <div class="other_recipe_info">
+                        <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
+                        <div class="other_recipe_auther">안드레아스 파울라</div>
+                    </div>
+                </div>
+                <div class="other_recipes">
+                    <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
+                    <div class="other_recipe_info">
+                        <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
+                        <div class="other_recipe_auther">안드레아스 파울라</div>
+                    </div>
+                </div>
+                <div class="other_recipes">
+                    <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
+                    <div class="other_recipe_info">
+                        <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
+                        <div class="other_recipe_auther">안드레아스 파울라</div>
+                    </div>
+                </div>
+                <div class="ads">
+                    <img src="" alt="">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="side_recipe">
-        <span class="side_title">또 다른 레시피</span>
-        <!--추천하는 다른 레시피 부분-->
-        <div class="other_recipes">
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
-            <div class="other_recipe_info">
-                <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
-                <div class="other_recipe_auther">안드레아스 파울라</div>
-            </div>
-        </div>
-        <div class="other_recipes">
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
-            <div class="other_recipe_info">
-                <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
-                <div class="other_recipe_auther">안드레아스 파울라</div>
-            </div>
-        </div>
-        <div class="other_recipes">
-            <div class="other_recipe_content_pic"><img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt=""></div>
-            <div class="other_recipe_info">
-                <div class="orther_recipe_title">치킨미트볼이랑 크림치즈</div>
-                <div class="other_recipe_auther">안드레아스 파울라</div>
-            </div>
-        </div>
-        <div class="ads">
-            <img src="" alt="">
-        </div>
-    </div>
-</div>
+
+
     <!--deliciousness to your inbox-->
-<div id="bottom">
+    <div id="bottom">
     <!--메뉴 추천부분-->
     <div id="recommend_box">
         <p class="recommend_title">Recommend Recipes</p>
@@ -158,9 +164,9 @@
                 <p class="food_name">음식 이름</p>
             </div>
         </div>
+        {% include "footerbar.html" %}
     </div>
-</div>
-{% include "footerbar.html" %}
+    </div>
 </body>
 <script>
     // 공유하기 버튼 클릭 시
