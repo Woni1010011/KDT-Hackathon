@@ -4,6 +4,7 @@ from contents_app.models import Ingredients
 
 # Create your models here.
 
+
 class User(models.Model):
     user_no = models.BigAutoField(primary_key=True)
     user_id = models.CharField(max_length=150, unique=True)
@@ -15,17 +16,22 @@ class User(models.Model):
     user_address = models.CharField(max_length=200)
     sub_date = models.DateTimeField(auto_now_add=True)
     user_point = models.IntegerField(default=0)
+    user_img = models.TextField(null=True)
+    image = models.ImageField(upload_to="%Y-%m-%d", default="chefhat.jpg")
 
     def __str__(self):
         return self.user_id
-    
+
+
 class UserIgrd(models.Model):
-    ingredients_igrd_no = models.ForeignKey(Ingredients, on_delete=models.CASCADE, related_name="related_user_igrds")
+    ingredients_igrd_no = models.ForeignKey(
+        Ingredients, on_delete=models.CASCADE, related_name="related_user_igrds"
+    )
     user_no = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_no_info")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_id_info")
     igrd_name = models.CharField(max_length=255)
     user_igrd_date = models.DateField()
-    #소비기한 삭제
+    # 소비기한 삭제
 
     def __str__(self):
         return self.igrd_name

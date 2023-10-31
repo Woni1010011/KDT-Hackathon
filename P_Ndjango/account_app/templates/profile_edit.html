@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
-    <script src="account_app/js/profile_edit.js" defer></script>
+    <script src="{% static 'js/my_page.js' %}" defer></script>
 </head>
 
 <body>
@@ -22,10 +22,17 @@
         </div>
 
         <div class='info_login'>
+            {% if request.session.user_id %}
+            <a class='alarm_div' href="#" id="alarmLink">
+                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
+            <a class='cate' href={% url "logout" %}>Logout</a>
+            {% else %}
             <a class='alarm_div' href="#" id="alarmLink">
                 <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
             </a>
             <a class='cate' href={% url "login" %}>Login</a>
+            {% endif %}
         </div>
     </header>
 
@@ -47,7 +54,7 @@
     <div class="wrapper">
         <aside class="category-sidebar">
             <header>
-                <h1 class="chef_njango">{{ User.user_name }} 셰프의 냉장고</h1>
+                <h1 class="chef_njango">{{ user.user_name }} 셰프의 냉장고</h1>
             </header>
             <ul class="category-list">
                 <li><a href="user-info">셰프 정보</a></li>
@@ -60,44 +67,54 @@
             </ul>
         </aside>
         <main id="first_main" class="box-contents">
+            <form action="{% url 'profile_edit' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <section id="profile">
+                    <div class="profile-picture">
+                        <!-- 프로필 업로드 폼 -->
+                        <input type="file" id="profile-picture" name="profile-picture" accept="image/*"
+                            style="display:none;">
+                        <label for="profile-picture">
+                            <img id="preview"
+                                src="{% if user.user_img %}{% static user.user_img %}{% else %}{% static 'img/chefhat.png' %}{% endif %}"
+                                alt="">
+                        </label>
+                        <div class="little-data">
+                            <h2>{{ user.user_name }} 이름 </h2><br>
+                            <p>{{ user.user_point }} point </p>
+                        </div>
+                    </div>
+                </section><br>
 
-            <section id="profile">
-                <div class="profile-picture">
-                    <!-- 프로필 업로드 폼 -->
-                    <img id="preview" src="#" alt=""><br>
-                    <input type="file" id="profile-picture" name="profile-picture1"><br>
+
+                <div id="user-details" class="user-details">
+                    <div class="user-info1">
+                        <label for="usernickname">닉네임</label><br>
+                        <input type="text" id="user_nick" name="user_nick" value="{{ user.user_nick }}"><br><br>
+
+
+                        <label for="email">이메일 주소</label><br>
+                        <input type="email" id="email" name="email" value="{{ user.user_email }}"><br><br>
+
+                        <label for="location">거주지역</label><br>
+                        <input type="text" id="location" name="location" value="{{ user.user_address }}"><br><br>
+                    </div>
+                    <div class="user-info2">
+                        <label for="username">성명</label><br>
+                        <input type="text" id="username" name="username" value="{{ user.user_name }}"><br><br>
+
+                        <label for="phonenumber">전화번호</label><br>
+                        <input type="text" id="phonenumber" name="phonenumber" value="{{ user.user_phone }}"><br><br>
+
+                        <label for="date">가입 일자</label><br>
+                        <input type="date" id="date_first" name="created_at" value="{{ user.sub_date }}" readonly>
+                    </div>
                 </div>
-                <h2>{{ User.user_name }} 띵똥 h2 </h2>
-                <p>{{ User.user_point }} point </p>
 
-            </section><br>
-            <div id="user-details" class="user-details">
-                <div class="user-info1">
-                    <label for="usernickname">닉네임</label><br>
-                    <input type="text" id="usernickname" name="usernickname" value="{{ User.user_nick }}"><br><br>
-
-                    <label for="email">이메일 주소</label><br>
-                    <input type="email" id="email" name="email" value="{{ User.user_email }}"><br><br>
-
-                    <label for="location">거주지역</label><br>
-                    <input type="text" id="location" name="location" value="{{ User.user_address }}"><br><br>
-                </div>1
-                <div class="user-info2">
-                    <label for="username">성명</label><br>
-                    <input type="username" id="username" name="username" value="{{ User.user_name }}"><br><br>
-
-                    <label for="phonenumber">전화번호</label><br>
-                    <input type="text" id="phonenumber" name="phonenumber" value="{{ User.user_phone }}"><br><br>
-
-                    <label for="date">가입 일자</label><br>
-                    <input type="date" id="date_first" name="created_at" value="{{ User.sub_date }}" readonly>
+                <div class="buttons">
+                    <button type="submit" id="edit-button"> 변경사항 저장 </button>
                 </div>
-            </div>
-
-            <div class="buttons">
-                <button type="button" id="edit-button" onclick="goToMyPage()"> 변경사항 저장 </button>
-            </div>
-
+            </form>
         </main>
     </div>
 
@@ -109,3 +126,5 @@
 </body>
 
 </html>
+
+<!-- profile_edit.html -->
