@@ -54,8 +54,27 @@ def search(request):
         if ingredient and ingredient not in igrd:
             igrd.append(ingredient)
 
-    # 가져온 데이터를 템플릿에 전달
-    context = {"igrd": igrd}
+    recipes = Recipes.objects.order_by("?")[:4]
+    recipe_images = [recipe.recipe_img for recipe in recipes]
+
+    def urlString(queryset):
+        list_url = queryset.split(",")
+        match = re.search(r'https://[^\s}"]+', list_url[-1])
+        if match:
+            url = match.group()
+            return url
+        else:
+            print("매칭된 URL이 없습니다.")
+
+    thumbnails = []
+    for i in range(4):
+        thumbnails.append(urlString(recipe_images[i]))
+
+    mylist = zip(recipes, thumbnails)
+    context = {
+        "igrd": igrd,
+        "mylist": mylist,
+    }
 
     # 템플릿 렌더링
     return render(request, "search.html", context)

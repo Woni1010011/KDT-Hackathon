@@ -63,41 +63,21 @@
         </div>
         {% comment %} 인기 레시피 추천 {% endcomment %}
         <div id="popular_cook">
-            <div class="article_cook_text">인기 레시피</div>
+            <div class="article_cook_text">인기 레시피 추천</div>
             {% comment %} 인기 레시피 게시글 크롤링하기 {% endcomment %}
             <div class="popular_chef">
+                
+                {% for recipe, thumbnail in mylist %}
+                <a href="{% url 'recipe' recipe.recipe_no %}">
                 <div class="posting">
                     <div class="popular_posting">
-
+                        <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
                     </div>
                     <span class="post_title">
-                        게시물 제목
+                        {{recipe.recipe_title}}
                     </span>
-                </div>
-                <div class="posting">
-                    <div class="popular_posting">
-
-                    </div>
-                    <span class="post_title">
-                        게시물 제목
-                    </span>
-                </div>
-                <div class="posting">
-                    <div class="popular_posting">
-
-                    </div>
-                    <span class="post_title">
-                        게시물 제목
-                    </span>
-                </div>
-                <div class="posting">
-                    <div class="popular_posting">
-
-                    </div>
-                    <span class="post_title">
-                        게시물 제목
-                    </span>
-                </div>
+                </div></a>
+                {% endfor %}
             </div>
         </div>
     </article>
