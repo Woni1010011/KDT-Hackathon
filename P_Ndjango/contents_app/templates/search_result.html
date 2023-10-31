@@ -37,23 +37,27 @@
         {% comment %} 검색결과(크롤링 레시피){% endcomment %}
         <!--이미지, 제목 붙이기-->
         <div class="posting_list">
-            {% for recipe in items %}
-                <div class="post">
-                    <a href="{% url 'recipe' recipe.recipe_no %}">
-                        <div class="post_image">
-                            <img class="post_img" src="{{ recipe.thumbnail }}" alt="">
-                        </div>
-                        <div class="post_info">
-                            <div class="title_box">
-                                <p class="title_text">
-                                    {{ recipe.recipe_title }}
-                                </p>
-                            </div>
-                        </a>
+            {% for item in items %}
+            <div class="post">
+                <a href="{% url item.url_name item.pk %}">
+                    <div class="post_image">
+                        <img class="post_img" src="{{ item.thumbnail }}" alt="">
                     </div>
+                </a>
+                <div class="post_info">
+                    <a href="{% url item.url_name item.pk %}">
+                        <div class="title_box">
+                            <p class="title_text">
+                                {{ item.title }}
+                            </p>
+                        </div>
+                    </a>
                 </div>
+            </div>
             {% endfor %}
         </div>
+        
+        
 
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
@@ -94,7 +98,7 @@
             </div>
             {% comment %} 광고 배너 {% endcomment %}
             <div class="banner">
-
+                <img src="{% static 'img/side_banner.jpg' %}" alt="">
             </div>
         </div>
 
