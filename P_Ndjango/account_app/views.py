@@ -82,35 +82,26 @@ def logout_view(request):
 @login_required
 def profile_edit(request):
     user = User.objects.get(user_id=request.session["user_id"])
+
     if request.method == "POST":
         form = UserEditForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
-            user.user_nick = form.cleaned_data["user_nick"]
-            user.user_email = form.cleaned_data["user_email"]
-            user.user_address = form.cleaned_data["user_address"]
-            user.user_name = form.cleaned_data["user_name"]
-            user.user_phone = form.cleaned_data["user_phone"]
-            user.user_img = form.cleaned_data["user_img"]
-            user.save()
+            form.save()
             return redirect("mypage")
-        # POST 요청이면, 프로필 정보를 업데이트하고 저장
     else:
-        form = UserEditForm(
-            initial={
-                "user_nick": user.user_nick,
-                "user_email": user.user_email,
-                "user_address": user.user_address,
-                "user_name": user.user_name,
-                "user_phone": user.user_phone,
-                "user_img": user.user_img,
-            }
-        )
-    return render(request, "profile_edit.html", {"user": user})
+        form = UserEditForm(instance=user)
+
+    return render(request, "profile_edit.html", {"form": form})
 
 
 @login_required
 def my_page(request):
-    user = User.objects.get(user_id=request.session["user_id"])
-    context = {"user": user}
-    return render(request, "my_page.html", context)
+    if request.session.get("user_id"):
+        user_id = request.session["user_id"]
+        user = User.objects.get(user_id=user_id)
+
+        context = {"user": user}
+        return render(request, "mypage.html", context)
+
+    return redirect("login")
