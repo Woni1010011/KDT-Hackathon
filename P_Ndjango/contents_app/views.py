@@ -9,6 +9,7 @@ from account_app.models import User
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
+import random
 from django.db.models import Q
 from . import receipe_search
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -42,7 +43,22 @@ def homepage(request):
 
 
 def search(request):
-    return render(request, "search.html")
+    # Ingredients 테이블에서 모든 레코드의 개수 가져오기
+    total_ingredients_count = Ingredients.objects.count()
+
+    # 중복되지 않는 10개의 레코드를 무작위로 선택
+    igrd = []
+    while len(igrd) < 10:
+        random_index = random.randint(1, total_ingredients_count)
+        ingredient = Ingredients.objects.filter(pk=random_index).first()
+        if ingredient and ingredient not in igrd:
+            igrd.append(ingredient)
+
+    # 가져온 데이터를 템플릿에 전달
+    context = {"igrd": igrd}
+
+    # 템플릿 렌더링
+    return render(request, "search.html", context)
 
 
 # 사용자 이름 가져오기
@@ -157,7 +173,7 @@ def extract_first_image(post_content):
 def search_result(request):
     query = request.GET.get("q", "")
     if not query:
-        return redirect('search')
+        return redirect("search")
 
     # 레시피의 재료를 모두 가져옵니다.
     recipes = Recipes.objects.all()
@@ -198,14 +214,7 @@ def search_result(request):
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
 
     # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
-    return render(request, "search_result.html", {
-        "items": top_recipes,
-        "query": query
-    })
-
-
-
-
+    return render(request, "search_result.html", {"items": top_recipes, "query": query})
 
 
 def mypage(request):
