@@ -6,45 +6,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href='/static/css/recipe.css'></head>
+    <link rel="stylesheet" type="text/css" href='/static/css/recipe.css'>
+</head>
 <body>
     {% include 'navbar.html' %}
     <div class="head_container">
         <div class="header">
-                <div class="header_in_header">
-                    <!--게시물 제목-->
-                    <div class="header_info">
-                        <div class="header_title"><h1>{{ recipe.recipe_title }}</h1></div>
-                        <div class="recipes_tags">
-                            <!-- 인분 정보 -->
-                            <div class="posted_by">
-                                <div>
-                                    <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
-                                </div>
-                                <div class="posted_by_info">
-                                    <div class="posted_by_info">{{ recipe.serving }}</div>
-                                </div>
+            <div class="header_in_header">
+                <!--게시물 제목-->
+                <div class="header_info">
+                    <div class="header_title">
+                        <h1>{{ recipe.recipe_title }}</h1>
+                    </div>
+                    <div class="recipes_tags">
+                        <!-- 인분 정보 -->
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
                             </div>
-                            
-                            <!-- 조리시간 정보 -->
-                            <div class="posted_by">
-                                <div>
-                                    <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
-                                </div>
-                                <div class="posted_by_info">
-                                    <div class="time_text">조리시간</div>
-                                    <div class="time">{{ recipe.cook_time }}</div>
-                                </div>
+                            <div class="posted_by_info">
+                                <div class="posted_by_info">{{ recipe.serving }}</div>
                             </div>
+                        </div>
                             
-                            <!-- 조리 난이도 정보 -->
-                            <div class="posted_by">
-                                <div>
-                                    <img class="posted_img" src="{% static 'img\ForkKnife.svg' %}" alt="">
-                                </div>
-                                <div class="posted_by_info">
-                                    <div class="posted_by_info_text">{{ recipe.recipe_level }}</div>
-                                </div>
+                        <!-- 조리시간 정보 -->
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="time_text">조리시간</div>
+                                <div class="time">{{ recipe.cook_time }}</div>
+                            </div>
+                        </div>
+                            
+                        <!-- 조리 난이도 정보 -->
+                        <div class="posted_by">
+                            <div>
+                                <img class="posted_img" src="{% static 'img\ForkKnife.svg' %}" alt="">
+                            </div>
+                            <div class="posted_by_info">
+                                <div class="posted_by_info_text">{{ recipe.recipe_level }}</div>
                             </div>
                         </div>
                     </div>
