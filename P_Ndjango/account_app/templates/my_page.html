@@ -50,12 +50,13 @@
             img.alt = "Original Alt Text";
         });
     </script>
-
     <div class="wrapper">
         <aside class="category-sidebar">
+            {% for user in users %}
             <header>
                 <h1 class="chef_njango">{{ User.user_name }} 셰프의 냉장고</h1>
             </header>
+            {% endfor %}
             <ul class="category-list">
                 <li><a href="user-info">셰프 정보</a></li>
                 <li><a href="my-ndjango">내 냉장고</a></li>
@@ -67,37 +68,43 @@
             </ul>
         </aside>
         <main id="first_main" class="box-contents">
-
             <section id="profile">
                 <div class="profile-picture">
                     <!-- 프로필 업로드 폼 -->
-                    <img id="preview" src="#" alt=""><br>
-                    <input type="file" id="profile-picture" name="profile-picture1"><br>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*"
+                        style="display:none;">
+                    <label for="profile-picture">
+                        <img id="preview"
+                            src="{% if user.user_img %}{% static user.user_img %}{% else %}{% static 'img/chefhat.png' %}{% endif %}"
+                            alt="">
+                    </label>
                 </div>
-                <h4>{{ user.user_name }} 성명 </h2>
-                    <p>{{ user.user_address }} 주소 </p>
 
+                <h4>{{ user.user_name }} 성명 </h4><br>
+                <h4>{{ user.user_address }} 주소</h4>
             </section><br>
+
             <div id="user-details" class="user-details">
                 <div class="user-info1">
                     <label for="usernickname">닉네임</label><br>
-                    <p>{{ user.user_nick }}</p><br><br>
+                    <p> {{ user.user_nick }}</p><br><br>
 
                     <label for="email">이메일 주소</label><br>
-                    <p>{{ user.user_email }}</p><br><br>
+                    <p> {{ user.user_email }}</p><br><br>
 
                     <label for="address">거주지역</label><br>
-                    <p>{{ user.user_address }}</p><br><br>
+                    <p> {{ user.user_address }}</p><br><br>
                 </div>
+
                 <div class="user-info2">
                     <label for="username">성명</label><br>
-                    <p>{{ user.user_name }}</p><br><br>
+                    <p> {{ user.user_name }}</p><br><br>
 
                     <label for="phonenumber">전화번호</label><br>
-                    <p>{{ user.user_phone }}</p><br><br>
+                    <p> {{ user.user_phone }}</p><br><br>
 
                     <label for="date">가입 일자</label><br>
-                    <p>{{ user.sub_date }}</p>
+                    <p> {{ user.sub_date }}</p>
                 </div>
             </div>
 
@@ -107,11 +114,12 @@
                 </a>
             </div>
         </main>
+
     </div>
 
     {% include 'footerbar.html' %}
 
-    </main>
+
 
 </body>
 
