@@ -9,6 +9,7 @@ from account_app.models import User
 from django.shortcuts import render, get_object_or_404
 import re
 import ast
+import random
 from django.db.models import Q
 from . import receipe_search
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -17,7 +18,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # Create your views here.
 def homepage(request):
-    recipes = Recipes.objects.all()[:9]
+    recipes = Recipes.objects.order_by("?")[:9]
     recipe_images = [recipe.recipe_img for recipe in recipes]
 
     def urlString(queryset):
@@ -42,7 +43,22 @@ def homepage(request):
 
 
 def search(request):
-    return render(request, "search.html")
+    # Ingredients 테이블에서 모든 레코드의 개수 가져오기
+    total_ingredients_count = Ingredients.objects.count()
+
+    # 중복되지 않는 10개의 레코드를 무작위로 선택
+    igrd = []
+    while len(igrd) < 10:
+        random_index = random.randint(1, total_ingredients_count)
+        ingredient = Ingredients.objects.filter(pk=random_index).first()
+        if ingredient and ingredient not in igrd:
+            igrd.append(ingredient)
+
+    # 가져온 데이터를 템플릿에 전달
+    context = {"igrd": igrd}
+
+    # 템플릿 렌더링
+    return render(request, "search.html", context)
 
 
 # 사용자 이름 가져오기
@@ -157,7 +173,7 @@ def extract_first_image(post_content):
 def search_result(request):
     query = request.GET.get("q", "")
     if not query:
-        return redirect('search')
+        return redirect("search")
 
     # 레시피의 재료를 모두 가져옵니다.
     recipes = Recipes.objects.all()
@@ -198,14 +214,7 @@ def search_result(request):
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
 
     # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
-    return render(request, "search_result.html", {
-        "items": top_recipes,
-        "query": query
-    })
-
-
-
-
+    return render(request, "search_result.html", {"items": top_recipes, "query": query})
 
 
 def mypage(request):
@@ -245,14 +254,34 @@ def recipe_list(request):
 
 # recipe_view 함수 정의
 def recipe_view(request, recipe_no):
-    # 레시피스 테이블 내용들을 불러옴
+    # 레시피 테이블 내용을 불러옴
     recipe = Recipes.objects.get(pk=recipe_no)
 
+    def parse_ingredients(ingredients_str):
+        try:
+            # 시도해서 파이썬 리터럴로 파싱
+            ingredients = ast.literal_eval(ingredients_str)
+            if isinstance(ingredients, set):
+                return list(ingredients)
+
+        except (SyntaxError, ValueError):
+            pass
+
+        # 처리할 수 없는 경우, 문자열을 쉼표로 분할하여 리스트로 반환
+        ingredients = ingredients_str.split(",")
+        ingredients = [ingredient.strip() for ingredient in ingredients]
+        return ingredients
+
     # ingredients 필드를 파싱
-    ingredients_list = ast.literal_eval(recipe.ingredients)
+    ingredients_list = parse_ingredients(recipe.ingredients)
+    print(ingredients_list)
 
     directions = ast.literal_eval(recipe.direction)
     recipe_images = ast.literal_eval(recipe.recipe_img)
+
+    # print(ingredients_list)
+    print(directions)
+    print(recipe_images)
 
     def extract_order(direction):
         # 순서 번호 추출
@@ -275,19 +304,17 @@ def recipe_view(request, recipe_no):
     # 사진이 없는 조리과정의 경우에 대한 처리를 위해 zip_longest를 사용
     # from itertools import zip_longest
     # directions_and_images = list(zip_longest(sorted_directions))
+    template = "recipe.html"
+    context = {
+        "recipe": recipe,
+        "ingredients_list": ingredients_list,
+        "directions": sorted_directions,
+        "recipe_images": sorted_recipe_images,
+        "thumbnail": thumbnail,
+    }
 
     # 결과를 post.html 템플릿에 전달
-    return render(
-        request,
-        "recipe.html",
-        {
-            "recipe": recipe,
-            "ingredients_list": ingredients_list,
-            "directions": sorted_directions,
-            "recipe_images": sorted_recipe_images,
-            "thumbnail": thumbnail,
-        },
-    )  # 'recipe_images' : sorted_recipe_images
+    return render(request, template, context)  # 'recipe_images' : sorted_recipe_images
 
 
 from .forms import PostForm

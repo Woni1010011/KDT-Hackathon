@@ -46,22 +46,18 @@
         {% comment %} </form> {% endcomment %}
         {% comment %} 인기검색어 {% endcomment %}
         <div id="popular_box">
-            <div class="article_text">인기 검색어</div>
+            <div class="article_text">인기 식재료 추천</div>
             {% comment %} 인기검색어 연동하기 {% endcomment %}
             <div class="popular_keyword">
                 <div class="keyword_num_left">
-                    <p>1.</p>
-                    <p>2.</p>
-                    <p>3.</p>
-                    <p>4.</p>
-                    <p>5.</p>
+                    {% for i in igrd|slice:":5" %}
+                        <p>{{ forloop.counter }}. {{ i.igrd_name }}</p>
+                    {% endfor %}
                 </div>
                 <div class="keyword_num_right">
-                    <p>6.</p>
-                    <p>7.</p>
-                    <p>8.</p>
-                    <p>9.</p>
-                    <p>10.</p>
+                    {% for i in igrd|slice:"5:" %}
+                        <p>{{ forloop.counter|add:5 }}. {{ i.igrd_name }}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
