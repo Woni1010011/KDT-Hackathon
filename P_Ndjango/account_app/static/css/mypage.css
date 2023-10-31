@@ -13,7 +13,7 @@
     /* box-sidebar */
     height: 500%;
     width: 200px;
-    background-color: #3e794a;
+    background-color: #97BFB4;
     flex-shrink: 0;
     min-height: calc(100vh - 100px);
     padding: 20px;
@@ -36,6 +36,32 @@
     margin: 30px;
 }
 
+.edit_button {
+    background-color: #97BFB4;
+    /* 네이버 버튼 색상 */
+    color: #F5EEDC;
+    /* 글자 색상 */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.edit_button:hover {
+    background-color: #F5EEDC;
+    color: #97BFB4;
+    border: 1px solid #97BFB4;
+}
+
 /* #user-details,
 #user-numbers,
 #create-location  */
@@ -50,7 +76,7 @@
 } */
 
 .chef_njango {
-    color: #5abb6e;
+    color: #97BFB4;
     font-weight: bold;
     font-size: 25px;
 }
@@ -105,13 +131,12 @@ label {
     padding: 10px;
 }
 
-p,
 input,
 select,
 textarea {
     width: 140px;
-    padding: 8px;
-    border: 2px solid #5abb6e;
+    padding: 13px;
+    border: 2px solid #97BFB4;
     border-radius: 10px;
     transition: box-shadow 0.3s, cursor 0.3s;
     /* 효과가 부드럽게 변화하도록 설정 */
@@ -137,9 +162,6 @@ textarea:focus {
     /* 클릭 시 그림자 효과 강화 */
 }
 
-button {
-    margin-top: 10px;
-}
 
 .category-list {
     list-style-type: none;
@@ -154,7 +176,7 @@ button {
 
 .category-list a {
     text-decoration: none;
-    color: #dff0c4;
+    color: #F5EEDC;
     /* Add your desired text color */
     font-weight: bold;
     display: block;

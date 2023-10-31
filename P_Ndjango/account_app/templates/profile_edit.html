@@ -54,7 +54,7 @@
     <div class="wrapper">
         <aside class="category-sidebar">
             <header>
-                <h1 class="chef_njango">{{ user.user_name }} 셰프의 냉장고</h1>
+
             </header>
             <ul class="category-list">
                 <li><a href="user-info">셰프 정보</a></li>
@@ -80,7 +80,7 @@
                                 alt="">
                         </label>
                         <div class="little-data">
-                            <h2>{{ user.user_name }} 이름 </h2><br>
+                            <h2>{{ user.user_name }} 이름 나오지도 않네</h2><br>
                             <p>{{ user.user_point }} point </p>
                         </div>
                     </div>
@@ -112,8 +112,13 @@
                 </div>
 
                 <div class="buttons">
-                    <button type="submit" id="edit-button"> 변경사항 저장 </button>
+                    <a href="{% url 'mypage' %}" type="submit" class="save_button" id="save_button"> 변경사항 저장 </a>
                 </div>
+                <!-- <form method="post" action="{% url 'profile_edit' %}">
+                    {% csrf_token %}
+                    프로필 편집폼들
+                    <input type="submit" value="변경 사항 저장">
+                </form> -->
             </form>
         </main>
     </div>
