@@ -51,14 +51,9 @@ def get_user_name(request):
         try:
             # user_id에 해당하는 사용자 조회
             user = User.objects.get(user_id=user_id)
-            user_nick = user.user_nick
             user_name = user.user_name
 
-            if user_nick:
-                return user_nick
-            else:
-                # user_nick이 없을 경우 user_name 값을 반환
-                return user_name
+            return user_name
         except User.DoesNotExist:
             # 사용자가 존재하지 않을 때
             return None
@@ -134,17 +129,13 @@ def board(request, filter):
         user_id = request.session.get("user_id")
         try:
             user = User.objects.get(user_id=user_id)
-            user_nick = user.user_nick
             user_name = user.user_name
-
-            # user_nick으로 게시물 필터링
-            posts_nick = Board.objects.filter(user_nick=user_nick).order_by("-post_no")
 
             # user_name으로 게시물 필터링
             posts_name = Board.objects.filter(user_nick=user_name).order_by("-post_no")
 
             # 두 결과를 합칩니다.
-            posts = posts_nick | posts_name
+            posts = posts_name
         except User.DoesNotExist:
             # 사용자를 찾을 수 없는 경우의 처리
             posts = []
@@ -164,13 +155,15 @@ def extract_first_image(post_content):
 def search_result(request):
     # 사용자의 검색 쿼리를 가져옵니다. 만약 쿼리가 없다면 빈 문자열을 기본값으로 사용합니다.
     query = request.GET.get("q", "")
-    
+
     # 검색 쿼리가 없다면 바로 search_result 페이지로 리다이렉트합니다.
     if not query:
-        return redirect('search_result')
+        return redirect("search_result")
 
     # 레시피 모델에서 사용자의 검색 쿼리에 일치하는 레시피를 필터링하여 가져옵니다.
-    recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
+    recipe_results = Recipes.objects.filter(
+        Q(recipe_title__icontains=query) | Q(ingredients__icontains=query)
+    )
     for recipe in recipe_results:
         # 레시피 이미지들을 처리합니다.
         recipe_images = ast.literal_eval(recipe.recipe_img)
@@ -189,7 +182,7 @@ def search_result(request):
 
         recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
         # 각 레시피 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
-        recipe.type = 'recipe'
+        recipe.type = "recipe"
 
     # 게시판 모델에서 사용자의 검색 쿼리에 일치하는 게시글을 필터링하여 가져옵니다. board_no는 1인 것만 선택합니다.
     board_results = Board.objects.filter(post_content__icontains=query, board_no=1)
@@ -197,24 +190,18 @@ def search_result(request):
         # 게시글의 첫 번째 이미지를 추출합니다.
         board.thumbnail = extract_first_image(board.post_content)
         # 각 게시글 객체에 타입을 추가합니다. 이는 나중에 템플릿에서 객체의 타입을 구분하기 위함입니다.
-        board.type = 'board'
+        board.type = "board"
 
     # 레시피와 게시글의 결과를 하나의 리스트로 합칩니다.
     combined_results = list(recipe_results) + list(board_results)
 
     # 합쳐진 결과 리스트에 페이지네이션을 적용합니다. 페이지당 5개의 항목을 표시하도록 설정합니다.
     paginator = Paginator(combined_results, 5)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     items_on_page = paginator.get_page(page)
 
     # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
-    return render(request, "search_result.html", {
-        "items": items_on_page,
-        "query": query
-    })
-
-
-
+    return render(request, "search_result.html", {"items": items_on_page, "query": query})
 
 
 def mypage(request):
