@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
     <header class='topnav'>
@@ -17,11 +17,8 @@
         </div>
 
         <div id='topnav_info'>
+            <a class='cate' href="{% url 'search' %}">레시피찾기</a>
             <a class='cate' href="{% url 'board' 'ALL' %}">커뮤니티</a>
-            <a class='cate' href="">category2</a>
-            <a class='cate' href="">category3</a>
-            <a class='cate' href="">category4</a>
-            <a class='cate' href="">category5</a>
         </div>
 
         <div class='info_login'>
@@ -29,10 +26,16 @@
             <a class='alarm_div' href="#" id="alarmLink">
                 <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
             </a>
+            <a class='userInfo_div' href="{% url "mypage" %}" id="userLink">
+                <img class="userInfo_btn" src="{% static 'img/user_icon.png' %}" alt=''>
+            </a>
             <a class='cate' href={% url "logout" %}>Logout</a>
             {% else %}
             <a class='alarm_div' href="#" id="alarmLink">
                 <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
+            </a>
+            <a class='userInfo_div' href="" id="nouserLink">
+                <img class="userInfo_btn" src="{% static 'img/user_icon.png' %}" alt=''>
             </a>
             <a class='cate' href={% url "login" %}>Login</a>
             {% endif %}
@@ -54,6 +57,17 @@
     alarmLink.addEventListener("mouseout", function() {
         img.src = "{% static 'img/alarm_normal.png' %}";
         img.alt = "Original Alt Text";
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // userInfo_div 클릭 시 알림 창 띄우기
+        var userInfoLink = document.getElementById("nouserLink");
+        userInfoLink.addEventListener("click", function(event) {
+            event.preventDefault(); // 링크 클릭 동작 취소
+            alert("로그인이 필요합니다."); // 알림 메시지
+            
+        });
     });
 </script>
 
