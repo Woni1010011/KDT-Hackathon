@@ -29,10 +29,44 @@
             </ul>
         </aside>
         <main id="first_main" class="box-contents">
-            
+
+            <h2>나의 냉장고</h2>
+            <div class="user_ndjango">
+                
+                {% for user_igrd in user_igrds %}
+                <div class="user_igrd_icon">
+                    <div class="user_igrd_name">
+                        <span>{{ user_igrd.igrd_name }}</span>
+                    </div>
+                    <div class="user_igrd_date">
+                        <span>{{ user_igrd.user_igrd_date|date:"Y-m-d" }}</span>
+                    </div>
+                    <div class="user_igrd_delete">
+                        <a href="{% url 'delete_to_fridge' user_igrd.id %}">삭제</a>
+                        {% comment %} <button type="submit" name="{{user_igrd.id}}" class="igrd_delete">x</button> {% endcomment %}
+                    </div>
+                </div>
+                {% empty %}
+                <h4>냉장고가 비어있습니다</h4>
+                {% endfor %}
+            </div>
+
+            <br>
+            <br>
+
+            <form method="POST" action="{% url 'add_to_fridge' %}">
+                {% csrf_token %}
+                <label for="igrd_name">Ingredient Name:</label>
+                <input type="text" id="igrd_name" name="igrd_name" required>
+                
+                <label for="user_igrd_date">Date:</label>
+                <input type="date" id="user_igrd_date" name="user_igrd_date" required>
+                
+                <button type="submit">Add to My Fridge</button>
+            </form>
+        
         </main>
     </div>
     {% include 'footerbar.html' %}
 </body>
-
 </html>

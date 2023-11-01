@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from account_app.models import User
+from account_app.models import User, UserIgrd
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -78,4 +78,38 @@ def logout_view(request):
 
 
 def my_fridge(request):
-    return render(request, "my_ndjango.html")
+    user_id = request.session.get("user_id")
+    if user_id:
+        # UserIgrd 테이블에서 세션에 있는 user_id와 같은 user_id를 갖는 정보를 가져옵니다.
+        user_igrds = UserIgrd.objects.filter(user_id=user_id)
+    else:
+        user_igrds = ["내 냉장고가 비었습니다."]
+
+    context = {
+        "user_igrds": user_igrds,
+    }
+
+    return render(request, "my_ndjango.html", context)
+
+
+from django.http import JsonResponse
+def add_to_fridge(request):
+    if request.method == "POST":
+        user_id = request.session["user_id"]
+        igrd_name = request.POST.get("igrd_name")
+        user_igrd_date = request.POST.get("user_igrd_date")
+
+        user_igrd = UserIgrd.objects.create(
+            user_id=user_id, igrd_name=igrd_name, user_igrd_date=user_igrd_date
+        )
+
+        return redirect("ndjango")
+    else:
+        return render(request, "my_ndjango.html")
+    
+
+def delete_to_fridge(request, user_igrd_id):
+    user_id = request.session["user_id"]
+    user_igrd = UserIgrd.objects.get(id=user_igrd_id,user_id=user_id)
+    user_igrd.delete()
+    return redirect('ndjango')

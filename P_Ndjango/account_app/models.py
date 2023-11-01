@@ -24,12 +24,8 @@ class User(models.Model):
 
 
 class UserIgrd(models.Model):
-    ingredients_igrd_no = models.ForeignKey(
-        Ingredients, on_delete=models.CASCADE, related_name="related_user_igrds"
-    )
-    user_no = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_no_info")
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_id_info")
-    igrd_name = models.CharField(max_length=255)
+    user_id = models.CharField(max_length=150)
+    igrd_name = models.TextField(null=False)
     user_igrd_date = models.DateField()
     # 소비기한 삭제
 
