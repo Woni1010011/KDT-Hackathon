@@ -136,3 +136,39 @@ def ndjango_material(request):
         return render(request, "my_ndjango.html", {"text": text})
 
     return render(request, "my_ndjango.html")
+
+from googletrans import Translator
+from google.cloud import vision
+from django.contrib import messages
+def ndjango_img(request):
+    if request.method == "POST" and request.FILES["image"]:
+        image = request.FILES["image"]
+        client = vision.ImageAnnotatorClient()
+
+        content = image.read()
+        image = types.Image(content=content)
+        # 이미지 객체를 텍스트로 변환
+        response = client.object_localization(image=image)
+        objects = response.localized_object_annotations
+
+        if objects:
+            detected_objects = [obj.name for obj in objects]
+            unique_detected_objects = list(set(detected_objects))
+
+            # 구글 번역 API 한국어로 번역 일일 사용량 제한있음
+            translator = Translator()
+            translated_objects = [
+                translator.translate(obj, src="en", dest="ko").text
+                for obj in unique_detected_objects
+            ]
+
+            # '음식' 및 '패키지 상품' 필터링
+            filtered_objects = [
+                obj for obj in translated_objects if obj not in ["음식", "패키지 상품", "채소"]
+            ]
+            return render(request, "my_ndjango.html", {"translated_objects": filtered_objects})
+        else:
+            messages.warning(request, "재료를 찾을 수 없습니다.")
+            return render(request, "my_ndjango.html")
+    else:
+        return render(request, "my_ndjango.html")
