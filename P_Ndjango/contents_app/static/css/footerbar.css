@@ -1,33 +1,44 @@
 .footer_container {
     display: flex;
     flex-direction: column;
+    border-top: 1px solid #ccc;
+    gap: 10px;
+    width: 1740px;
 }
 .footer_nav {
-    background-color: pink;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 1200px;
+    justify-content: center;
+    align-items: center;
+    width: 1740px;
+    margin-bottom: 40px;
 }
 .footer_list {
-    background-color: green;
     display: flex;
-    justify-self: space-between;
-    width: 400px;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    color: #9c9c9c;
 }
 .footer_list li {
-    margin-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: 1px solid #ccc;
+}
+.footer_list li:first-child {
+    border-left: none;
 }
 li {
     list-style-type: none;
 }
 
-.footer_line {
-    width: 1200px;
-    height: 1px;
-    background-color: #000;
-    margin-top: 10px
-}
 .footer_dotori {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.NDjango_logo {
+    width: 90px;
+    height: 45px;
 }

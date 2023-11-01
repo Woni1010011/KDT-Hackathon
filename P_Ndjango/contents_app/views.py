@@ -13,6 +13,8 @@ from django.db.models import Q
 from . import receipe_search
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from django.templatetags.static import static
+
 
 
 # Create your views here.
@@ -176,6 +178,11 @@ def board(request, filter):
         else:
             posts = Board.objects.none()  # 로그인하지 않은 사용자 처리
 
+    # 검색 로직 추가
+    query = request.GET.get('query')
+    if query:
+        posts = posts.filter(post_content__icontains=query)
+
     # 한 페이지당 게시물 수를 정의합니다.
     paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글
 
@@ -193,10 +200,11 @@ def board(request, filter):
         post.thumbnail_url = extract_first_image(post.post_content) if post.post_content else None
 
     # 템플릿에 전달할 컨텍스트에 페이지 객체를 추가합니다.
+    icon_photo = static('img/icon_photo.png')
     return render(
         request,
         "board.html",
-        {"posts": items, "filter": filter},  # 변경됨: 이제 'items'는 페이징 처리된 페이지 객체입니다.
+        {"posts": items, "filter": filter, "icon_photo": icon_photo},  # icon_photo 변수를 추가합니다.
     )
 
 

@@ -12,12 +12,13 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 40px;
 }
 
 /* 배너광고 */
 .image_rolling_container {
     margin-top: 30px;
-    height: 150px;
+    height: 180px;
     width: 1200px;
 }
 
@@ -30,10 +31,10 @@ a {
 }
 
 .banner_img {
-    width: 100%;
-    height: 150px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    width: 1200px;
+    height: 180px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 /* 게시판 필터 */
@@ -59,7 +60,31 @@ a {
 }
 
 .board_search {
+    display: flex;
+    align-items: center;
     margin: 0px 10px 0px 0px;
+}
+
+.board_search form {
+    display: flex;
+    align-items: center;
+    margin: 0px 10px 0px 0px;
+}
+
+.board_search input {
+    width: 225px;
+    height: 30px;
+}
+
+.board_search button {
+    background-color: transparent;
+    border: none;    
+    width: 45px;
+    height: 30px;
+    position: absolute;
+    margin-left: 188px;
+    border-left: 1px solid #ccc;
+    cursor: pointer;
 }
 
 /* 글 내용 */
@@ -71,7 +96,7 @@ a {
     margin-bottom: 20px;
     cursor: pointer;
     align-items: center;
-    background-color: aliceblue;
+    background-color: #F5EEDC ;
     border-radius: 10px;
 }
 
@@ -98,7 +123,7 @@ a {
 
 .post_container {
     margin-left: 15px;
-    width: 950px;
+    width: 850px;
 }
 
 .post_title {
@@ -108,9 +133,18 @@ a {
 
 .post_content {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    height: 50px;
+}
+
+.post_content_info {
+    display: flex;
+    flex-direction: row;
+    justify-content:  space-between;
+    font-size: 12px;
+    color: #858585;
 }
 
 /* 페이지 번호 */
@@ -118,6 +152,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .num {
@@ -136,4 +171,31 @@ a {
 .num:hover {
     background-color: black;
     color: white;
+}
+
+.write-button {
+    position: fixed;
+    bottom: 120px;
+    right: 60px;
+    background-color: #97BFB4 ;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.write-button a {
+    color: #fff;
+}
+
+.write-button:hover {
+    background-color: #97BFB4 ;
+    cursor: pointer;
 }

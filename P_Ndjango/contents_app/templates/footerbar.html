@@ -8,26 +8,19 @@
 <body>
     <footer>
         <div class="footer_container">
-            <div class="footer_nav">
-                <p class="footer_title">Dotori key-jeakki</p>
-                <ul class="footer_list">
-                    <li>리스트 아이템 1</li>
-                    <li>리스트 아이템 2</li>
-                    <li>리스트 아이템 3</li>
-                    <li>리스트 아이템 4</li>
-                </ul>
-
-            </div>
-            <div class="footer_info">
-                <p>Lorem ipsum dolor sit amet, consectetuipisicing elit, </p>
-
-            </div>
-            <div class="footer_line">
-
-            </div>
-
             <div class="footer_dotori">
-                <p>© 2020 Flowbase. Powered by Webflow</p>
+                <a href="{% url 'main' %}">
+                    <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
+                </a>
+            </div>            
+            <div class="footer_nav">
+                <ul class="footer_list">
+                    <li>회사소개</li>
+                    <li>인재채용</li>
+                    <li>개인정보처리방침</li>
+                    <li>커뮤니티</li>
+                    <li>이용약관</li>
+                </ul>
             </div>
         </div>
     </footer>

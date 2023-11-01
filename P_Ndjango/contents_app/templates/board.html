@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
-    <link rel="stylesheet" href="{%static "css/board.css"%}" >
+    <link rel="stylesheet" href="{% static 'css/board.css' %}" >
 </head>
 <body>
     {% include 'navbar.html' %}
@@ -34,10 +34,16 @@
                     {% endif %}
                 </div>
                 <div class="board_search">
-                    <input type="text">
-                    <button>검색</button>
+                    <form method="get" action="{% url 'board' filter %}">
+                        <input type="text" name="query">
+                        <button type="submit">검색</button>
+                    </form>                        
                     {% if request.session.user_id %}
-                    <a href={% url "write_post" %}>글쓰기</a>
+                    <a href={% url "write_post" %}>
+                        <div class="write-button">
+                            글쓰기
+                        </div>
+                    </a>
                     {% endif %}
                 </div>
             </div>
@@ -48,15 +54,16 @@
                 <div class="post_list">
                     <div class="post_list_container">
                         <!-- Conditionally display the thumbnail image -->
-                        {% if post.thumbnail_url %}
                         <div class="post_img">
-                            <img src="{{ post.thumbnail_url }}" alt="Post Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="{{ post.thumbnail_url|default:icon_photo }}" alt="Post Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        {% endif %}
                         <div class="post_container">
                             <span class="post_title">{{ post.post_title }}</span>
                             <p class="post_content">{{ post.post_content|striptags }}</p>
-                            <p class="post_content">{{ post.user_nick }} | {{ post.post_time }} | {{ post.post_hit }}</p>
+                            <div class="post_content_info">
+                                <p>{{ post.user_nick }} | {{ post.post_time }}</p>
+                                <p>조회수 : {{ post.post_hit }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,8 +93,21 @@
                     <a href="/board/{{ filter }}/?page={{ posts.paginator.num_pages }}" class="num">>></a>
                 {% endif %}
             </div>
+        
+            {% include 'footerbar.html' %}
         </section>
         </div>
 </body>
-{% include 'footerbar.html' %}
+<script>
+    document.getElementById('search-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var query = document.getElementById('search-input').value;
+        fetch(`/board/search/?query=${query}`)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('search-results').innerHTML = html;
+            });
+    });
+</script>
+    
 </html>
