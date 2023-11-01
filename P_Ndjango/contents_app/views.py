@@ -356,11 +356,11 @@ def recipe_view(request, recipe_no):
     sorted_recipe_images = sorted_recipe_images[:-1]
 
     template = "recipe.html"
+    recipelist = zip(sorted_recipe_images, sorted_directions)
     context = {
         "recipe": recipe,
         "ingredients_list": ingredients_list,
-        "directions": sorted_directions,
-        "recipe_images": sorted_recipe_images,
+        "recipelist" : recipelist,
         "thumbnail": thumbnail,
     }
 

@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
     margin-top: 20px;
     
     
@@ -14,7 +15,7 @@
 }
 .header_in_header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
 }
@@ -25,7 +26,8 @@
 
 .header_info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .recipes_tags{
@@ -153,26 +155,50 @@
 
 .body_02 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    padding: 60px;
-    gap: 80px;
-}
+    height: 224px;
 
+}
+.recipe {
+    display: flex;
+    flex-direction: row;
+}
+.recipe_img {
+    margin: 2px 0 2px 2px;
+    height: 220px;
+    width: 220px;
+}
+.rec_img {
+    width: 220px;
+    height: 220px;
+    border-radius: 20px;
+}
+.recipe_ex {
+    display: flex;
+    align-items: center;
+    margin: 0 10px 0 50px;
+}
 
 .main_container {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: start;
     width: 1200px;
+    height: 100%;
 
 }
 .recipe_container {
     display: flex;
     flex-direction: column;
+    padding-right: 24px;
+
+    width: 70%;
 }
 .h3 {
     font-size: 36px;
-    text-align: center;
+    text-align: start;
+    margin-left: 40px;
 
 }
 
@@ -211,6 +237,7 @@
 .side_recipe {
     display: flex;
     flex-direction: column;
+    margin-top: 120px;
     width: 30%;
     gap: 30px;
 }
