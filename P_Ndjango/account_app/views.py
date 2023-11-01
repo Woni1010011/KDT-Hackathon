@@ -91,17 +91,20 @@ def my_fridge(request):
 
     return render(request, "my_ndjango.html", context)
 
-
-from django.http import JsonResponse
+import re
 def add_to_fridge(request):
     if request.method == "POST":
         user_id = request.session["user_id"]
         igrd_name = request.POST.get("igrd_name")
         user_igrd_date = request.POST.get("user_igrd_date")
 
-        user_igrd = UserIgrd.objects.create(
-            user_id=user_id, igrd_name=igrd_name, user_igrd_date=user_igrd_date
-        )
+        igrd_names = re.sub(r'\s+', '', igrd_name).split(',')
+
+        for name in igrd_names:
+            if name:
+                user_igrd = UserIgrd.objects.create(
+                    user_id=user_id, igrd_name=name, user_igrd_date=user_igrd_date
+                )
 
         return redirect("ndjango")
     else:

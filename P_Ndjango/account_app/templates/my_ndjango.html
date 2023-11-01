@@ -69,4 +69,18 @@
     </div>
     {% include 'footerbar.html' %}
 </body>
+<script>
+    // 오늘의 날짜를 가져오는 함수
+    function getTodayDate() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1이 필요하며 2자리로 포맷팅
+      const day = String(today.getDate()).padStart(2, "0"); // 일자를 2자리로 포맷팅
+      return `${year}-${month}-${day}`;
+    }
+  
+    // <input> 요소의 값을 오늘로 설정
+    const userIgrdDateInput = document.getElementById("user_igrd_date");
+    userIgrdDateInput.value = getTodayDate();
+  </script>
 </html>
