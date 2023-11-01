@@ -116,3 +116,23 @@ def delete_to_fridge(request, user_igrd_id):
     user_igrd = UserIgrd.objects.get(id=user_igrd_id,user_id=user_id)
     user_igrd.delete()
     return redirect('ndjango')
+
+from contents_app import receipe_search
+from google.cloud.vision_v1 import types
+def ndjango_material(request):
+    if request.method == "POST":
+        image = request.FILES["image"]  # FILES를 따로 한 이유가 있
+        file_name = "./contents_app/static/img/" + image.name
+
+        with open(file_name, "wb") as file:
+            for chunk in image.chunks():
+                file.write(chunk)
+
+        content = image.read()
+        image = types.Image(content=content)
+        text = receipe_search.tempFunction(file_name)  # receipt_image to text
+        print(text)
+
+        return render(request, "my_ndjango.html", {"text": text})
+
+    return render(request, "my_ndjango.html")

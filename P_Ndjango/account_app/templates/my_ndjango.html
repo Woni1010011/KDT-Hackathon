@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/myndjango.css'%}">
     <script src="{% static 'js/profile_edit.js' %}" defer></script>
 </head>
 
@@ -64,6 +65,19 @@
                 
                 <button type="submit">Add to My Fridge</button>
             </form>
+
+            <div class="img_container">
+                <h2>영수증 검색</h2>
+                <form method="post" action="{% url 'ndjango_material' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                    <input type="file" name="image" accept="image/*" required id="imageInput">
+                    <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                    <div>
+                        <button class='img_search_btn' type="submit">재료 추출하기</button>
+                    </div>
+                </form>
+            </div>
         
         </main>
     </div>
@@ -82,5 +96,16 @@
     // <input> 요소의 값을 오늘로 설정
     const userIgrdDateInput = document.getElementById("user_igrd_date");
     userIgrdDateInput.value = getTodayDate();
-  </script>
+</script>
+<script>
+    // 결과 텍스트를 가져옴
+    var text = "{{ text|default:'' }}"; // default 필터를 사용하여 text 변수가 없을 경우 빈 문자열로 초기화
+
+    // 결과 텍스트를 input 요소에 설정
+    var inputElement = document.getElementById("igrd_name"); // input 요소의 id를 가져옴
+    if (inputElement) {
+        inputElement.value = text; // input 요소의 value 속성에 결과 텍스트 설정
+    }
+</script>
+<script src="{% static 'js/img_search.js' %}"></script>
 </html>
