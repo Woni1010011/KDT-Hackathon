@@ -170,7 +170,7 @@ def board(request, filter):
         if user_id:
             user = User.objects.filter(user_id=user_id).first()
             if user:
-                posts = Board.objects.filter(user_nick=user.user_nick).order_by("-post_no")
+                posts = Board.objects.filter(user_nick=user.user_name).order_by("-post_no")
             else:
                 posts = Board.objects.none()  # 사용자를 찾을 수 없는 경우 빈 쿼리셋
         else:
