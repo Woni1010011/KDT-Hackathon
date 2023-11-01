@@ -218,14 +218,16 @@ def search_result(request):
     query = request.GET.get("q", "")
     query = unquote(query)
     if not query:
-        return redirect('search')
+        return redirect("search")
 
     # 레시피, 게시글 데이터 가져오기
     recipes = Recipes.objects.all()
     boards = Board.objects.all()
 
     # 레시피 + 게시글 내용 리스트화
-    contents_list = [recipe.ingredients for recipe in recipes] + [board.post_content for board in boards]
+    contents_list = [recipe.ingredients for recipe in recipes] + [
+        board.post_content for board in boards
+    ]
 
     # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.
     vectorizer = TfidfVectorizer()
@@ -266,10 +268,10 @@ def search_result(request):
 
             thumbnail = sorted_imgs[-1] if sorted_imgs else None
             item = {
-                'thumbnail': thumbnail,
-                'title': data.recipe_title,
-                'url_name': 'recipe',
-                'pk': data.recipe_no,
+                "thumbnail": thumbnail,
+                "title": data.recipe_title,
+                "url_name": "recipe",
+                "pk": data.recipe_no,
             }
             items.append(item)
         elif isinstance(data, Board):
@@ -325,11 +327,44 @@ def search_result(request):
 
 
 def mypage(request):
-    return render(request, "my_page.html")
+    if request.session.get("user_id"):
+        user_id = request.session["user_id"]
+
+        try:
+            user = User.objects.get(user_id=user_id)
+            template = "my_page.html"  # 템플릿 경로 수정
+            context = {"user": user}
+            return render(request, template, context)
+        except User.DoesNotExist:
+            # 사용자가 존재하지 않을 경우에 대한 처리
+            return redirect("login")
+
+    return redirect("login")
 
 
 def profile_edit(request):
-    return render(request, "profile_edit.html")
+    # user_id = request.session["user_id"]
+    if request.method == "POST":
+        new_nickname = request.POST.get("new_nickname")
+        new_address = request.POST.get("new_address")
+
+        # User 테이블에서 현재 사용자를 가져오는 코드
+        user = User.objects.get(user_id=request.session.get("user_id"))
+
+        # 닉네임 필드 업데이트
+        user.user_nick = new_nickname
+        user.user_address = new_address
+
+        # 이미지 업데이트 처리
+        if "new_image" in request.FILES:
+            user.image = request.FILES["new_image"]
+
+        user.save()
+
+        # 성공적으로 업데이트되었음을 나타내는 응답 전송
+        return redirect("mypage")
+
+    return render(request, "my_page.html")
 
 
 def recipe_list(request):
@@ -474,9 +509,6 @@ def edit_post(request, post_no=None):
 def post_view(request, post_no):
     user_name = get_user_name(request)
     post = get_object_or_404(Board, post_no=post_no)
-    # if "delete-button" in request.POST:
-    #     post.delete()
-    #     return redirect("board")
 
     post.post_hit += 1
     post.save()

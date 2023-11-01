@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from account_app.models import User
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from account_app.forms import UserEditForm
-from django.contrib import messages
 
 
 @csrf_exempt
@@ -78,33 +75,3 @@ def logout_view(request):
 
     # 로그아웃 후 리디렉션할 페이지로 이동
     return redirect("main")
-
-
-@login_required
-def my_page(request):
-    users = User.objects.all()
-    print(users)  # 이 줄을 추가하여 콘솔에서 users를 확인해보세요.
-    context = {
-        "users": users,
-    }
-    return render(request, "my_page.html", context)
-
-
-def profile_edit(request):
-    if request.method == "POST":
-        # 현재 로그인된 사용자의 정보를 가져옵니다.
-        form = User(request.POST, request.FILES, instance=users)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, "프로필 변경이 완료되었습니다.")
-        else:
-            messages.error(request, "프로필 입력란을 다시 확인해주세요.")
-    else:
-        form = User(instance=users)
-
-    context = {
-        "form": form,
-        "users": users,
-    }
-    return render(request, "profile_edit.html", context)
