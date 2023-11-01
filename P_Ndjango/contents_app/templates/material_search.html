@@ -26,7 +26,7 @@
             {% comment %} 검색기 변환 {% endcomment %}
             <div class="bottom_nav">
                 <a class='search_kind' href="{% url 'search' %}" id="searchLink">레시피 검색</a>
-                <a class='search_kind' href="{% url 'material_search' %}" id="ingredientSearchLink">재료로 검색</a>
+                <a class='search_kind' href="{% url 'material_search' %}" id="ingredientSearchLink">영수증 검색</a>
                 <a class='search_kind' href="{% url 'img_search' %}" id="imageSearchLink">이미지 검색</a>
             </div>
         </div>
@@ -34,18 +34,17 @@
     <article>
         {% comment %} 검색창 {% endcomment %}
         {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
-            <div id="search">
-                {% comment %} {% csrf_token %} {% endcomment %}
-                <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
-                <button type="submit" class="search_button">
-                    {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
-                    <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
-                </button>
-                <div class="voice_btn">
-                    <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
-                </div>
+        <div id="search">
+            {% comment %} {% csrf_token %} {% endcomment %}
+            <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
+            <button type="submit" class="search_button" id="searchButton">
+                {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+                <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+            </button>
+            <div class="voice_btn">
+                <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
             </div>
-        {% comment %} </form> {% endcomment %}
+        </div>
         {% comment %} 이미지 검색 {% endcomment %}
         <div class="img_container">
             <form method="post" enctype="multipart/form-data">
@@ -76,6 +75,16 @@
     var searchURL = "{% url 'search' %}";
     var searchResultURL = "{% url 'search_result' %}";
 </script>
+<script>
+    // 추출된 키워드를 검색창에 자동으로 입력
+    document.getElementById('searchInput').value = '{{ text|join:''}}';
+    
+    function search() {
+        var input = document.getElementById('searchInput');
+        var query = encodeURIComponent(input.value);
+        location.href = "{% url 'search_result' %}?query=" + query;
+    }
+    </script>
 <script src="{% static 'js/search.js' %}"></script>
 <script src="{% static 'js/img_search.js' %}"></script>
 </html>

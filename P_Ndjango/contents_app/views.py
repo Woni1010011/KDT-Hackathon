@@ -14,6 +14,7 @@ from . import receipe_search
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django.templatetags.static import static
+from urllib.parse import unquote
 
 
 
@@ -215,6 +216,7 @@ def extract_first_image(post_content):
 
 def search_result(request):
     query = request.GET.get("q", "")
+    query = unquote(query)
     if not query:
         return redirect('search')
 
