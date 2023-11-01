@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-
 from django.http import JsonResponse
 from google.cloud import vision
 from google.cloud.vision_v1 import types
@@ -188,19 +187,21 @@ def extract_first_image(post_content):
     match = img_pattern.search(post_content)
     return match.group(1) if match else None
 
-    
 def search_result(request):
     query = request.GET.get("q", "")
     if not query:
-        return redirect("search")
+        return redirect('search')
 
-    # 레시피의 재료를 모두 가져옵니다.
+    # 레시피, 게시글 데이터 가져오기
     recipes = Recipes.objects.all()
-    ingredients_list = [recipe.ingredients for recipe in recipes]
+    boards = Board.objects.all()
+
+    # 레시피 + 게시글 내용 리스트화
+    contents_list = [recipe.ingredients for recipe in recipes] + [board.post_content for board in boards]
 
     # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.
     vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(ingredients_list)
+    tfidf_matrix = vectorizer.fit_transform(contents_list)
 
     # 사용자의 검색 쿼리를 벡터로 변환합니다.
     query_vec = vectorizer.transform([query])
@@ -209,31 +210,53 @@ def search_result(request):
     cosine_similarities = cosine_similarity(query_vec, tfidf_matrix).flatten()
 
     # 코사인 유사도에 따라 레시피를 정렬합니다.
-    similar_recipes = sorted(zip(cosine_similarities, recipes), key=lambda x: x[0], reverse=True)
+    all_data = list(recipes) + list(boards)
+    similar_data = sorted(zip(cosine_similarities, all_data), key=lambda x: x[0], reverse=True)
+
+    # 리스트로 변환
+    similar_data = list(similar_data)  # 이 부분은 이미 리스트로 변환되어 있으므로 필요 없을 수 있습니다.
 
     # 상위 5개의 결과를 가져옵니다.
-    top_recipes = [recipe for _, recipe in list(similar_recipes)[:5]]
+    top_data = [data for _, data in similar_data[:5]]
 
-    for recipe in top_recipes:
-        # 레시피 이미지들을 처리합니다.
-        recipe_images = ast.literal_eval(recipe.recipe_img)
+    items = []
+    for data in top_data:
+        if isinstance(data, Recipes):
+            recipe_images = ast.literal_eval(data.recipe_img)
 
-        def extract_order(direction):
-            # 순서 번호 추출
-            order = int(direction.split(".")[0])
-            return order
+            def extract_order(direction):
+                # 순서 번호 추출
+                order = int(direction.split(".")[0])
+                return order
 
-        # 정렬된 directions 리스트 생성
-        sorted_recipe_images = sorted(recipe_images, key=extract_order)
+            # 정렬된 directions 리스트 생성
+            sorted_recipe_images = sorted(recipe_images, key=extract_order)
 
-        sorted_imgs = []
-        for img in sorted_recipe_images:
-            sorted_imgs.append(img.split(" ")[1])
+            sorted_imgs = []
+            for img in sorted_recipe_images:
+                sorted_imgs.append(img.split(" ")[1])
 
-        recipe.thumbnail = sorted_imgs[-1] if sorted_imgs else None
-
-    # 결과를 search_result.html 템플릿에 전달하여 렌더링합니다.
-    return render(request, "search_result.html", {"items": top_recipes, "query": query})
+            thumbnail = sorted_imgs[-1] if sorted_imgs else None
+            item = {
+                'thumbnail': thumbnail,
+                'title': data.recipe_title,
+                'url_name': 'recipe',
+                'pk': data.recipe_no,
+            }
+            items.append(item)
+        elif isinstance(data, Board):
+            thumbnail = extract_first_image(data.post_content)
+            item = {
+                'thumbnail': thumbnail,
+                'title': data.post_title,  # Board의 title 속성
+                'url_name': 'post',
+                'pk': data.post_no,
+            }
+            items.append(item)
+    return render(request, "search_result.html", {
+        "items": items,
+        "query": query,
+    })
 
 
 def mypage(request):
