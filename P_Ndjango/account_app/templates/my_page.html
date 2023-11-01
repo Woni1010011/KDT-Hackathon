@@ -13,43 +13,7 @@
 </head>
 
 <body>
-
-    <header class='topnav'>
-        <div id='main_logo'>
-            <a href="{% url 'main' %}">
-                <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
-            </a>
-        </div>
-
-        <div class='info_login'>
-            {% if request.session.user_id %}
-            <a class='alarm_div' href="#" id="alarmLink">
-                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
-            </a>
-            <a class='cate' href={% url "logout" %}>Logout</a>
-            {% else %}
-            <a class='alarm_div' href="#" id="alarmLink">
-                <img class="alarm_btn" src="{% static 'img/alarm_normal.png' %}" alt=''>
-            </a>
-            <a class='cate' href={% url "login" %}>Login</a>
-            {% endif %}
-        </div>
-    </header>
-
-    <script>
-        var alarmLink = document.getElementById("alarmLink");
-        var img = document.querySelector(".alarm_btn");
-
-        alarmLink.addEventListener("mouseover", function () {
-            img.src = "{% static 'img/alarm_react.png' %}";
-            img.alt = "New Alt Text";
-        });
-
-        alarmLink.addEventListener("mouseout", function () {
-            img.src = "{% static 'img/alarm_normal.png' %}";
-            img.alt = "Original Alt Text";
-        });
-    </script>
+    {% include 'navbar.html' %}
     <div class="wrapper">
 
         <aside class="category-sidebar">
@@ -65,53 +29,50 @@
             </ul>
         </aside>
         <main id="first_main" class="box-contents">
-            <section id="profile">
-                <div class="profile-picture">
-                    <!-- 프로필 업로드 폼 -->
-                    <label for="preview">
-                        <img id="preview"
-                            src="{% if user.user_img %}{% static user.user_img %}{% else %}{% static 'img/chefhat.png' %}{% endif %}"
-                            alt="">
-                    </label>
+            <form method="POST" action="{% url 'profile_edit' %}" enctype="multipart/form-data">
+                {% comment %} enctype="multipart/form-data" {% endcomment %}
+                {% csrf_token %}
+                <section id="profile">
+                    <div class="profile-picture">
+                        <!-- 프로필 업로드 폼 -->
+                        <label for="preview">
+                            <img id="preview"
+                                src="{% if user.image %}{{ user.image }}{% else %}{% static 'img/chefhat.png' %}{% endif %}"
+                                alt="">
+                                <input type="file" name="new_image" accept="image/*">
+                        </label>
+                    </div>
+                    <div class="little-data">
+                        <h3> {{ user.user_name }}님</h3><br>
+                        <h3> {{ user.user_point }} point </h3>
+
+                    </div>
+
+                </section><br>
+
+                <div id="user-details" class="user-details">
+                    <div class="user-info1">
+                        <label for="usernickname">닉네임</label><br>
+                        <input type="text" name="new_nickname" value="{{ user.user_nick }}"><br><br>
+
+
+                        <label for="address">거주지역</label><br>
+                        <input type="text" name="new_address" value="{{ user.user_address }}"><br><br>
+                    </div>
+
+                    <div class="user-info2">
+                        <label for="email">이메일 주소</label><br>
+                        <input type="email" id="email" readonly value="{{ user.user_email }}"><br><br>
+
+                        <label for="phonenumber">전화번호</label><br>
+                        <input type="text" id="phonenumber" readonly value="{{ user.user_phone }}"><br><br>
+
+                    </div>
                 </div>
-                <div class="little-data">
-                    {% for user in users %}
-                    <h3 readonly value="{{ user.user_id }}">{{ user.user_id }} 이름</h3><br>
-                    <h3 readonly value="{{ user.user_point }}"> {{ user.user_point }} point </h3>
-                    {% endfor %}
+                <div class="buttons">
+                    <input type="submit" name="edit_button" class="edit_button"  value="프로필편집">
                 </div>
-
-            </section><br>
-
-            <div id="user-details" class="user-details">
-                <div class="user-info1">
-                    <label for="usernickname">닉네임</label><br>
-                    <input type="text" id="usernickname" readonly value="{{ user.user_nick }}"><br><br>
-
-                    <label for="email">이메일 주소</label><br>
-                    <input type="email" id="email" readonly value="{{ user.user_email }}"><br><br>
-
-                    <label for="address">거주지역</label><br>
-                    <input type="text" id="address" readonly value="{{ user.user_address }}"><br><br>
-                </div>
-
-                <div class="user-info2">
-                    <label for="username">성명</label><br>
-                    <input type="text" id="username" readonly value="{{ user.user_name }}"><br><br>
-
-                    <label for="phonenumber">전화번호</label><br>
-                    <input type="text" id="phonenumber" readonly value="{{ user.user_phone }}"><br><br>
-
-                    <label for="datetime">가입 일자</label><br>
-                    <input id="datetime" readonly value="{{ user.sub_date }}">
-                </div>
-            </div>
-            <div class="buttons">
-                <a href="{% url 'profile_edit' %}" type="submit" class="edit_button" id="edit_button"
-                    onclick="goToEditPage()"> 프로필 편집 </a>
-
-            </div>
-
+            </form>
         </main>
     </div>
     {% include 'footerbar.html' %}
