@@ -15,17 +15,18 @@ body {
     margin: 0 auto;
     padding: 10px;
 }
+
 /* top */
 .top_nav {
     display: flex;
     align-items: center;
 }
 
-.img_box{
+.img_box {
     margin: 0 auto;
 }
 
-.NDjango_logo{
+.NDjango_logo {
     margin-left: 45px;
     width: 90px;
     height: 50px;
@@ -100,7 +101,7 @@ article {
     display: flex;
     position: absolute;
     align-items: center;
-    top:0;
+    top: 0;
     right: 0;
     width: 60px;
     height: 60px;
@@ -201,6 +202,13 @@ article {
     margin-left: 43px;
     border: 1px solid black;
     border-radius: 30px;
+    overflow: hidden;
+}
+
+.popular_posting>img {
+    width: 100%;
+    height: 100%;
+
 }
 
 .posting {
@@ -209,6 +217,11 @@ article {
 }
 
 .post_title {
+    width: 200px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     margin-top: 5px;
     margin-left: 43px;
     font-size: 16px;

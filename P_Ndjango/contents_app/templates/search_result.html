@@ -12,6 +12,12 @@
     {% comment %} nav bar {% endcomment %}
     {% include 'navbar.html' %}
 
+    <div class="image_rolling_container">
+        <div class="content_cotainer">
+            <img class='banner_img' src="{% static 'img/banner02.png' %}" alt="">
+        </div>
+    </div>
+
     {% comment %} 검색바 {% endcomment %}
     {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
     <div id="search">
