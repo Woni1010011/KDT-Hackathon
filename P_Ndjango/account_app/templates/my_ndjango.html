@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 냉장고</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <script src="{% static 'js/profile_edit.js' %}" defer></script>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="wrapper">
+
+        <aside class="category-sidebar">
+
+            <ul class="category-list">
+                <li><a href="{% url 'mypage' %}">셰프 정보</a></li>
+                <li><a href="{% url 'ndjango' %}">내 냉장고</a></li>
+                <li><a href="alarm_list">알림 목록</a></li>
+                <li><a href="favorite_list">찜해놓은 레시피</a></li>
+                <li><a href="current-watching">최근 감상 목록</a></li>
+
+                <!-- Add more categories as needed -->
+            </ul>
+        </aside>
+        <main id="first_main" class="box-contents">
+            
+        </main>
+    </div>
+    {% include 'footerbar.html' %}
+</body>
+
+</html>

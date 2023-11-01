@@ -75,3 +75,7 @@ def logout_view(request):
 
     # 로그아웃 후 리디렉션할 페이지로 이동
     return redirect("main")
+
+
+def my_fridge(request):
+    return render(request, "my_ndjango.html")
