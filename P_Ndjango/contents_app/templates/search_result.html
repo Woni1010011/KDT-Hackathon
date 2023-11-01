@@ -71,13 +71,17 @@
             <p class="sub_title">Popular Recipes</p>
             {% for board, thumbnail in popular_boards_with_thumbnail %}
             <div class="popular_box">
-                <div class="popular_img">
-                    <img src="{{ thumbnail|default:icon_photo }}" alt="Thumbnail Image">
-                </div>
-                <div class="popular_lnfo">
-                    <div class="popular_title">
-                        {{ board.post_title }}
+                <a href="{% url 'post' board.post_no %}">
+                    <div class="popular_img">
+                        <img src="{{ thumbnail|default:icon_photo }}" alt="Thumbnail Image">
                     </div>
+                </a>
+                <div class="popular_lnfo">
+                    <a href="{% url 'post' board.post_no %}">
+                        <div class="popular_title">
+                            {{ board.post_title }}
+                        </div>
+                    </a>
                     <p class="popular_chef">{{ board.user_nick }}</p>
                 </div>
             </div>
