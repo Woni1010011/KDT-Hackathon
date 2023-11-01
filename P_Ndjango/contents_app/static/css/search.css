@@ -48,6 +48,11 @@ body {
     margin-left: 30px;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 a.search_kind {
     text-decoration: none;
     position: relative;
@@ -200,15 +205,14 @@ article {
     height: 200px;
     margin-top: 30px;
     margin-left: 43px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius: 30px;
     overflow: hidden;
 }
 
-.popular_posting>img {
+.popular_posting img {
     width: 100%;
     height: 100%;
-
 }
 
 .posting {
@@ -225,4 +229,5 @@ article {
     margin-top: 5px;
     margin-left: 43px;
     font-size: 16px;
+    margin-top: 10px;
 }

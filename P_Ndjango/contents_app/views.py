@@ -13,6 +13,9 @@ from django.db.models import Q
 from . import receipe_search
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from django.templatetags.static import static
+from urllib.parse import unquote
+
 
 
 # Create your views here.
@@ -176,6 +179,11 @@ def board(request, filter):
         else:
             posts = Board.objects.none()  # 로그인하지 않은 사용자 처리
 
+    # 검색 로직 추가
+    query = request.GET.get('query')
+    if query:
+        posts = posts.filter(post_content__icontains=query)
+
     # 한 페이지당 게시물 수를 정의합니다.
     paginator = Paginator(posts, 10)  # 페이지당 10개의 게시글
 
@@ -193,10 +201,11 @@ def board(request, filter):
         post.thumbnail_url = extract_first_image(post.post_content) if post.post_content else None
 
     # 템플릿에 전달할 컨텍스트에 페이지 객체를 추가합니다.
+    icon_photo = static('img/icon_photo.png')
     return render(
         request,
         "board.html",
-        {"posts": items, "filter": filter},  # 변경됨: 이제 'items'는 페이징 처리된 페이지 객체입니다.
+        {"posts": items, "filter": filter, "icon_photo": icon_photo},  # icon_photo 변수를 추가합니다.
     )
 
 
@@ -205,8 +214,9 @@ def extract_first_image(post_content):
     match = img_pattern.search(post_content)
     return match.group(1) if match else None
 
-def search_result(request):
+def search_result(request):    
     query = request.GET.get("q", "")
+    query = unquote(query)
     if not query:
         return redirect('search')
 
@@ -232,7 +242,7 @@ def search_result(request):
     similar_data = sorted(zip(cosine_similarities, all_data), key=lambda x: x[0], reverse=True)
 
     # 리스트로 변환
-    similar_data = list(similar_data)  # 이 부분은 이미 리스트로 변환되어 있으므로 필요 없을 수 있습니다.
+    similar_data = list(similar_data)
 
     # 상위 5개의 결과를 가져옵니다.
     top_data = [data for _, data in similar_data[:5]]
@@ -266,15 +276,52 @@ def search_result(request):
             thumbnail = extract_first_image(data.post_content)
             item = {
                 'thumbnail': thumbnail,
-                'title': data.post_title,  # Board의 title 속성
+                'title': data.post_title,
                 'url_name': 'post',
                 'pk': data.post_no,
             }
             items.append(item)
-    return render(request, "search_result.html", {
-        "items": items,
-        "query": query,
-    })
+
+    # 랜덤한 게시물 4개 선택
+    random_recipes = Recipes.objects.order_by('?')[:4]
+    
+    random_recipes_with_thumbnail = []
+    for recipe in random_recipes:
+        recipe_images = ast.literal_eval(recipe.recipe_img)
+        
+        def extract_order(direction):
+            # 순서 번호 추출
+            order = int(direction.split(".")[0])
+            return order
+        
+        # 정렬된 directions 리스트 생성
+        sorted_recipe_images = sorted(recipe_images, key=extract_order)
+        
+        sorted_imgs = []
+        for img in sorted_recipe_images:
+            sorted_imgs.append(img.split(" ")[1])
+        
+        thumbnail = sorted_imgs[-1] if sorted_imgs else None
+        random_recipes_with_thumbnail.append((recipe, thumbnail))
+
+    # 인기있는 게시물 3개 선택
+    popular_boards = Board.objects.order_by('-post_hit')[:3]
+    
+    popular_boards_with_thumbnail = []
+    for board in popular_boards:
+        thumbnail = extract_first_image(board.post_content)
+        popular_boards_with_thumbnail.append((board, thumbnail))
+    
+    # 렌더링할 컨텍스트에 인기있는 게시물 추가
+    context = {
+        'items': items,
+        'query': query,
+        'random_recipes_with_thumbnail': random_recipes_with_thumbnail,
+        'popular_boards_with_thumbnail': popular_boards_with_thumbnail,
+        'icon_photo': static('img/icon_photo.png'),
+    }
+
+    return render(request, 'search_result.html', context)
 
 
 def mypage(request):
