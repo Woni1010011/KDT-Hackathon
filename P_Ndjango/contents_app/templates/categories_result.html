@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search_result.css' %}">
+</head>
+<body>
+    {% comment %} nav bar {% endcomment %}
+    {% include 'navbar.html' %}
+
+    <div class="image_rolling_container">
+        <div class="content_cotainer">
+            <img class='banner_img' src="{% static 'img/banner02.png' %}" alt="">
+        </div>
+    </div>
+
+    {% comment %} 검색바 {% endcomment %}
+    {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
+    <div id="search">
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
+        <button type="submit" class="search_button">
+            {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
+            <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+        </button>
+        <div class="voice_btn">
+            <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+        </div>
+    </div>
+
+    {% comment %} 타이틀 {% endcomment %}
+    <div id="text_box">
+        <p class="title"> Recipes </p>
+        <p class="text">"Don't Waste Your Fridge Ingredients! Discover the Joy of Cooking!"</p>
+    </div>
+
+    {% comment %} 크롤링된 게시물 {% endcomment %}
+    <article>
+        {% comment %} 검색결과(크롤링 레시피){% endcomment %}
+        <!--이미지, 제목 붙이기-->
+        <div class="posting_list">
+            {% for item in items %}
+            <div class="post">
+                <a href="{% url item.url_name item.pk %}">
+                    <div class="post_image">
+                        <img class="post_img" src="{{ item.thumbnail }}" alt="">
+                    </div>
+                </a>
+                <div class="post_info">
+                    <a href="{% url item.url_name item.pk %}">
+                        <div class="title_box">
+                            <p class="title_text">
+                                {{ item.title }}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+
+        {% comment %} 우측 게시판 {% endcomment %}
+        <div class="right_box">
+            {% comment %} 인기있는 레시피 {% endcomment %}
+            <p class="sub_title">Popular Recipes</p>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            <div class="popular_box">
+                <div class="popular_img">
+
+                </div>
+                <div class="popular_lnfo">
+                    <div class="popular_title">
+                        꼬막 무침
+                    </div>
+                    <p class="popular_chef">김은철</p>
+                </div>
+            </div>
+            {% comment %} 광고 배너 {% endcomment %}
+            <div class="banner">
+                <img src="{% static 'img/side_banner.jpg' %}" alt="">
+            </div>
+        </div>
+
+    </article>
+    {% comment %} 페이지 넘버 {% endcomment %}
+    <!--한페이지 5개 레시피 넘어가면 넘버 생김-->
+    <div class="page_num">
+        {% if items.has_previous %}
+            <a href="?q={{ query }}&page=1" class="num"><<</a>
+            <a href="?q={{ query }}&page={{ items.previous_page_number }}" class="num"><</a>
+        {% endif %}
+    
+        {% for i in items.paginator.page_range %}
+            {% if items.number == i %}
+                <div class="num current">{{ i }}</div>
+            {% else %}
+                <a href="?q={{ query }}&page={{ i }}" class="num">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if items.has_next %}
+            <a href="?q={{ query }}&page={{ items.next_page_number }}" class="num">></a>
+            <a href="?q={{ query }}&page={{ items.paginator.num_pages }}" class="num">>></a>
+        {% endif %}
+    </div>
+
+    {% comment %} 추천 게시물 {% endcomment %}
+    <div id="recommend_box">
+        <p class="recommend_title">Recommend Recipes</p>
+        <div class="recommend_recipes">
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+            <div class="recommend_info">
+                <div class="recommend_img">
+
+                </div>
+                <p class="food_name">음식 이름</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
