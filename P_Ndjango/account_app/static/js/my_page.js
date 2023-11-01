@@ -3,6 +3,11 @@ function goToEditPage() {
 
 }
 
+function goToEditPage() {
+    window.location.href = "{% url 'profile_edit' %}";
+
+}
+
 document.getElementById('profile-picture').addEventListener('change', function () {
     var file = this.files[0];
     if (file) {

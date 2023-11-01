@@ -36,10 +36,10 @@
     margin: 20px;
 }
 
-.buttons {
-    background-color: rgb(0, 219, 66);
+.save_button {
+    background-color: #97BFB4;
     /* 네이버 버튼 색상 */
-    color: #ffffff;
+    color: #F5EEDC;
     /* 글자 색상 */
     border: none;
     padding: 10px 20px;
@@ -50,11 +50,18 @@
     text-decoration: none;
     display: inline-block;
     transition-duration: 0.4s;
+    margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-    margin-top: 10px;
 
 }
+
+.save_button:hover {
+    background-color: #F5EEDC;
+    color: #97BFB4;
+    border: 1px solid #97BFB4;
+}
+
 
 .chef_njango {
     color: #5abb6e;
