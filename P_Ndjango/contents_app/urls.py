@@ -14,4 +14,6 @@ urlpatterns = [
     path("recipe/<int:recipe_no>/", views.recipe_view, name="recipe"),
     path("write", views.write_post, name="write_post"),
     path("edit/<int:post_no>/", views.edit_post, name="edit_post"),
+    path('categories_result/', views.categories_result, name='categories_result'),
+
 ]
