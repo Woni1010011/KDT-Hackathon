@@ -18,7 +18,7 @@ a {
 /* 검색창 */
 .search_box {
     display: flex;
-    background-color: #d0d1d0;
+    background-color: #97BFB4;
     align-items: center;
     height: 50px;
     width: 1180px;
@@ -209,4 +209,10 @@ button:hover {
     margin-left: 5px;
     color: #7c7c7c;
     gap: 5px;
+}
+
+.recipe_info span{
+    display: flex;
+    text-align: center;
+    align-items: center;
 }
