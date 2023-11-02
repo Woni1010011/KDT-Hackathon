@@ -208,6 +208,11 @@ def board(request, filter):
         {"posts": items, "filter": filter, "icon_photo": icon_photo},  # icon_photo 변수를 추가합니다.
     )
 
+def my_preprocessor(text):
+    # "밥"이라는 단어를 별도로 처리
+    text = text.replace('밥', ' 밥 ')
+    return text
+
 
 def extract_first_image(post_content):
     img_pattern = re.compile(r'<img [^>]*src="([^"]+)')
@@ -224,15 +229,34 @@ def search_result(request):
     recipes = Recipes.objects.all()
     boards = Board.objects.all()
 
+    # "간편요리" 키워드가 입력되었을 때 20분 이내의 레시피만 필터링
+    if query == "간편요리":
+        # cook_time 필드의 문자열을 분 단위로 변환하는 함수
+        def parse_cook_time(cook_time):
+            if '분' in cook_time:
+                return int(cook_time.split('분')[0])
+            return 0
+
+        # cook_time 필드를 분 단위로 변환해서 필터링
+        recipes = [recipe for recipe in recipes if parse_cook_time(recipe.cook_time) <= 20]
+
     # 레시피 + 게시글 내용 리스트화
-    contents_list = [recipe.ingredients for recipe in recipes] + [
-        board.post_content for board in boards
+    contents_list = []
+
+    contents_list = [
+        (recipe.recipe_title, recipe.ingredients) for recipe in recipes
+    ] + [
+        (board.post_title, board.post_content) for board in boards
     ]
 
-    # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(contents_list)
-
+    # contents_list의 각 원소를 문자열로 변환합니다.
+    contents_str_list = [
+        ' '.join(map(str, content)) for content in contents_list
+    ]
+  
+    # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.  
+    vectorizer = TfidfVectorizer(min_df=0.1, max_df=0.9, analyzer='char', preprocessor=my_preprocessor)
+    tfidf_matrix = vectorizer.fit_transform(contents_str_list)
     # 사용자의 검색 쿼리를 벡터로 변환합니다.
     query_vec = vectorizer.transform([query])
 

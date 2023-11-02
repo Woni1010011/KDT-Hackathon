@@ -38,7 +38,19 @@ document.addEventListener("DOMContentLoaded", function() {
         category_content.appendChild(category_title);
 
         categories_contents_area.appendChild(category_content);
+
+        // 카테고리를 클릭하면 URL 이동하는 이벤트 리스너 추가
+        category_content.addEventListener('click', function() {
+            var category = this.querySelector('.category_title p').textContent;
+            if (category === '간편요리') {
+                var url = "http://127.0.0.1:8000/search_result?q=" + encodeURIComponent('간편요리');
+                window.location.href = url;
+            } else {
+                var keywordList = keywords[category];
+                var randomKeyword = keywordList[Math.floor(Math.random() * keywordList.length)];
+                var url = "http://127.0.0.1:8000/search_result?q=" + encodeURIComponent(randomKeyword);
+                window.location.href = url;
+            }
+        });
     }
 });
-
-
