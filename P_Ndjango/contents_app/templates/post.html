@@ -103,35 +103,7 @@
     <!--deliciousness to your inbox-->
 <div id="bottom">
     <!--메뉴 추천부분-->
-    <div id="recommend_box">
-        <p class="recommend_title">Recommend Recipes</p>
-        <div class="recommend_recipes">
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-        </div>
-    </div>
+    {% include 'user_recommend.html' %}
 </div>
 {% include "footerbar.html" %}
 </body>

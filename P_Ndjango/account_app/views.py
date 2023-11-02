@@ -95,7 +95,7 @@ def my_fridge(request):
 
     context = {
         "user_igrds": user_igrds,
-        'user_recommends': user_recommends,
+        "user_recommends": user_recommends,
     }
 
     return render(request, "my_ndjango.html", context)

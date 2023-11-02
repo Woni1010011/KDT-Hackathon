@@ -16,6 +16,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from django.templatetags.static import static
 from urllib.parse import unquote
 from itertools import chain
+from account_app.views import ndjango_matching
 
 
 
@@ -593,6 +594,7 @@ def edit_post(request, post_no=None):
 # post_view 함수 정의
 def post_view(request, post_no):
     user_name = get_user_name(request)
+    user_recommends = ndjango_matching(request)
     post = get_object_or_404(Board, post_no=post_no)
 
     post.post_hit += 1
@@ -601,6 +603,7 @@ def post_view(request, post_no):
     context = {
         "post": post,
         "user_name": user_name,
+        "user_recommends": user_recommends,
     }
 
     return render(request, "post.html", context)
