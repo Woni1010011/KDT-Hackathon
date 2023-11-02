@@ -24,36 +24,29 @@
             <a href="{%url 'main'%}">
                 <img class="NDjango_logo" src="{% static 'img/NDjango.png' %}" alt=''>
             </a>
-
-            <a href="{% url 'main' %}" type="submit" class="button-style" id="save-btn">임시 저장</a>
-            <a href="{% url 'main' %}" type="submit" class="publish-button" id="publish-btn">발행</a>
             <input type="submit" name="save-button" class="save-button" value="글 작성" />
 
         </header>
         <div class="board_content">
             <div class="title">
-                <textarea class="post_title" type="text" id="post_title" name="post_title" placeholder="제목" value={{ write_form.post_title }}</textarea>
-            </div>
-            <div class"post_content" id="post_content" name="post_content">
+                <div class="post_content" id="post_content" name="post_content">
+                    <textarea class="post_title" type="text" id="post_title" name="post_title" placeholder="제목" value={{ write_form.post_title }}</textarea></textarea>
                     {{ write_form.post_content }}
-            </div>
-            <div class="box">
-                <h2>카테고리</h2>
-                <div>
-                    <input type="radio" id="recipe" name="board_no" value="1"/>
-                    <label for="recipe">recipe</label>
-                </div>
-                <div>
-                <input type="radio" id="talk" name="board_no" value="2" checked//>
-                <label for="talk">talk</label>
-                </div>
-            </div>
+                </div>  
+            </div>              
         </div>
+        <div class="box">
+            <h2>카테고리</h2>
+            <div>
+                <input type="radio" id="recipe" name="board_no" value="1"/>
+                <label for="recipe">recipe</label>
+            </div>
+            <div>
+            <input type="radio" id="talk" name="board_no" value="2" checked//>
+            <label for="talk">talk</label>
+            </div>
+        </div>    
     </form>
-
-    {% include "footerbar.html" %}
-
-
 </body>
 
 <script>
