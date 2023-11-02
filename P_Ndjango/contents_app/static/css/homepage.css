@@ -210,3 +210,9 @@ button:hover {
     color: #7c7c7c;
     gap: 5px;
 }
+
+.recipe_info span{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
