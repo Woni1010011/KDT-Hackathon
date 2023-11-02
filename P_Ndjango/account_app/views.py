@@ -79,6 +79,8 @@ def logout_view(request):
 
 def my_fridge(request):
     user_id = request.session.get("user_id")
+    user_recommends = ndjango_matching(request)
+    
     if user_id:
         # UserIgrd 테이블에서 세션에 있는 user_id와 같은 user_id를 갖는 정보를 가져옵니다.
         user_igrds = UserIgrd.objects.filter(user_id=user_id)
@@ -87,6 +89,7 @@ def my_fridge(request):
 
     context = {
         "user_igrds": user_igrds,
+        'user_recommends': user_recommends,
     }
 
     return render(request, "my_ndjango.html", context)
@@ -131,7 +134,6 @@ def ndjango_material(request):
         content = image.read()
         image = types.Image(content=content)
         text = receipe_search.tempFunction(file_name)  # receipt_image to text
-        print(text)
 
         return render(request, "my_ndjango.html", {"text": text})
 
@@ -172,3 +174,108 @@ def ndjango_img(request):
             return render(request, "my_ndjango.html")
     else:
         return render(request, "my_ndjango.html")
+    
+
+from contents_app.models import Recipes, Board
+from urllib.parse import unquote
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import ast
+from django.templatetags.static import static
+
+def extract_first_image(post_content):
+    img_pattern = re.compile(r'<img [^>]*src="([^"]+)')
+    match = img_pattern.search(post_content)
+    return match.group(1) if match else None
+
+def my_preprocessor(text):
+    # "밥"이라는 단어를 별도로 처리
+    text = text.replace('밥', ' 밥 ')
+    return text
+
+def ndjango_matching(request):
+    user_id = request.session.get("user_id")
+    user_igrds = UserIgrd.objects.filter(user_id=user_id)
+    if user_igrds:
+        # UserIgrd 테이블에서 user_id와 일치하는 데이터 가져오기
+        unique_igrd_names = user_igrds.values('igrd_name').distinct()  # 중복 제거
+        unique_igrd_names_list = [entry['igrd_name'] for entry in unique_igrd_names]  # 문자열변환
+        unique_igrd_names_str = ', '.join(unique_igrd_names_list)
+
+        query = unquote(unique_igrd_names_str)
+        if not query:
+            return redirect("ndjango")
+
+        # 레시피, 게시글 데이터 가져오기
+        recipes = Recipes.objects.all()
+        boards = Board.objects.all()
+
+        # 레시피 + 게시글 내용 리스트화
+        contents_list = []
+
+        contents_list = [
+            (recipe.recipe_title, recipe.ingredients) for recipe in recipes
+        ] + [
+            (board.post_title, board.post_content) for board in boards
+        ]
+
+        # contents_list의 각 원소를 문자열로 변환합니다.
+        contents_str_list = [
+            ' '.join(map(str, content)) for content in contents_list
+        ]
+    
+        # TfidfVectorizer를 사용하여 재료를 벡터로 변환합니다.  
+        vectorizer = TfidfVectorizer(min_df=0.1, max_df=0.9, analyzer='char', preprocessor=my_preprocessor)
+        tfidf_matrix = vectorizer.fit_transform(contents_str_list)
+        # 사용자의 검색 쿼리를 벡터로 변환합니다.
+        query_vec = vectorizer.transform([query])
+
+        # 코사인 유사도를 계산합니다.
+        cosine_similarities = cosine_similarity(query_vec, tfidf_matrix).flatten()
+
+        # 코사인 유사도에 따라 레시피를 정렬합니다.
+        all_data = list(recipes) + list(boards)
+        similar_data = sorted(zip(cosine_similarities, all_data), key=lambda x: x[0], reverse=True)
+
+        # 리스트로 변환
+        similar_data = list(similar_data)
+
+        # 상위 5개의 결과를 가져옵니다.
+        top_data = [data for _, data in similar_data[:5]]
+
+        items = []
+        for data in top_data:
+            if isinstance(data, Recipes):
+                recipe_images = ast.literal_eval(data.recipe_img)
+
+                def extract_order(direction):
+                    # 순서 번호 추출
+                    order = int(direction.split(".")[0])
+                    return order
+
+                # 정렬된 directions 리스트 생성
+                sorted_recipe_images = sorted(recipe_images, key=extract_order)
+
+                sorted_imgs = []
+                for img in sorted_recipe_images:
+                    sorted_imgs.append(img.split(" ")[1])
+
+                thumbnail = sorted_imgs[-1] if sorted_imgs else None
+                item = {
+                    "thumbnail": thumbnail,
+                    "title": data.recipe_title,
+                    "url_name": "recipe",
+                    "pk": data.recipe_no,
+                }
+                items.append(item)
+            elif isinstance(data, Board):
+                thumbnail = extract_first_image(data.post_content)
+                item = {
+                    'thumbnail': thumbnail,
+                    'title': data.post_title,
+                    'url_name': 'post',
+                    'pk': data.post_no,
+                }
+                items.append(item)
+
+        return items

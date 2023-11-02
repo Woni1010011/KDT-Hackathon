@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if user_recommends %}
+    <div class="user_recommend_list">
+        <h2>AI 추천 레시피</h2>
+        {% for recommend in user_recommends %}
+        <div class="user_recommend">
+            <div class="user_recommend_image">
+                <a href="{% url recommend.url_name recommend.pk %}">
+                    <img class="user_recommend_img" src="{{ recommend.thumbnail }}" alt="">
+                </a>
+            </div>
+            <div class="user_recommend_info">
+                <a href="{% url recommend.url_name recommend.pk %}">
+                    <div class="user_recommend_title_box">
+                        <p class="user_recommend_title_text">{{ recommend.title }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>데이터가 없습니다.</p>
+    {% endif %}
+</body>
+</html>
