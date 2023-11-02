@@ -19,7 +19,7 @@
                     <!-- 인분 정보 -->
                     <div class="posted_by">
                         <div>
-                            <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
+                            <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
                         </div>
                         <div class="posted_by_info">
                             <div class="time_text">작성자</div>
@@ -30,7 +30,7 @@
                     <!-- 조리시간 정보 -->
                     <div class="posted_by">
                         <div>
-                            <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\Timer.svg' %}" alt="">
+                            <img class="posted_img" src="{% static 'img\Timer.svg' %}" alt="">
                         </div>
                         <div class="posted_by_info">
                             <div class="time_text">작성시간</div>
@@ -41,7 +41,7 @@
                     <!-- 조리 난이도 정보 -->
                     <div class="posted_by">
                         <div>
-                            <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\ForkKnife.svg' %}" alt="">
+                            <img class="posted_img" src="{% static 'img\ForkKnife.svg' %}" alt="">
                         </div>
                         <div class="posted_by_info">
                             <div class="time_text">조회수</div>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="posted_by">
                         <div>
-                            <img class="posted_img" src="{% static 'P_Ndjango\contents_app\static\img\ForkKnife.svg' %}" alt="">
+                            <img class="posted_img" src="{% static 'img\ForkKnife.svg' %}" alt="">
                         </div>
                         <div class="posted_by_info">
                             <div class="time_text">좋아요</div>
@@ -62,13 +62,13 @@
             <div class="icons">
                 <div class="icons_box">
                     <div class="icon_box">
-                        <img class="icon" src="P_Ndjango\contents_app\static\img\printer.svg" alt="">
+                        <img class="icon" src="{% static 'img\printer.svg'%}" alt="">
                     </div>
                     <label class="print">print</label>
                 </div>
                 <div class="share-button">
                     <div class="icon_box">
-                        <img class="icon" src="P_Ndjango\contents_app\static\img\share.svg" alt="">
+                        <img class="icon" src="{% static 'img\share.svg'%}" alt="">
                     </div>
                     <label class="share">share</label>
                 </div>
@@ -90,10 +90,13 @@
             </form>
         {% endif %}
     </div>
-    <div class="body_02">
+    <div class="header">
             <!--조리 순서별로 사진이랑 같이-->
         
-            <div class="post-content">{{ post.post_content | safe }}</div>
+            <div class="post-content">
+
+                {{ post.post_content | safe }}
+            </div>
 
     </div>
 {% endblock %}
@@ -148,5 +151,54 @@
       // 알림 표시
       alert('포스트 링크가 클립보드에 복사되었습니다');
     });
+
+    // .post-content p img 요소를 선택합니다.
+    var imgElement = document.querySelector('.post-content p img');
+    var pElement = document.querySelector('.post-content p');
+    var pElements = document.querySelectorAll('.post-content p');
+
+    // img 요소의 style 속성에 width를 1200px로 지정합니다.
+    imgElement.style.width = '1200px';
+    imgElement.style.borderRadius = '20px'
+    pElement.style.textAlign = 'center';
+    // 첫번째 p tag
+    var secondPElement = pElements[1];
+    secondPElement.style.fontSize = '32px';
+    secondPElement.style.fontWeight = 'bold';
+    secondPElement.style.backgroundColor = 'transparent';
+    // 두번째 p tag
+    var thirdPElement = pElements[2];
+    thirdPElement.style.fontSize = '32px';
+    thirdPElement.style.fontWeight = 'bold';
+    thirdPElement.style.backgroundColor = 'transparent';
+
+    var ulElement = document.querySelector('.post-content ul');
+    ulElement.style.backgroundColor = 'transparent';
+    
+    var liElements = document.querySelectorAll('.post-content ul li');
+
+    // 모든 li 요소에 font-size를 24px로 설정합니다.
+    liElements.forEach(function(liElement) {
+        liElement.style.fontSize = '24px';
+        liElement.style.marginBottom = '10px';
+    });
+
+    // .post-content ol 요소를 선택합니다.
+    var olElement = document.querySelector('.post-content ol');
+
+    // 배경색을 무색(transparent)으로 설정합니다.
+    olElement.style.backgroundColor = 'transparent';
+
+    // .post-content ol li 요소들을 선택합니다.
+    var olLiElements = document.querySelectorAll('.post-content ol li');
+
+    // 모든 ol li 요소에 font-size와 margin-bottom을 설정합니다.
+    olLiElements.forEach(function(liElement) {
+        liElement.style.fontSize = '24px';
+        liElement.style.marginBottom = '10px';
+    });
+
+
+
   </script>
 </html>

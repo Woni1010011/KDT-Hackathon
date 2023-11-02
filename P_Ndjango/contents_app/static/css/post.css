@@ -1,12 +1,15 @@
 .header{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .header_in_header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 60px;
+    width: 1200px;
 }
 
 .header_title{
@@ -54,14 +57,22 @@
     color: #a7a7a7;
     font-weight: bold;
 }
+.post_img {
+    height: 100px;
+    width: 200px;
+}
 
 .posted_img {
     width: 40px;
     height: 40px;
-    background-color: #ffbaba;
     border-radius: 50px;
 }
+.post-content{
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
 
+}
 .icons{
     display: flex;
     flex-direction: row;
@@ -81,16 +92,15 @@
     display: flex;
     width: 60px;
     height: 60px;
-    background-color: #E7FAFE;
     border-radius: 50px;
     align-items: center;
     justify-content: center;
+    border-radius: 20px;
 }
 
 .icon {
     width: 40px;
     height: 40px;
-    background-color: #ccc;
     border-radius: 50px;
 }
 
@@ -146,7 +156,7 @@
 .body_02 {
     display: flex;
     flex-direction: row;
-    width: 1720px;
+    width: 1200px;
     padding: 60px;
     gap: 80px;
 }
