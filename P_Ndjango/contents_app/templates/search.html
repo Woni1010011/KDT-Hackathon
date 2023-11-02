@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- 로컬 변환용 -->
-    <link rel="stylesheet" type="text/css" href="static/css/search.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css">
     <!-- S3 배포용 -->
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}?{% now 'U' %}"> -->
 </head>
@@ -31,10 +31,8 @@
     </header>
     <article>
         {% comment %} 검색창 {% endcomment %}
-        {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
             <div id="search">
-                {% comment %} {% csrf_token %} {% endcomment %}
-                <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
+                <input type="text" id="searchInput" name="search" class="search_input" placeholder="검색어를 입력하세요.">
                 <button type="submit" class="search_button" id="searchButton">
                     {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
                     <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
@@ -43,7 +41,6 @@
                     <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
                 </div>
             </div>
-        {% comment %} </form> {% endcomment %}
         {% comment %} 인기검색어 {% endcomment %}
         <div id="popular_box">
             <div class="article_text">인기 식재료 추천</div>

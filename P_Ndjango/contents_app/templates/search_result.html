@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/search_result.css' %}">
+    <link rel="stylesheet" href="/static/css/reset.css" >
+    <link rel="stylesheet" href="/static/css/search_result.css" >
 </head>
 <body>
-    {% comment %} nav bar {% endcomment %}
-    {% include 'navbar.html' %}
+{% include 'navbar.html' %}
+<div class="cotainer">
 
     <div class="image_rolling_container">
         <div class="content_cotainer">
@@ -30,13 +30,13 @@
             </div>
         </div>
     </form>
-    
+    <br><br><br>
 
     {% comment %} 타이틀 {% endcomment %}
-    <div id="text_box">
-        <p class="title"> Recipes </p>
+    {% comment %} <div id="text_box">
+        <p class="title"> </p>
         <p class="text">"Don't Waste Your Fridge Ingredients! Discover the Joy of Cooking!"</p>
-    </div>
+    </div> {% endcomment %}
 
     {% comment %} 크롤링된 게시물 {% endcomment %}
     <article>
@@ -68,7 +68,7 @@
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
             {% comment %} 인기있는 레시피 {% endcomment %}
-            <p class="sub_title">Popular Recipes</p>
+            <p class="sub_title">인기 레시피 게시물</p>
             {% for board, thumbnail in popular_boards_with_thumbnail %}
             <div class="popular_box">
                 <a href="{% url 'post' board.post_no %}">
@@ -117,7 +117,7 @@
 
     {% comment %} 추천 게시물 {% endcomment %}
     <div id="recommend_box">
-        <p class="recommend_title">Recommend Recipes</p>
+        <p class="recommend_title">인기 레시피 추천</p>
         <div class="recommend_recipes">
             {% for recipe, thumbnail in random_recipes_with_thumbnail %}
             <div class="recipe_info">
@@ -133,6 +133,7 @@
             {% endfor %}
         </div>
     </div>
-    {% include 'footerbar.html' %}
+</div>
+{% include 'footerbar.html' %}
 </body>
 </html>

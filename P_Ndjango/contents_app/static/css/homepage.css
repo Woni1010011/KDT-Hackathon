@@ -24,8 +24,16 @@ a {
     width: 1180px;
     border-radius: 10px;
     color: #000000;
+    font-weight: 600;
+    font-size: 18px;
     text-decoration: none;
     padding-left: 20px;
+}
+
+.search_img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 /* 배너광고 */
@@ -83,7 +91,7 @@ a {
 
 button {
     border: none;
-    background-color: #E7F9FD;
+    background-color: #F5EEDC;
     border-radius: 10px;
     padding: 10px 12px;
     font-weight: bold;
@@ -94,7 +102,8 @@ button {
 }
 
 button:hover {
-    background-color: #5CACEE;
+    background-color: rgb(185, 175, 160);
+    color: #F5EEDC;
     border: none;
     cursor: pointer;
 }
@@ -110,26 +119,40 @@ button:hover {
 .categories_content {
     width: 165px;
     height: 230px;
-    background: linear-gradient(rgba(255,255,255,1), rgba(240,240,240,1));
+    background: linear-gradient(rgba(255, 255, 255, 1), rgba(240, 240, 240, 1));
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     cursor: pointer;
 }
-  
-  .categories_content:hover {
+
+.categories_content:hover {
     transform: rotateY(10deg) scale(1.05);
     animation: shake 0.3s;
-  }
-  
-  @keyframes shake {
-    0% { transform: rotateY(10deg) scale(1.05); }
-    25% { transform: rotateY(-10deg) scale(1.05); }
-    50% { transform: rotateY(10deg) scale(1.05); }
-    75% { transform: rotateY(-10deg) scale(1.05); }
-    100% { transform: rotateY(10deg) scale(1.05); }
 }
-  
+
+@keyframes shake {
+    0% {
+        transform: rotateY(10deg) scale(1.05);
+    }
+
+    25% {
+        transform: rotateY(-10deg) scale(1.05);
+    }
+
+    50% {
+        transform: rotateY(10deg) scale(1.05);
+    }
+
+    75% {
+        transform: rotateY(-10deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotateY(10deg) scale(1.05);
+    }
+}
+
 .category_img {
     display: flex;
     justify-content: center;
@@ -211,7 +234,7 @@ button:hover {
     gap: 5px;
 }
 
-.recipe_info span{
+.recipe_info span {
     display: flex;
     text-align: center;
     align-items: center;

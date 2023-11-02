@@ -1,32 +1,35 @@
 .footer_container {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     border-top: 1px solid #ccc;
-    gap: 10px;
-    width: 1740px;
+    width: 100%;
 }
+
 .footer_nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1740px;
     margin-bottom: 40px;
 }
+
 .footer_list {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 800px;
     color: #9c9c9c;
 }
+
 .footer_list li {
     padding-left: 20px;
     padding-right: 20px;
     border-left: 1px solid #ccc;
 }
+
 .footer_list li:first-child {
     border-left: none;
 }
+
 li {
     list-style-type: none;
 }

@@ -1,4 +1,4 @@
-body {
+.cotainer {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -245,8 +245,8 @@ article {
 }
 
 .banner {
-    width: 250px;
-    height: 280px;
+    width: 350px;
+    height: 380px;
     margin-top: 40px;
 }
 
