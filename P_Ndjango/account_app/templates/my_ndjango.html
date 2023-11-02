@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 냉장고</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/myndjango.css'%}">
+    <script src="{% static 'js/profile_edit.js' %}" defer></script>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="wrapper">
+
+        <aside class="category-sidebar">
+
+            <ul class="category-list">
+                <li><a href="{% url 'mypage' %}">셰프 정보</a></li>
+                <li><a href="{% url 'ndjango' %}">내 냉장고</a></li>
+                <li><a href="alarm_list">알림 목록</a></li>
+                <li><a href="favorite_list">찜해놓은 레시피</a></li>
+                <li><a href="current-watching">최근 감상 목록</a></li>
+
+                <!-- Add more categories as needed -->
+            </ul>
+        </aside>
+        <main id="first_main" class="box-contents">
+
+            <h2>나의 냉장고</h2>
+            <div class="user_ndjango">
+                
+                {% for user_igrd in user_igrds %}
+                <div class="user_igrd_icon">
+                    <div class="user_igrd_name">
+                        <span>{{ user_igrd.igrd_name }}</span>
+                    </div>
+                    <div class="user_igrd_date">
+                        <span>{{ user_igrd.user_igrd_date|date:"Y-m-d" }}</span>
+                    </div>
+                    <div class="user_igrd_delete">
+                        <a href="{% url 'delete_to_fridge' user_igrd.id %}">삭제</a>
+                        {% comment %} <button type="submit" name="{{user_igrd.id}}" class="igrd_delete">x</button> {% endcomment %}
+                    </div>
+                </div>
+                {% empty %}
+                <h4>냉장고가 비어있습니다</h4>
+                {% endfor %}
+            </div>
+
+            <br>
+            <br>
+
+            <form method="POST" action="{% url 'add_to_fridge' %}">
+                {% csrf_token %}
+                <label for="igrd_name">Ingredient Name:</label>
+                <input type="text" id="igrd_name" name="igrd_name" required>
+                
+                <label for="user_igrd_date">Date:</label>
+                <input type="date" id="user_igrd_date" name="user_igrd_date" required>
+                
+                <button type="submit">Add to My Fridge</button>
+            </form>
+
+            <div class="img_container">
+                <h2>영수증으로 가져오기</h2>
+                <form method="post" action="{% url 'ndjango_material' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                    <input type="file" name="image" accept="image/*" required id="imageInput">
+                    <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                    <div>
+                        <button class='img_search_btn' type="submit">재료 추출하기</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="img_container">
+                <h2>이미지로 가져오기</h2>
+                <form method="post" action="{% url 'ndjango_img' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                    <input type="file" name="image" accept="image/*" required id="imageInput">
+                    <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                    <div>
+                        <button class='img_search_btn' type="submit">재료 추출하기</button>
+                    </div>
+                </form>
+            </div>
+        
+        </main>
+    </div>
+    {% include 'footerbar.html' %}
+</body>
+<script>
+    // 오늘의 날짜를 가져오는 함수
+    function getTodayDate() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1이 필요하며 2자리로 포맷팅
+      const day = String(today.getDate()).padStart(2, "0"); // 일자를 2자리로 포맷팅
+      return `${year}-${month}-${day}`;
+    }
+  
+    // <input> 요소의 값을 오늘로 설정
+    const userIgrdDateInput = document.getElementById("user_igrd_date");
+    userIgrdDateInput.value = getTodayDate();
+</script>
+{% if text %}
+<script>
+    // 결과 텍스트를 가져옴
+    var text = "{{ text|default:'' }}"; // default 필터를 사용하여 text 변수가 없을 경우 빈 문자열로 초기화
+
+    // 결과 텍스트를 input 요소에 설정
+    var inputElement = document.getElementById("igrd_name"); // input 요소의 id를 가져옴
+    if (inputElement) {
+        inputElement.value = text; // input 요소의 value 속성에 결과 텍스트 설정
+    }
+</script>
+{% endif %}
+{% if translated_objects %}
+<script>
+    // 추출된 키워드를 검색창에 자동으로 입력
+    document.getElementById('igrd_name').value = '{{ translated_objects|join:', ' }}';
+</script>
+{% endif %}
+<script src="{% static 'js/img_search.js' %}"></script>
+</html>

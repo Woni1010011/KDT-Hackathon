@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from account_app.models import User
+from account_app.models import User, UserIgrd
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -75,3 +75,100 @@ def logout_view(request):
 
     # 로그아웃 후 리디렉션할 페이지로 이동
     return redirect("main")
+
+
+def my_fridge(request):
+    user_id = request.session.get("user_id")
+    if user_id:
+        # UserIgrd 테이블에서 세션에 있는 user_id와 같은 user_id를 갖는 정보를 가져옵니다.
+        user_igrds = UserIgrd.objects.filter(user_id=user_id)
+    else:
+        user_igrds = ["내 냉장고가 비었습니다."]
+
+    context = {
+        "user_igrds": user_igrds,
+    }
+
+    return render(request, "my_ndjango.html", context)
+
+import re
+def add_to_fridge(request):
+    if request.method == "POST":
+        user_id = request.session["user_id"]
+        igrd_name = request.POST.get("igrd_name")
+        user_igrd_date = request.POST.get("user_igrd_date")
+
+        igrd_names = re.sub(r'\s+', '', igrd_name).split(',')
+
+        for name in igrd_names:
+            if name:
+                user_igrd = UserIgrd.objects.create(
+                    user_id=user_id, igrd_name=name, user_igrd_date=user_igrd_date
+                )
+
+        return redirect("ndjango")
+    else:
+        return render(request, "my_ndjango.html")
+    
+
+def delete_to_fridge(request, user_igrd_id):
+    user_id = request.session["user_id"]
+    user_igrd = UserIgrd.objects.get(id=user_igrd_id,user_id=user_id)
+    user_igrd.delete()
+    return redirect('ndjango')
+
+from contents_app import receipe_search
+from google.cloud.vision_v1 import types
+def ndjango_material(request):
+    if request.method == "POST":
+        image = request.FILES["image"]  # FILES를 따로 한 이유가 있
+        file_name = "./contents_app/static/img/" + image.name
+
+        with open(file_name, "wb") as file:
+            for chunk in image.chunks():
+                file.write(chunk)
+
+        content = image.read()
+        image = types.Image(content=content)
+        text = receipe_search.tempFunction(file_name)  # receipt_image to text
+        print(text)
+
+        return render(request, "my_ndjango.html", {"text": text})
+
+    return render(request, "my_ndjango.html")
+
+from googletrans import Translator
+from google.cloud import vision
+from django.contrib import messages
+def ndjango_img(request):
+    if request.method == "POST" and request.FILES["image"]:
+        image = request.FILES["image"]
+        client = vision.ImageAnnotatorClient()
+
+        content = image.read()
+        image = types.Image(content=content)
+        # 이미지 객체를 텍스트로 변환
+        response = client.object_localization(image=image)
+        objects = response.localized_object_annotations
+
+        if objects:
+            detected_objects = [obj.name for obj in objects]
+            unique_detected_objects = list(set(detected_objects))
+
+            # 구글 번역 API 한국어로 번역 일일 사용량 제한있음
+            translator = Translator()
+            translated_objects = [
+                translator.translate(obj, src="en", dest="ko").text
+                for obj in unique_detected_objects
+            ]
+
+            # '음식' 및 '패키지 상품' 필터링
+            filtered_objects = [
+                obj for obj in translated_objects if obj not in ["음식", "패키지 상품", "채소"]
+            ]
+            return render(request, "my_ndjango.html", {"translated_objects": filtered_objects})
+        else:
+            messages.warning(request, "재료를 찾을 수 없습니다.")
+            return render(request, "my_ndjango.html")
+    else:
+        return render(request, "my_ndjango.html")
