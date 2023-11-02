@@ -138,7 +138,7 @@
             <p class="recommend_title">Recommend Recipes</p>
             <div class="recommend_recipes">
                 {% for recipe, thumbnail in random_recipes_with_thumbnail %}
-                <div class="recipe_info">
+                <div class="rec_recipe_info">
                     <a href="{% url 'recipe' recipe.recipe_no %}">
                         <div class="recommend_img">
                             <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
@@ -176,30 +176,6 @@
       // 알림 표시
       alert('포스트 링크가 클립보드에 복사되었습니다');
     });
-
-    // 페이지 로딩 후 실행
-    window.onload = function() {
-        adjustRecipeContainerHeight();
-    };
-    
-
-    function adjustRecipeContainerHeight() {
-        var recipeContainer = document.querySelector('.main_container');
-        var recipes = document.getElementClass('.recipe');
-
-        var totalHeight = 0;
-
-        // 모든 .recipe 요소의 높이를 합산
-        recipes.forEach(function(recipe) {
-            totalHeight += recipe.clientHeight;
-            
-        });
-        
-
-        // .recipe_container의 높이를 조절
-        recipeContainer.style.height = totalHeight + 'px';
-        console.log(recipeContainer.style.height)
-    }
 
 
 </script>
