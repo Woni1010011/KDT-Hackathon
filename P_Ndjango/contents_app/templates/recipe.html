@@ -37,6 +37,7 @@
                                 </div>
                                 <div class="posted_by_info">
                                     <div class="time_text">조리시간</div>
+
                                     <div class="time">{{ recipe.cook_time }}</div>
                                 </div>
                             </div>
@@ -90,6 +91,7 @@
                 <div class="body_02">
                     <!--조리 순서별로 사진이랑 같이-->
                     {% for image, informations in recipelist %}
+                    {% csrf_token %}
                     <div class="recipe">
                         <div class="recipe_img">
                             <img class="rec_img"src="{{image}}" alt="">
