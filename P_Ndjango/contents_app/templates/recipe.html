@@ -73,11 +73,11 @@
                 <!--메인 사진, 영양성분표, 레시피 설명-->
                 <div class="main_box">
                     <div class="main_picture">
-                        <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                        <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail">
                     </div>  
                     <div class="recipe_info">
                         <p class="title_ingredient">재  료</p>
-                        {% for ingredient in ingredients_list %}
+                        {% for ingredient in ingredients_list %} 
                         <span class="ingredient">{{ ingredient }}</span>
                         {% endfor %}
                     </div>
@@ -104,65 +104,65 @@
                     {% endfor %}
                     
                 </div>
+
             </div>
             <div class="side_recipe">
                 <span class="side_title">또 다른 레시피</span>
                 <!--추천하는 다른 레시피 부분-->
+                {% for board, rec_image in popular_boards_with_thumbnail %}
                 <div class="other_recipes">
-                    <div class="other_recipe_content_pic">
-                        <img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="">
-                    </div>
-                    <div class="other_recipe_info">
-                        <div class="orther_recipe_title">
-                            치킨미트볼이랑 크림치즈
+                    <a href="{% url 'post' board.post_no %}">
+                        <div class="other_recipe_content_pic">
+                            <img class="rec_image"src="{{ rec_image|default:icon_photo }}" alt="rec_image">
                         </div>
+                    </a>
+                    <div class="other_recipe_info">
+                        <a href="{% url 'post' board.post_no %}">
+                            <div class="orther_recipe_title">
+                                {{ board.post_title }}
+                            </div>
+                        </a>
                         <div class="other_recipe_auther">
-                            안드레아스 파울라
+                            {{ board.user_nick }}
                         </div>
                     </div>
                 </div>
-                <div class="other_recipes">
-                    <div class="other_recipe_content_pic">
-                        <img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="">
-                    </div>
-                    <div class="other_recipe_info">
-                        <div class="orther_recipe_title">
-                            치킨미트볼이랑 크림치즈
-                        </div>
-                        <div class="other_recipe_auther">
-                            안드레아스 파울라
-                        </div>
-                    </div>
-                </div>
-                <div class="other_recipes">
-                    <div class="other_recipe_content_pic">
-                        <img src="P_Ndjango\contents_app\static\img\치킨미트볼.png" alt="">
-                    </div>
-                    <div class="other_recipe_info">
-                        <div class="orther_recipe_title">
-                            치킨미트볼이랑 크림치즈
-                        </div>
-                        <div class="other_recipe_auther">
-                            안드레아스 파울라
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+
                 <div class="ads">
                     <img src="" alt="">
                 </div>
             </div>
         </div>
+        <div id="recommend_box">
+            <p class="recommend_title">Recommend Recipes</p>
+            <div class="recommend_recipes">
+                {% for recipe, thumbnail in random_recipes_with_thumbnail %}
+                <div class="recipe_info">
+                    <a href="{% url 'recipe' recipe.recipe_no %}">
+                        <div class="recommend_img">
+                            <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                        </div>
+                    </a>
+                    <a href="{% url 'recipe' recipe.recipe_no %}">
+                        <p class="food_name">{{ recipe.recipe_title }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% include "footerbar.html" %}
 
 
     </div>
-    {% include "footerbar.html" %}
 
 
 
 </body>
 <script>
     // 공유하기 버튼 클릭 시
-    document.querySelector('.share-button').addEventListener('click', function() {
+    document.querySelector('.share').addEventListener('click', function() {
       let postUrl = window.location.href;
       
       // 클립보드에 복사
@@ -176,5 +176,32 @@
       // 알림 표시
       alert('포스트 링크가 클립보드에 복사되었습니다');
     });
-  </script>
+
+    // 페이지 로딩 후 실행
+    window.onload = function() {
+        adjustRecipeContainerHeight();
+    };
+    
+
+    function adjustRecipeContainerHeight() {
+        var recipeContainer = document.querySelector('.main_container');
+        var recipes = document.getElementClass('.recipe');
+
+        var totalHeight = 0;
+
+        // 모든 .recipe 요소의 높이를 합산
+        recipes.forEach(function(recipe) {
+            totalHeight += recipe.clientHeight;
+            
+        });
+        
+
+        // .recipe_container의 높이를 조절
+        recipeContainer.style.height = totalHeight + 'px';
+        console.log(recipeContainer.style.height)
+    }
+
+
+</script>
+
 </html>

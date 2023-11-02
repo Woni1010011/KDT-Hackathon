@@ -319,8 +319,8 @@ def search_result(request):
         'items': items,
         'query': query,
         'random_recipes_with_thumbnail': random_recipes_with_thumbnail,
-        'popular_boards_with_thumbnail': popular_boards_with_thumbnail,
         'icon_photo': static('img/icon_photo.png'),
+        'popular_boards_with_thumbnail': popular_boards_with_thumbnail,
     }
 
     return render(request, 'search_result.html', context)
@@ -478,11 +478,43 @@ def recipe_view(request, recipe_no):
 
     template = "recipe.html"
     recipelist = zip(sorted_recipe_images, sorted_directions)
+
+    popular_boards = Board.objects.order_by('-post_hit')[:3]
+
+    popular_boards_with_thumbnail = []
+    for board in popular_boards:
+        thumbnails = extract_first_image(board.post_content)
+        popular_boards_with_thumbnail.append((board, thumbnails))
+    
+    random_recipes = Recipes.objects.order_by('?')[:4]
+    random_recipes_with_thumbnail = []
+    for temp_recipe in random_recipes:
+        recipe_images = ast.literal_eval(temp_recipe.recipe_img)
+        
+        def extract_order(direction):
+            # 순서 번호 추출
+            order = int(direction.split(".")[0])
+            return order
+        
+        # 정렬된 directions 리스트 생성
+        sorted_recipe_images = sorted(recipe_images, key=extract_order)
+        
+        sorted_imgs = []
+        for img in sorted_recipe_images:
+            sorted_imgs.append(img.split(" ")[1])
+        
+        temp_thumbnail = sorted_imgs[-1] if sorted_imgs else None
+        random_recipes_with_thumbnail.append((temp_recipe, temp_thumbnail))
+
+
     context = {
         "recipe": recipe,
         "ingredients_list": ingredients_list,
         "recipelist" : recipelist,
         "thumbnail": thumbnail,
+        "popular_boards_with_thumbnail" : popular_boards_with_thumbnail,
+        'icon_photo': static('img/icon_photo.png'),
+        'random_recipes_with_thumbnail': random_recipes_with_thumbnail,
     }
 
     return render(request, template, context)
