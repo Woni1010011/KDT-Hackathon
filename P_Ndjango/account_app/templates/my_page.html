@@ -21,9 +21,9 @@
             <ul class="category-list">
                 <li><a href="{% url 'mypage' %}">셰프 정보</a></li>
                 <li><a href="{% url 'ndjango' %}">내 냉장고</a></li>
-                <li><a href="alarm_list">알림 목록</a></li>
-                <li><a href="favorite_list">찜해놓은 레시피</a></li>
-                <li><a href="current-watching">최근 감상 목록</a></li>
+                <li><a href="#" id="alarm-link">알림 목록</a></li>
+                <li><a href="#" id="favorite-link">찜해놓은 레시피</a></li>
+                <li><a href="#" id="watching-link">최근 감상 목록</a></li>
 
                 <!-- Add more categories as needed -->
             </ul>
@@ -77,5 +77,23 @@
     </div>
     {% include 'footerbar.html' %}
 </body>
+<script>
+    // 알림 목록 링크 클릭 이벤트 핸들러
+    document.getElementById('alarm-link').addEventListener('click', function(event) {
+        event.preventDefault(); // 링크 클릭 이벤트 기본 동작 막음
+        alert('서비스 준비중 입니다.');
+    });
 
+    // 찜해놓은 레시피 링크 클릭 이벤트 핸들러
+    document.getElementById('favorite-link').addEventListener('click', function(event) {
+        event.preventDefault(); // 링크 클릭 이벤트 기본 동작 막음
+        alert('서비스 준비중 입니다.');
+    });
+
+    // 최근 감상 목록 링크 클릭 이벤트 핸들러
+    document.getElementById('watching-link').addEventListener('click', function(event) {
+        event.preventDefault(); // 링크 클릭 이벤트 기본 동작 막음
+        alert('서비스 준비중 입니다.');
+    });
+</script>
 </html>
