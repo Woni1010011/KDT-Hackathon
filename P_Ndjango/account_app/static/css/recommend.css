@@ -1,0 +1,44 @@
+/* 추천 레시피 */
+#recommend_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.recommend_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.recommend_info {
+    margin-left: 30px;
+}
+
+.recommend_recipes {
+    display: flex;
+    flex-direction: row;
+}
+
+.recommend_img {
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 240px;
+    height: 180px;
+}
+
+.food_name {
+    font-size: 18px;
+    width: 240px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}

@@ -247,7 +247,7 @@ def ndjango_matching(request):
         similar_data = list(similar_data)
 
         # 상위 5개의 결과를 가져옵니다.
-        top_data = [data for _, data in similar_data[:5]]
+        top_data = [data for _, data in similar_data[:4]]
 
         items = []
         for data in top_data:

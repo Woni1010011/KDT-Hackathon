@@ -33,11 +33,13 @@
     
     {% include 'navbar.html' %}
     <div class="container">
+        {% include 'user_recommend.html' %}
+        
         <a class="search_box" href="{% url 'search' %}"><img class="search_img" src="{% static 'img/search_icon.png' %}" alt=""> 레시피를 검색해 보세요! </a>
 
         <div class="image_rolling_container">
             <div class="content_cotainer">
-                <img class='banner_img' src="{% static 'img/banner.png' %}" alt="">
+                <img class='banner_img' src="{% static 'img/banner01.png' %}" alt="">
             </div>
         </div>
 
@@ -79,10 +81,10 @@
         
         
     </div>
+    
+    
     {% include "footerbar.html" %}
-
-    <script src="static/js/homepage.js"></script>
-
 </body>
+<script src="static/js/homepage.js"></script>
 
 </html>
