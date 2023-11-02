@@ -19,18 +19,18 @@
     </div>
 
     {% comment %} 검색바 {% endcomment %}
-    {% comment %} <form method="get" action="{% url 'search_result' %}"></form> {% endcomment %}
-    <div id="search">
-        {% comment %} {% csrf_token %} {% endcomment %}
-        <input type="text" id="searchInput" name="search" class="search_input" placeholder="레시피를 입력하세요.">
-        <button type="submit" class="search_button">
-            {% comment %} 돋보기 아이콘 넣기 {% endcomment %}
-            <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
-        </button>
-        <div class="voice_btn">
-            <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+    <form method="get" action="{% url 'search_result' %}">
+        <div id="search">
+            <input type="text" id="searchInput" name="q" class="search_input" placeholder="레시피를 입력하세요.">
+            <button type="submit" class="search_button">
+                <img class="search_img" src="{% static 'img/search_icon.png' %}" alt="">
+            </button>
+            <div class="voice_btn">
+                <img class="voice" src="{% static 'img/voice_after.png' %}" alt="">
+            </div>
         </div>
-    </div>
+    </form>
+    
 
     {% comment %} 타이틀 {% endcomment %}
     <div id="text_box">
@@ -40,68 +40,57 @@
 
     {% comment %} 크롤링된 게시물 {% endcomment %}
     <article>
-        {% comment %} 검색결과(크롤링 레시피){% endcomment %}
-        <!--이미지, 제목 붙이기-->
         <div class="posting_list">
             {% for item in items %}
-            <div class="post">
-                <a href="{% url item.url_name item.pk %}">
-                    <div class="post_image">
-                        <img class="post_img" src="{{ item.thumbnail }}" alt="">
-                    </div>
-                </a>
-                <div class="post_info">
-                    <a href="{% url item.url_name item.pk %}">
-                        <div class="title_box">
-                            <p class="title_text">
-                                {{ item.title }}
-                            </p>
-                        </div>
-                    </a>
+                <div class="post">
+                    {% if item.type == 'recipe' %}
+                        <a href="{% url 'recipe' item.recipe_no %}">
+                            <div class="post_image">
+                                <img class="post_img" src="{{ item.thumbnail }}" alt="">
+                            </div>
+                            <div class="post_info">
+                                <div class="title_box">
+                                    <p class="title_text">
+                                        {{ item.recipe_title }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    {% elif item.type == 'board' %}
+                        <a href="{% url 'board_post' item.post_no %}">
+                            <div class="post_image">
+                                <img class="post_img" src="{{ item.thumbnail }}" alt="">
+                            </div>
+                            <div class="post_info">
+                                <div class="title_box">
+                                    <p class="title_text">
+                                        {{ item.post_title }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
                 </div>
-            </div>
             {% endfor %}
         </div>
-        
-        
 
         {% comment %} 우측 게시판 {% endcomment %}
         <div class="right_box">
             {% comment %} 인기있는 레시피 {% endcomment %}
             <p class="sub_title">Popular Recipes</p>
+            {% for board, thumbnail in popular_boards_with_thumbnail %}
             <div class="popular_box">
                 <div class="popular_img">
-
+                    <img src="{{ thumbnail|default:icon_photo }}" alt="Thumbnail Image">
                 </div>
                 <div class="popular_lnfo">
                     <div class="popular_title">
-                        꼬막 무침
+                        {{ board.post_title }}
                     </div>
-                    <p class="popular_chef">김은철</p>
+                    <p class="popular_chef">{{ board.user_nick }}</p>
                 </div>
             </div>
-            <div class="popular_box">
-                <div class="popular_img">
-
-                </div>
-                <div class="popular_lnfo">
-                    <div class="popular_title">
-                        꼬막 무침
-                    </div>
-                    <p class="popular_chef">김은철</p>
-                </div>
-            </div>
-            <div class="popular_box">
-                <div class="popular_img">
-
-                </div>
-                <div class="popular_lnfo">
-                    <div class="popular_title">
-                        꼬막 무침
-                    </div>
-                    <p class="popular_chef">김은철</p>
-                </div>
-            </div>
+            {% endfor %}
             {% comment %} 광고 배너 {% endcomment %}
             <div class="banner">
                 <img src="{% static 'img/side_banner.jpg' %}" alt="">
@@ -112,22 +101,22 @@
     {% comment %} 페이지 넘버 {% endcomment %}
     <!--한페이지 5개 레시피 넘어가면 넘버 생김-->
     <div class="page_num">
-        {% if items.has_previous %}
+        {% if items_on_page.has_previous %}
             <a href="?q={{ query }}&page=1" class="num"><<</a>
-            <a href="?q={{ query }}&page={{ items.previous_page_number }}" class="num"><</a>
+            <a href="?q={{ query }}&page={{ items_on_page.previous_page_number }}" class="num"><</a>
         {% endif %}
     
-        {% for i in items.paginator.page_range %}
-            {% if items.number == i %}
+        {% for i in items_on_page.paginator.page_range %}
+            {% if items_on_page.number == i %}
                 <div class="num current">{{ i }}</div>
             {% else %}
                 <a href="?q={{ query }}&page={{ i }}" class="num">{{ i }}</a>
             {% endif %}
         {% endfor %}
     
-        {% if items.has_next %}
-            <a href="?q={{ query }}&page={{ items.next_page_number }}" class="num">></a>
-            <a href="?q={{ query }}&page={{ items.paginator.num_pages }}" class="num">>></a>
+        {% if items_on_page.has_next %}
+            <a href="?q={{ query }}&page={{ items_on_page.next_page_number }}" class="num">></a>
+            <a href="?q={{ query }}&page={{ items_on_page.paginator.num_pages }}" class="num">>></a>
         {% endif %}
     </div>
 
@@ -135,32 +124,20 @@
     <div id="recommend_box">
         <p class="recommend_title">Recommend Recipes</p>
         <div class="recommend_recipes">
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
+            {% for recipe, thumbnail in random_recipes_with_thumbnail %}
+            <div class="recipe_info">
+                <a href="{% url 'recipe' recipe.recipe_no %}">
+                    <div class="recommend_img">
+                        <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                    </div>
+                </a>
+                <a href="{% url 'recipe' recipe.recipe_no %}">
+                    <p class="food_name">{{ recipe.recipe_title }}</p>
+                </a>
             </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
-            <div class="recommend_info">
-                <div class="recommend_img">
-
-                </div>
-                <p class="food_name">음식 이름</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
-
+    {% include 'footerbar.html' %}
 </body>
 </html>

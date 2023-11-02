@@ -15,6 +15,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django.templatetags.static import static
 from urllib.parse import unquote
+from itertools import chain
+
 
 
 
@@ -349,46 +351,34 @@ def search_result(request):
 
     return render(request, 'search_result.html', context)
 
+from datetime import datetime
+
 def categories_result(request):
-    category_name = request.GET.get("category_name", "")
-    subcategory = request.GET.get("subcategory", "")
+    query = request.GET.get("q")
 
-    # 서브 카테고리가 정의된 카테고리 딕셔너리
-    subcategories = {
-        "밥": ["현미밥", "기장밥", "조밥"],
-        "해산물": ["새우", "꽃게", "연어"],
-        # ... 기타 카테고리
-    }
+    # For Recipes
+    if query:
+        recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=query) | Q(ingredients__icontains=query))
+    else:
+        recipe_results = Recipes.objects.all()
+    # For Boards
+    if query:
+        board_results = Board.objects.filter(Q(post_content__icontains=query) | Q(board_no=1))
+    else:
+        board_results = Board.objects.all()
 
-    # 서브 카테고리가 지정되지 않았거나 유효하지 않다면 첫 번째 값을 사용
-    if not subcategory or subcategory not in subcategories.get(category_name, []):
-        subcategory = subcategories.get(category_name, [None])[0]
-
-    # 검색 쿼리가 없다면 바로 search_result 페이지로 리다이렉트합니다.
-    if not category_name:
-        return redirect('search_result')
-
-    # 여기에서는 선택된 카테고리에 따라 레시피를 필터링합니다.
-    recipe_results = Recipes.objects.filter(Q(recipe_title__icontains=subcategory) | Q(ingredients__icontains=subcategory))
-    # ... 레시피 결과 처리 로직 (result 함수에서 가져옴)
-
-    # ... 게시판 결과 처리 로직 (result 함수에서 가져옴)
-
-    # 레시피와 게시글의 결과를 하나의 리스트로 합칩니다.
-    combined_results = list(recipe_results) + list(board_results)
-
-    # 합쳐진 결과 리스트에 페이지네이션을 적용합니다. 페이지당 5개의 항목을 표시하도록 설정합니다.
-    paginator = Paginator(combined_results, 5)
+    # Combine the two querysets without sorting
+    combined_results_list = list(chain(recipe_results, board_results))
+    # Pagination for combined results
+    paginator = Paginator(combined_results_list, 15)  # Show 15 items per page.
     page = request.GET.get('page')
     items_on_page = paginator.get_page(page)
 
-    # 결과를 categories_result.html 템플릿에 전달하여 렌더링합니다.
     return render(request, "categories_result.html", {
         "items": items_on_page,
-        "category_name": category_name,
-        "subcategory": subcategory
+        "query": query
     })
-
+    
 def mypage(request):
     if request.session.get("user_id"):
         user_id = request.session["user_id"]
