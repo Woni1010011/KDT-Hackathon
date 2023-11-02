@@ -78,17 +78,18 @@
         
         <!--메인 사진, 영양성분표, 레시피 설명-->
     </div>
-    
-    <div class="icons">
-        <a href="{% url 'board' 'ALL' %}">돌아가기</a>
-        {% if user_name == post.user_nick %}
-            <a href="{% url 'edit_post' post_no=post.post_no %}">글 수정</a>
-            
-            <form method="post" action="{% url 'edit_post' post_no=post.post_no %}">
-            {% csrf_token %}
-            <button type="submit" name="delete" class="btn btn-danger">글 삭제</button>
-            </form>
-        {% endif %}
+    <div class="header">
+        <div class="icons">
+            <a href="{% url 'board' 'ALL' %}" class="custom-button">돌아가기</a>
+            {% if user_name == post.user_nick %}
+                <a class="custom-button" href="{% url 'edit_post' post_no=post.post_no %}" >글 수정</a>
+                
+                <form method="post" action="{% url 'edit_post' post_no=post.post_no %}">
+                {% csrf_token %}
+                <button type="submit" name="delete" class="btn btn-danger custom-button">글 삭제</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
     <div class="header">
             <!--조리 순서별로 사진이랑 같이-->
