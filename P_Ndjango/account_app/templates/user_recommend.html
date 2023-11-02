@@ -3,6 +3,7 @@
 <body>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if user_recommends %}
     <div class="user_recommend_list">
         <h2>AI 추천 레시피</h2>
         {% for recommend in user_recommends %}
@@ -21,5 +22,8 @@
             </div>
         </div>
         {% endfor %}
+    {% else %}
+        <p>데이터가 없습니다.</p>
+    {% endif %}
 </body>
 </html>

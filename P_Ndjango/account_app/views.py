@@ -134,7 +134,6 @@ def ndjango_material(request):
         content = image.read()
         image = types.Image(content=content)
         text = receipe_search.tempFunction(file_name)  # receipt_image to text
-        print(text)
 
         return render(request, "my_ndjango.html", {"text": text})
 
@@ -196,9 +195,9 @@ def my_preprocessor(text):
 
 def ndjango_matching(request):
     user_id = request.session.get("user_id")
-    if user_id:
+    user_igrds = UserIgrd.objects.filter(user_id=user_id)
+    if user_igrds:
         # UserIgrd 테이블에서 user_id와 일치하는 데이터 가져오기
-        user_igrds = UserIgrd.objects.filter(user_id=user_id)
         unique_igrd_names = user_igrds.values('igrd_name').distinct()  # 중복 제거
         unique_igrd_names_list = [entry['igrd_name'] for entry in unique_igrd_names]  # 문자열변환
         unique_igrd_names_str = ', '.join(unique_igrd_names_list)
