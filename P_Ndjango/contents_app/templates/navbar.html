@@ -17,6 +17,9 @@
         </div>
 
         <div id='topnav_info'>
+            {% if request.session.user_id %}
+            <a class='cate' href="{% url 'ndjango' %}">내 냉장고</a>
+            {% endif %}
             <a class='cate' href="{% url 'search' %}">레시피찾기</a>
             <a class='cate' href="{% url 'board' 'ALL' %}">커뮤니티</a>
         </div>

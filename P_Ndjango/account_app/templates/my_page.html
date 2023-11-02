@@ -6,9 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>요리사 정보</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
+    <link rel="stylesheet" type="text/css" href='/static/css/reset.css'>
+    <link rel="stylesheet" type="text/css" href='/static/css/mypage.css'>
     <script src="{% static 'js/profile_edit.js' %}" defer></script>
 </head>
 
@@ -36,10 +35,10 @@
                     <div class="profile-picture">
                         <!-- 프로필 업로드 폼 -->
                         <label for="preview">
-                            <img id="preview"
-                                src="{% if user.image %}{{ user.image }}{% else %}{% static 'img/chefhat.png' %}{% endif %}"
-                                alt="">
-                                <input type="file" name="new_image" accept="image/*">
+                            <img id="preview" src="
+                            {% if user.image %}{{ user.image }}
+                            {% else %}{% static 'img/chefhat.png' %}{% endif %}"alt="">
+                            <input type="file" name="new_image" accept="image/*">
                         </label>
                     </div>
                     <div class="little-data">

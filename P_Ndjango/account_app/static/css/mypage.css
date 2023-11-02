@@ -5,13 +5,7 @@
     min-height: calc(100vh - 100px);
 }
 
-.topnav {
-    border-bottom: 1px solid #ccc;
-}
-
 .category-sidebar {
-    /* box-sidebar */
-    height: 500%;
     width: 200px;
     background-color: #97BFB4;
     flex-shrink: 0;
@@ -81,17 +75,22 @@
     font-size: 25px;
 }
 
+
 #preview {
     border-radius: 80px;
     /* 이미지를 원 모양으로 만듭니다. */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.397);
     /* 그림자 효과 추가 */
-    display: flex;
     width: 80px;
     height: 80px;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
+}
+
+#preview>img {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
 }
 
 .user-info1 {
@@ -180,4 +179,14 @@ textarea:focus {
     /* Add your desired text color */
     font-weight: bold;
     display: block;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.little-data {
+    text-align: center;
 }
