@@ -37,14 +37,20 @@ def social_login_view(request):
 @csrf_exempt
 def signup_view(request):
     if request.method == "POST":
-        user_id = request.POST["user_id"]
-        user_password = request.POST["user_password"]
-        password_check = request.POST["password_check"]
-        user_name = request.POST["user_name"]
-        user_email = request.POST["user_email"]
-        user_nick = request.POST["user_nick"]
-        user_phone = request.POST["user_phone"]
-        user_address = request.POST["user_address"]
+        user_id = request.POST.get("user_id")
+        user_password = request.POST.get("user_password")
+        password_check = request.POST.get("password_check")
+        user_name = request.POST.get("user_name")
+        user_email = request.POST.get("user_email")
+        user_nick = request.POST.get("user_nick")
+        user_phone = request.POST.get("user_phone").replace('-', '')  # '-' 제거
+        user_address = request.POST.get("user_address")
+
+        # 전화번호 형식 검사
+        phone_pattern = re.compile("^(010-\d{4}-\d{4}|010\d{8})$")
+        if not phone_pattern.match(user_phone):
+            context = {"result": "전화번호 형식이 올바르지 않습니다."}
+            return render(request, "registration/signup.html", context)
 
         if user_password == password_check:
             user = User.objects.create(
@@ -60,7 +66,7 @@ def signup_view(request):
             return redirect("main")
         else:
             context = {"result": "비밀번호가 일치하지 않습니다."}
-            return render(request, context)
+            return render(request, "registration/signup.html", context)
 
     return render(request, "registration/signup.html")
 
