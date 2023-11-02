@@ -6,11 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomePage</title>
-    <!-- S3 배포용 -->
-    <link rel="stylesheet" href="static/css/homepage.css" >
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <!-- 로컬 수정용 -->
-    <!-- <link rel="stylesheet" href="static/css/homepage.css" > -->
+    <link rel="stylesheet" href="/static/css/homepage.css" >
+    <link rel="stylesheet" href="/static/css/reset.css" >
     <script type="text/javascript">
         var imageUrls = [
             "{% static 'img/rice.png' %}",
@@ -32,10 +30,10 @@
     </script>
 </head>
 <body>
+    
     {% include 'navbar.html' %}
-
     <div class="container">
-        <a class="search_box" href="{% url 'search' %}">Search</a>
+        <a class="search_box" href="{% url 'search' %}"><img class="search_img" src="{% static 'img/search_icon.png' %}" alt=""> 레시피를 검색해 보세요! </a>
 
         <div class="image_rolling_container">
             <div class="content_cotainer">
@@ -54,7 +52,7 @@
 
         <div class="recipes_previews">
             <div class="preview_title">
-                <p>쉽고 맛있게 요리할 수 있습니다</p>
+                <p>다양한 레시피를 시도해 보세요!</p>
             </div>
             
             {% for recipe, thumbnail in mylist %}
@@ -78,10 +76,10 @@
             
         </div>
 
-        {% include "footerbar.html" %}
-
-
+        
+        
     </div>
+    {% include "footerbar.html" %}
 
     <script src="static/js/homepage.js"></script>
 

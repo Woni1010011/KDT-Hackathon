@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community</title>
-    <link rel="stylesheet" href="{% static 'css/board.css' %}" >
+    <link rel="stylesheet" href="/static/css/reset.css" >
+    <link rel="stylesheet" href="/static/css/board.css" >
 </head>
 <body>
-    <!-- Board -->
     {% include 'navbar.html' %}
     <div class="container">
         <!-- 광고 배너 -->
@@ -95,9 +95,9 @@
                 {% endif %}
             </div>
         
-            {% include 'footerbar.html' %}
         </section>
-        </div>
+    </div>
+    {% include 'footerbar.html' %}
 </body>
 <script>
     document.getElementById('search-form').addEventListener('submit', function (event) {

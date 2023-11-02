@@ -3,7 +3,7 @@
     margin: 0px auto;
     margin-top: 50px;
     max-width: 400px;
-    border: 2px solid #91dbf1;
+    border: 2px solid #97BFB4;
     padding: 20px;
     border-radius: 10px;
 }
@@ -30,14 +30,14 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    background-color: #f9f9f9;
+    background-color: #F5EEDC;
     border-radius: 5px;
     font-size: 16px;
 }
 
 .img_search_btn {
     width: 400px;
-    background-color: #6574f8;
+    background-color: #97BFB4;
     color: white;
     padding: 6px 12px;
     font-size: 16px;
@@ -46,7 +46,7 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.error_msg{
+.error_msg {
     display: flex;
     justify-content: center;
     margin-top: 25px;
@@ -56,7 +56,7 @@ input[type="file"] {
     display: flex;
     position: absolute;
     align-items: center;
-    top:0;
+    top: 0;
     right: 0;
     width: 60px;
     height: 60px;

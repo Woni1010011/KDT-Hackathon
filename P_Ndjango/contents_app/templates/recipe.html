@@ -130,7 +130,7 @@
                 {% endfor %}
 
                 <div class="ads">
-                    <img src="" alt="">
+                    <img src="{% static 'img/side_banner.jpg' %}" alt="">
                 </div>
             </div>
         </div>
@@ -142,22 +142,21 @@
                     <a href="{% url 'recipe' recipe.recipe_no %}">
                         <div class="recommend_img">
                             <img class="thumbnail" src="{{ thumbnail }}" alt="Thumbnail Image">
+                            <p class="food_name">{{ recipe.recipe_title }}</p>
                         </div>
                     </a>
-                    <a href="{% url 'recipe' recipe.recipe_no %}">
-                        <p class="food_name">{{ recipe.recipe_title }}</p>
-                    </a>
+
                 </div>
                 {% endfor %}
             </div>
-            {% include "footerbar.html" %}
         </div>
-
-
-
+        
+        
+        <br><br><br><br>
     </div>
-
-
+    {% include "footerbar.html" %}
+    
+    
 
 </body>
 <script>
