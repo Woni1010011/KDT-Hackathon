@@ -6,10 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 냉장고</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/myndjango.css'%}">
+    <link rel="stylesheet" type="text/css" href='/static/css/reset.css'>
+    <link rel="stylesheet" type="text/css" href='/static/css/mypage.css'>
+    <link rel="stylesheet" type="text/css" href='/static/css/myndjango.css'>
     <script src="{% static 'js/profile_edit.js' %}" defer></script>
 </head>
 
@@ -29,11 +28,9 @@
                 <!-- Add more categories as needed -->
             </ul>
         </aside>
-        <main id="first_main" class="box-contents">
-
-            <h2>나의 냉장고</h2>
+        <main id="first_main">
+            <div class="my_fridge">내 냉장고</div>
             <div class="user_ndjango">
-                
                 {% for user_igrd in user_igrds %}
                 <div class="user_igrd_icon">
                     <div class="user_igrd_name">
@@ -48,55 +45,83 @@
                     </div>
                 </div>
                 {% empty %}
-                <h4>냉장고가 비어있습니다</h4>
+                <h4 class="none_fridge">냉장고가 비어있습니다</h4>
                 {% endfor %}
             </div>
-
-            <br>
-            <br>
-
+            <br><br><br>
             <form method="POST" action="{% url 'add_to_fridge' %}">
                 {% csrf_token %}
-                <label for="igrd_name">Ingredient Name:</label>
+                <label for="igrd_name">재료 넣기 :</label>
                 <input type="text" id="igrd_name" name="igrd_name" required>
                 
                 <label for="user_igrd_date">Date:</label>
                 <input type="date" id="user_igrd_date" name="user_igrd_date" required>
                 
-                <button type="submit">Add to My Fridge</button>
+                <button class="add_to_fridge" type="submit">내 냉장고에 추가하기</button>
             </form>
 
-            <div class="img_container">
-                <h2>영수증으로 가져오기</h2>
-                <form method="post" action="{% url 'ndjango_material' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
-                    <input type="file" name="image" accept="image/*" required id="imageInput">
-                    <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
-                    <div>
-                        <button class='img_search_btn' type="submit">재료 추출하기</button>
-                    </div>
-                </form>
+            <br>
+            <br>
+            <button id="showForm1">영수증으로 가져오기</button>
+            <button id="showForm2">이미지로 가져오기</button>
+            <div class="img_search">
+                <div class="img_container"  id="form1">
+                    <h2>영수증으로 가져오기</h2>
+                    <br>
+                    <form method="post" action="{% url 'ndjango_material' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                        <input type="file" name="image" accept="image/*" required id="imageInput">
+                        <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                        <div>
+                            <button class='img_search_btn' type="submit">재료 추출하기</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="img_container"  id="form2">
+                    <h2>이미지로 가져오기</h2><br>
+                    <form method="post" action="{% url 'ndjango_img' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
+                        <input type="file" name="image" accept="image/*" required id="imageInput">
+                        <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
+                        <div>
+                            <button class='img_search_btn' type="submit">재료 추출하기</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div class="img_container">
-                <h2>이미지로 가져오기</h2>
-                <form method="post" action="{% url 'ndjango_img' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <img id="imagePreview" src="{% static 'img/icon_photo.png' %}" alt="">
-                    <input type="file" name="image" accept="image/*" required id="imageInput">
-                    <label for="imageInput" class="custom-file-upload">이미지 선택하기</label>
-                    <div>
-                        <button class='img_search_btn' type="submit">재료 추출하기</button>
-                    </div>
-                </form>
-            </div>
-        
-            {% include 'user_recommend.html' %}
         </main>
     </div>
     {% include 'footerbar.html' %}
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 초기에는 모든 폼을 숨김
+        document.getElementById("form1").style.display = "none";
+        document.getElementById("form2").style.display = "none";
+
+        // 1번 버튼을 클릭하면 form1 토글
+        document.getElementById("showForm1").addEventListener("click", function () {
+            const form1 = document.getElementById("form1");
+            form1.style.display = (form1.style.display === "none") ? "block" : "none";
+
+            // form2는 숨김
+            document.getElementById("form2").style.display = "none";
+        });
+
+        // 2번 버튼을 클릭하면 form2 토글
+        document.getElementById("showForm2").addEventListener("click", function () {
+            const form2 = document.getElementById("form2");
+            form2.style.display = (form2.style.display === "none") ? "block" : "none";
+
+            // form1은 숨김
+            document.getElementById("form1").style.display = "none";
+        });
+    });
+</script>
 <script>
     // 오늘의 날짜를 가져오는 함수
     function getTodayDate() {

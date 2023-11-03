@@ -23,6 +23,7 @@ from account_app.views import ndjango_matching
 
 # Create your views here.
 def homepage(request):
+    user_recommends = ndjango_matching(request)
     recipes = Recipes.objects.order_by("?")[:9]
     recipe_images = [recipe.recipe_img for recipe in recipes]
 
@@ -41,6 +42,7 @@ def homepage(request):
 
     mylist = zip(recipes, thumbnails)
     context = {
+        "user_recommends" : user_recommends,
         "mylist": mylist,
     }
 

@@ -1,44 +1,108 @@
-/* 추천 레시피 */
-#recommend_box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 80px;
-}
-
-.recommend_title {
+.my_fridge {
     font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 40px;
+    font-weight: 600;
+    margin-bottom: 30px;
 }
 
-.recommend_info {
+#first_main {
+    margin: 50px 0px 80px 70px;
+}
+
+.user_ndjango {
+    border: 5px solid #F5EEDC;
+    border-radius: 8px;
+    width: 725px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user_igrd_icon {
+    margin: 10px 10px;
+    padding: 10px 10px;
+    border: 2px solid #97BFB4;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.img_search {
+    display: flex;
+}
+
+.img_container {
+    text-align: center;
+    margin-top: 50px;
+    max-width: 400px;
+    border: 2px solid #97BFB4;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#form1>#imagePreview {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    margin-top: 10px;
+    width: 370px;
+    background-color: #F5EEDC;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.img_search_btn {
+    margin-top: 10px;
+    width: 400px;
+    background-color: #97BFB4;
+    color: white;
+    padding: 6px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add_to_fridge {
+    background-color: #fff;
+    border: 2px solid #97BFB4;
+    padding: 15px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
     margin-left: 30px;
 }
 
-.recommend_recipes {
-    display: flex;
-    flex-direction: row;
-}
-
-.recommend_img {
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    width: 240px;
-    height: 180px;
-}
-
-.food_name {
-    font-size: 18px;
-    width: 240px;
-    font-weight: bold;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-a {
-    color: black;
+#showForm1,
+#showForm2 {
+    background-color: #F5EEDC;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
     text-decoration: none;
+    transition-duration: 0.4s;
+}
+
+.img_container>h2 {
+    font-weight: 600;
+}
+
+.none_fridge {
+    font-size: 18px;
+    margin: 20px 10px;
 }

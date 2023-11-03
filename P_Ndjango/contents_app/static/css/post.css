@@ -1,9 +1,10 @@
-.header{
+.header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .header_in_header {
     display: flex;
     flex-direction: row;
@@ -12,7 +13,7 @@
     width: 1200px;
 }
 
-.header_title{
+.header_title {
     margin-bottom: 30px;
 }
 
@@ -21,11 +22,11 @@
     flex-direction: column;
 }
 
-.recipes_tags{
+.recipes_tags {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 40px;        
+    gap: 40px;
 }
 
 .posted_by {
@@ -37,7 +38,7 @@
     padding-right: 10px;
 }
 
-.posted_by:first-child{
+.posted_by:first-child {
     border: none;
     padding: 0px;
 }
@@ -49,7 +50,8 @@
     justify-content: center;
 }
 
-.name, .posted_by_info_text {
+.name,
+.posted_by_info_text {
     font-weight: bold;
 }
 
@@ -58,6 +60,7 @@
     color: #a7a7a7;
     font-weight: bold;
 }
+
 .post_img {
     height: 100px;
     width: 200px;
@@ -68,13 +71,15 @@
     height: 40px;
     border-radius: 50px;
 }
-.post-content{
+
+.post-content {
     align-items: center;
     justify-content: center;
     width: 1200px;
 
 }
-.icons{
+
+.icons {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -84,7 +89,7 @@
     width: 1200px;
 }
 
-.icons_box{
+.icons_box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,7 +137,7 @@
     border-radius: 25px;
 }
 
-.recipe_info{
+.recipe_info {
     width: 30%;
     height: 100%;
     background-color: #E7FAFE;
@@ -251,7 +256,6 @@
     margin-top: 60px;
 }
 
-/* 추천 레시피 */
 #recommend_box {
     display: flex;
     flex-direction: column;
@@ -265,7 +269,7 @@
     margin-bottom: 40px;
 }
 
-.recommend_info{
+.recommend_info {
     margin-left: 30px;
 }
 
@@ -283,6 +287,7 @@
 
 .food_name {
     font-size: 18px;
+    width: 240px;
     font-weight: bold;
 }
 
@@ -300,4 +305,8 @@
     display: block;
     width: 100%;
     margin-top: 5px; /* Adjust the distance between the button and the line */
-  }
+      display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
