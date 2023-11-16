@@ -97,7 +97,7 @@
 
 ### Function
 
-<a href="https://github.com/Woni1010011/KDT-Hackathon/tree/main"><b>Click</b></a>
+<a href="https://github.com/Woni1010011/KDT-Hackathon/blob/main/function.md"><b>Click</b></a>
 
 <br>
 <br>
