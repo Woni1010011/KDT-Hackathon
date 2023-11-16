@@ -5,9 +5,15 @@
 <div align="center"">
   
   ![NDjango](https://github.com/Woni1010011/project_n/assets/125336999/a1ca30f7-1fc9-4975-9ae6-67c3b4b325f1)
+
+</div>
+<div>
   
-  본 프로젝트는 사회적 불평등 최소화를 위한 레시피 추천 프로젝트이며,</br>
-  주된 서비스로는 크롤링을 통한 추천 서비스, 이미지AI를 통한 객체 인식 검색, 이미지 텍스트 출력AI등을 통한 검색등이 있습니다.
+  ### Concept
+
+1. 영수증과 식자재 이미지 인식을 통해 구매한 식자재의 상태와 목록을 관리
+2. 기존의 등록된 냉장고 재료를 기반으로 레시피를 추천하는 간편 서비스 제공
+  
 </div>
 
 <h2 tabindex="-1" id="user-content-목차" dir="auto"><a class="heading-link" href="#목차">목차</a></h2>
@@ -27,8 +33,7 @@
 2023.10.06 (금) ~ 2023.11.28 (화) 
 <br/> (주말 및 공휴일 제외 38일간 작업)
 
-<br>
-<br>
+![image](https://github.com/Woni1010011/project_n/assets/125336999/3d7c8b7f-67e2-4b04-a069-311d40227d1a)
 
 <div id="2"></div>
 <h2>🛠 기술 스택</h2>
@@ -60,7 +65,21 @@
 
 ### Architecture
 
-### 기능 1
+![image](https://github.com/Woni1010011/project_n/assets/125336999/ba1d3634-5b81-4869-9fb2-93a6d5c4e32f)
+
+<br>
+<br>
+
+### ERD
+
+![image](https://github.com/Woni1010011/project_n/assets/125336999/f6503dea-d01c-4431-9e0e-95948e84d239)
+
+<br>
+<br>
+
+### Function
+
+
 
 <br>
 <br>
@@ -75,16 +94,21 @@
 1) 가상환경 실행<br>
 2) pip install -r requirements.txt<br>
 3) .json 생성, 해당 키값 발급 후 입력 = [
-SECRET_KEY=
-NAME=
-USER=
-PASSWORD=
-HOST=
-PORT=
-NAVER_KEY=
-NAVER_SECRET_KEY=
-GOOGLE_KEY=
-GOOGLE_SECRET_KEY=
+"SECRET_KEY":
+"NAME":
+"USER":
+"PASSWORD":
+"HOST":
+"PORT":
+"NAVER_KEY":
+"NAVER_SECRET_KEY":
+"GOOGLE_KEY":
+"GOOGLE_SECRET_KEY":
+"GOOGLE_CLOUD_API_KEY":
+"BUCKET_NAME" :
+"ACCESS_KEY" :
+"SECRET_ACCESS_KEY" :
+"CLOVA_OCR_KEY" :
 ]
 ```
 
@@ -94,16 +118,21 @@ GOOGLE_SECRET_KEY=
 1) 가상환경 실행<br>
 2) pip3 install -r requirements.txt<br>
 3) .json 생성, 해당 키값 발급 후 입력 = [
-SECRET_KEY=
-NAME=
-USER=
-PASSWORD=
-HOST=
-PORT=
-NAVER_KEY=
-NAVER_SECRET_KEY=
-GOOGLE_KEY=
-GOOGLE_SECRET_KEY=
+"SECRET_KEY":
+"NAME":
+"USER":
+"PASSWORD":
+"HOST":
+"PORT":
+"NAVER_KEY":
+"NAVER_SECRET_KEY":
+"GOOGLE_KEY":
+"GOOGLE_SECRET_KEY":
+"GOOGLE_CLOUD_API_KEY":
+"BUCKET_NAME" :
+"ACCESS_KEY" :
+"SECRET_ACCESS_KEY" :
+"CLOVA_OCR_KEY" :
 ]
 ```
 
