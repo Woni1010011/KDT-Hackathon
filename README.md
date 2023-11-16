@@ -217,4 +217,3 @@ GOOGLE_SECRET_KEY=
 <div id="7"></div>
 <h2>:🗂️ 역할 배분</h2>
 <br>
-<iframe src="https://www.veed.io/embed/f99adb1f-4244-4cb9-84e8-3fddbe943c3a" width="744" height="504" frameborder="0" title="HomePage - Chrome 2023-11-16 11-03-38" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
