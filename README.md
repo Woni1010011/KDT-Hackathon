@@ -13,19 +13,20 @@
 
 - 영수증과 식자재 이미지 인식을 통해 구매한 식자재의 상태와 목록을 관리
 - 기존의 등록된 냉장고 재료를 기반으로 레시피를 추천하는 간편 서비스 제공
-  
+
 </div>
 
 <h2 tabindex="-1" id="user-content-목차" dir="auto"><a class="heading-link" href="#목차">목차</a></h2>
 
 1. [**개발 기간**](#1)
-2. [**기술 스택**](#2)
-3. [**주요 기능**](#3)
-4. [**서비스 화면**](#4)
-5. [**실행 방법**](#5)
-6. [**개발 팀 소개**](#6)
-7. [**협업 방식**](#7)
-8. [**역할 배분**](#8)
+2. [**주요 기능**](#2)
+3. [**Git Convention**](#3)
+4. [**기술 스택**](#4)
+5. [**서비스 화면**](#5)
+6. [**실행 방법**](#6)
+7. [**개발 팀 소개**](#7)
+8. [**협업 방식**](#8)
+9. [**역할 배분**](#9)
 
 <br>
 
@@ -34,7 +35,51 @@
 2023.10.06 (금) ~ 2023.11.28 (화) 
 <br/> (주말 및 공휴일 제외 38일간 작업)
 
+<br>
+<br>
+
 <div id="2"></div>
+
+<h2>주요 기능</h2>
+
+<b>
+<br>
+✅ 냉장고 이미지 인식 
+<br>
+<br>
+✅ 영수증 이미지 인식 
+<br>
+<br>
+✅ 냉장고 속 재료 기반 레시피 추천
+</b>
+
+<br>
+<br>
+
+<div id="3"></div>
+
+<h2>Git Convention</h2>
+
+```
+- **[Add] [serializers.py](http://serializers.py) 생성, styles.css 생성**
+⇒ 새로운 파일 추가하는 경우
+
+- **[Feat] (구체적인 경우) class Article 추가, def write_article 추가, view에 index.html 파일 연결, (포괄적인 경우) 글쓰기 기능 구현, 글 공유 기능 구현**
+⇒ 파일 내 새로운 클래스나 함수 등 추가하는 경우, url 연결 혹은 새로운 기능 추가하는 경우
+
+- **[Fix] url path 변경, [settings.py](http://settings.py) 내 DB 설정 변경, 로그인 오류 해결**
+⇒ 오류 수정, 오타 수정 등등 오류 해결하는 경우
+
+- **[Docs] 프로젝트 설명 내용 변경, 화면 캡쳐 추가**
+⇒ README 파일이나 기타 문서 수정하는 경우
+
+- **[Remove] test.html 삭제**
+⇒ 불필요한 파일 삭제하는 경우
+```
+<br>
+<br>
+
+<div id="4"></div>
 <h2>🛠 기술 스택</h2>
 
 ### Frontend  
@@ -59,25 +104,8 @@
 <br>
 <br>
 
-<div id="3"></div>
 
-<h2>주요 기능</h2>
-
-<b>
-<br>
-✅ 냉장고 이미지 인식 
-<br>
-<br>
-✅ 영수증 이미지 인식 
-<br>
-<br>
-✅ 냉장고 속 재료 기반 레시피 추천
-</b>
-
-<br>
-<br>
-
-<div id="4"><div>
+<div id="5"><div>
 
 <h2>:💻 서비스 화면</h2>
 
@@ -97,12 +125,13 @@
 
 ### Function
 
+<br>
+
 <a href="https://github.com/Woni1010011/KDT-Hackathon/blob/main/function.md"><b>Click</b></a>
 
 <br>
-<br>
 
-<div id="5"></div>
+<div id="6"></div>
 <h2>:⏯️ 실행 방법</h2>
 
 
@@ -158,7 +187,7 @@
 <br>
 
 
-<div id="6"></div>
+<div id="7"></div>
 <h2>:👪 도토리 키재키 소개</h2>
 <br>
 <br>
@@ -224,11 +253,8 @@
 <br>
 <br>
 
-<div id="7"></div>
+<div id="8"></div>
 <h2>:🧰 협업 방식</h2>
-<br>
-
-![image](https://github.com/KimEuncheol222/remember/assets/125336999/20e937d3-0b81-41f9-bcdb-b42c52b54ad9)
 
 <h4>Notion</h4>
 회의록 정리와 역할 분배, 스케쥴 작성, 시크릿 공유 등에 사용
@@ -239,29 +265,12 @@
 <h4>Discord</h4>
 원활한 소통과 에러발생시 빠른 화면공유를 위한 수단으로 사용
 
-<h4>Git Convention</h4>
 
-```
-- **[Add] [serializers.py](http://serializers.py) 생성, styles.css 생성**
-⇒ 새로운 파일 추가하는 경우
-
-- **[Feat] (구체적인 경우) class Article 추가, def write_article 추가, view에 index.html 파일 연결, (포괄적인 경우) 글쓰기 기능 구현, 글 공유 기능 구현**
-⇒ 파일 내 새로운 클래스나 함수 등 추가하는 경우, url 연결 혹은 새로운 기능 추가하는 경우
-
-- **[Fix] url path 변경, [settings.py](http://settings.py) 내 DB 설정 변경, 로그인 오류 해결**
-⇒ 오류 수정, 오타 수정 등등 오류 해결하는 경우
-
-- **[Docs] 프로젝트 설명 내용 변경, 화면 캡쳐 추가**
-⇒ README 파일이나 기타 문서 수정하는 경우
-
-- **[Remove] test.html 삭제**
-⇒ 불필요한 파일 삭제하는 경우
-```
 
 <br>
 <br>
 
-<div id="8"></div>
+<div id="9"></div>
 <h2>:🗂️ 역할 배분</h2>
 <br>
 
