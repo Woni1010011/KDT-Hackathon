@@ -234,7 +234,7 @@
 회의록 정리와 역할 분배, 스케쥴 작성, 시크릿 공유 등에 사용
 
 <h4>Figma</h4>
-원활한 소통과 협업을 위해 디자인을 <strong><a href="https://www.figma.com/file/g00xIxHxGkrKn3UoaVLA9E/%EB%A6%AC%EB%A9%A4%EB%B2%84%EC%A7%B1-!-(Community)-(Copy)?type=design&node-id=0-1&mode=design&t=i425a5qZWplD5oUk-0">피그마에</a></strong> 공유
+원활한 소통과 협업을 위해 디자인을 <strong><a href="https://www.figma.com/file/iC1xKAcguUMHZjdwbfrDBf/%EB%83%89Django-%ED%95%B4%EB%B0%A9%EC%9D%BC%EC%A7%80?type=design&node-id=0-1&mode=design&t=OWMlUHdeu8DhiLkZ-0">피그마에</a></strong> 공유
 
 <h4>Discord</h4>
 원활한 소통과 에러발생시 빠른 화면공유를 위한 수단으로 사용
