@@ -116,7 +116,7 @@ def material_search(request):
 
         content = image.read()
         image = types.Image(content=content)
-        text = receipe_search.tempFunction(file_name)  # receipt_image to text
+        text = receipe_search.find_receipt(file_name)  # receipt_image to text
 
         return render(request, "material_search.html", {"text": text})
 

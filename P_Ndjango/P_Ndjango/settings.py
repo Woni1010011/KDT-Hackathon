@@ -124,7 +124,7 @@ AWS_ACCESS_KEY_ID = get_secret("ACCESS_KEY")
 AWS_SECRET_ACCESS_KEY = get_secret("SECRET_ACCESS_KEY")
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.%s.amazonaws.com" % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-print(AWS_S3_CUSTOM_DOMAIN)
+
 
 # Static Setting
 # python manage.py collectstatic

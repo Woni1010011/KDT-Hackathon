@@ -7,7 +7,6 @@ import json, os
 import re
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-print(BASE_DIR)
 secret_file = os.path.join(BASE_DIR, "secrets.json")  # secrets.json 파일 위치를 명시
 
 
@@ -21,10 +20,10 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
-api_url = 'https://8f3i43jr3e.apigw.ntruss.com/custom/v1/25689/280f4c02524b72e8e5958601c32c4eb2239d88e34555559f7056c7268db0648c/general'
+api_url = get_secret("CLOVA_API")
 secret_key = get_secret("CLOVA_OCR_KEY")
 
-def tempFunction (image) :
+def find_receipt (image) :
     request_json = {
     'images': [
         {
@@ -70,6 +69,5 @@ def tempFunction (image) :
                 else:
                     pass
 
-    print(text)
     return text
 

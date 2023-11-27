@@ -3,6 +3,8 @@
 google-credentials.json
 secrets.json
 .json
+venv/
+vevn/
 
 ### Django ###
 *.log
